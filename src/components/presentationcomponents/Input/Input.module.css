@@ -7,4 +7,5 @@
 
 .input::placeholder {
   font-size: 1.4rem;
+  color: rgb(40, 40, 70, 0.5);
 }

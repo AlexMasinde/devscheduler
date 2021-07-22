@@ -1,0 +1,14 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  color: rgb(40, 40, 70, 0.5);
+  font-size: 1.4rem;
+}
+
+.footer > p {
+  margin-right: 5rem;
+}
+
+.footer > a {
+  color: rgb(40, 40, 70, 0.5);
+}
