@@ -1,6 +1,6 @@
 .btn {
   background-color: #29a19c;
-  color: #ffffff;
+  color: #fafafa;
   font-weight: 600;
   font-size: 1.6rem;
   border-radius: 8px;
@@ -12,7 +12,7 @@
 
 .btn:hover {
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: #fafafa;
   color: #29a19c;
   border: 1px solid #29a19c;
 }
