@@ -1,5 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title > p {
+  color: #282846;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
 .counter {
-  border: 2px solid #29a19c;
+  border: 1px solid #29a19c;
   border-radius: 50%;
   width: 10rem;
   height: 10rem;

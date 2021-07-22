@@ -1,0 +1,22 @@
+.container {
+  background-color: #ffffff;
+  padding: 2rem;
+  width: fit-content;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+.container > p {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #29a19c;
+  padding-bottom: 2rem;
+}
+
+.counters {
+  display: flex;
+}
+
+.counters > div:not(:last-child) {
+  margin-right: 11.2rem;
+}
