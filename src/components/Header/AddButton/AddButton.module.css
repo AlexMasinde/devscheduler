@@ -1,0 +1,58 @@
+.button {
+  background-color: #29a19c;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.2rem;
+  width: 18rem;
+  margin: 2rem;
+  border-radius: 8px;
+  transition: 0.4s;
+}
+
+.button:hover {
+  cursor: pointer;
+  transform: translateX(2px);
+}
+
+.text > p {
+  font-size: 1.6rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.circle {
+  border: 2px solid #ffffff;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sign:before,
+.sign:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+}
+
+.sign:before {
+  width: 2px;
+  margin: 2px auto;
+}
+
+.sign:after {
+  margin: auto 2px;
+  height: 2px;
+}
+
+.sign > p {
+  font-weight: 600;
+  line-height: 1.8rem;
+}
