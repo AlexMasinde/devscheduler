@@ -1,10 +1,10 @@
-import AddButton from "./components/Header/AddButton/AddButton";
+import Nav from "./components/DashboardNav/DashboardNav";
 
 function App() {
   return (
     <div className="App">
       <h1>Dev Scheduler</h1>
-      <AddButton text="Add Activity" />
+      <Nav />
     </div>
   );
 }
