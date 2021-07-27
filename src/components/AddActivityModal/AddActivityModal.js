@@ -5,6 +5,9 @@ import AddActivityModalStyles from "./AddActivityModal.module.css";
 
 import CalenderIcon from "./components/CalenderIcon/CalenderIcon";
 import CloseIcon from "./components/CloseIcon/CloseIcon";
+import Input from "../presentationcomponents/Input/Input";
+import Button from "../presentationcomponents/Button/Button";
+import LightButton from "../presentationcomponents/LightButton/LightButton";
 
 import arrowdown from "../../icons/arrowdown.svg";
 import arrowup from "../../icons/arrowup.svg";
@@ -29,6 +32,7 @@ export default function AddActivityModal() {
 
   function handleDeadline(e) {
     console.log(e);
+    setDeadline(new Date());
   }
 
   return (
@@ -37,56 +41,59 @@ export default function AddActivityModal() {
       <div className={AddActivityModalStyles.content}>
         <form>
           <div className={AddActivityModalStyles.name}>
-            <label>
-              Name
-              <input type="text" required />
+            <label className={AddActivityModalStyles.inputtitle}>
+              Activity Name
+              <Input type="text" required="true" placeholder="Activity Name" />
             </label>
           </div>
           <div className={AddActivityModalStyles.details}>
-            <div className={AddActivityModalStyles.select}>
-              <div
-                onClick={() => handleSelect()}
-                className={AddActivityModalStyles.selectheader}
-              >
-                <span>
-                  {selectText}{" "}
-                  <img src={dropdown ? arrowup : arrowdown} alt="arrow" />
-                </span>
-              </div>
-              {dropdown && (
-                <div className={AddActivityModalStyles.options}>
-                  <span
-                    onClick={(e) => selectOption(e)}
-                    className={AddActivityModalStyles.option}
-                  >
-                    <span>
-                      <img src={projectsicon} alt="icon" />
-                    </span>
-                    Projects
-                  </span>
-                  <span
-                    onClick={(e) => selectOption(e)}
-                    className={AddActivityModalStyles.option}
-                  >
-                    <span>
-                      <img src={coursesicon} alt="icon" />
-                    </span>
-                    Courses
-                  </span>
-                  <span
-                    onClick={(e) => selectOption(e)}
-                    className={AddActivityModalStyles.option}
-                  >
-                    <span>
-                      <img src={readingsicon} alt="icon" />
-                    </span>
-                    Readings
+            <div className={AddActivityModalStyles.category}>
+              <p className={AddActivityModalStyles.inputtitle}>Category</p>
+              <div className={AddActivityModalStyles.select}>
+                <div
+                  onClick={() => handleSelect()}
+                  className={AddActivityModalStyles.selectheader}
+                >
+                  <span>
+                    {selectText}{" "}
+                    <img src={dropdown ? arrowup : arrowdown} alt="arrow" />
                   </span>
                 </div>
-              )}
+                {dropdown && (
+                  <div className={AddActivityModalStyles.options}>
+                    <span
+                      onClick={(e) => selectOption(e)}
+                      className={AddActivityModalStyles.option}
+                    >
+                      <span>
+                        <img src={projectsicon} alt="icon" />
+                      </span>
+                      Projects
+                    </span>
+                    <span
+                      onClick={(e) => selectOption(e)}
+                      className={AddActivityModalStyles.option}
+                    >
+                      <span>
+                        <img src={coursesicon} alt="icon" />
+                      </span>
+                      Courses
+                    </span>
+                    <span
+                      onClick={(e) => selectOption(e)}
+                      className={AddActivityModalStyles.option}
+                    >
+                      <span>
+                        <img src={readingsicon} alt="icon" />
+                      </span>
+                      Readings
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
             <div className={AddActivityModalStyles.deadline}>
-              <p>Deadline</p>
+              <p className={AddActivityModalStyles.inputtitle}>Deadline</p>
               <div className={AddActivityModalStyles.datepickercontainer}>
                 <main className={AddActivityModalStyles.datepickercontent}>
                   <DateTimePicker
@@ -113,6 +120,12 @@ export default function AddActivityModal() {
                 </main>
               </div>
             </div>
+          </div>
+          <div className={AddActivityModalStyles.buttons}>
+            <div className={AddActivityModalStyles.cancel}>
+              <LightButton text="Close" />
+            </div>
+            <Button type="submit" text="Add" />
           </div>
         </form>
       </div>

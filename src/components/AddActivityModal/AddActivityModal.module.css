@@ -1,10 +1,21 @@
+.name > label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+.details {
+  display: flex;
+  justify-content: space-around;
+}
+
 .select {
   width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2rem;
   transition: 0.4s;
+  position: relative;
 }
 
 .selectheader {
@@ -33,8 +44,11 @@
 }
 
 .options {
+  position: absolute;
   display: flex;
   flex-direction: column;
+  bottom: 0%;
+  z-index: -1;
   animation: slide-bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
@@ -70,6 +84,22 @@
   transform: translateX(2px);
 }
 
+.inputtitle {
+  color: #282846;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancel {
+  margin-right: 4rem;
+}
+
 /* datepicker */
 .test {
   font-family: "Nunito", sans-serif !important;
@@ -78,7 +108,7 @@
 
 .test > div {
   border: 1px solid rgba(40, 40, 70, 0.1) !important;
-  padding: 8px 15px !important;
+  padding: 4px 15px !important;
   font-size: 1.4rem !important;
   border-radius: 8px;
 }
