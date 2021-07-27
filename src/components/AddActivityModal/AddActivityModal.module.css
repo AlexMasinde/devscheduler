@@ -1,0 +1,103 @@
+.select {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem;
+  transition: 0.4s;
+}
+
+.selectheader {
+  font-size: 1.4rem;
+  padding: 8px 15px;
+  border: 1px solid rgba(40, 40, 70, 0.1);
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.selectheader > span {
+  display: flex;
+  align-items: center;
+  width: 15rem;
+  justify-content: space-between;
+}
+
+.selectheader > span > img {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+}
+
+.selectheader:hover {
+  cursor: pointer;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  animation: slide-bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.options > span {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  padding: 0.5rem 2rem;
+  transition: 0.4s;
+}
+
+.option > span > img {
+  width: 2rem;
+  height: 2rem;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.options > span:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.options > span:last-child {
+  margin-bottom: 1.5rem;
+}
+
+.options > span:first-child {
+  margin-top: 1.5rem;
+}
+
+.options > span:hover {
+  cursor: pointer;
+  transform: translateX(2px);
+}
+
+/* datepicker */
+.test {
+  font-family: "Nunito", sans-serif !important;
+  width: 30rem;
+}
+
+.test > div {
+  border: 1px solid rgba(40, 40, 70, 0.1) !important;
+  padding: 8px 15px !important;
+  font-size: 1.4rem !important;
+  border-radius: 8px;
+}
+
+.calender {
+  width: 30rem !important;
+  font-family: "Nunito", sans-serif !important;
+  font-size: 1rem !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Animations */
+
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
