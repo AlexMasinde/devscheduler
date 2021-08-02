@@ -1,3 +1,15 @@
+.container {
+  width: 60rem;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.container > h1 {
+  color: #29a19c;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
 .name > label {
   display: flex;
   flex-direction: column;
@@ -6,7 +18,8 @@
 
 .details {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-top: 3rem;
 }
 
 .select {
@@ -47,8 +60,8 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  bottom: 0%;
-  z-index: -1;
+  top: 100%;
+  z-index: 1000;
   animation: slide-bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
@@ -94,10 +107,7 @@
 .buttons {
   display: flex;
   justify-content: flex-end;
-}
-
-.cancel {
-  margin-right: 4rem;
+  margin-top: 3rem;
 }
 
 /* datepicker */
@@ -117,7 +127,7 @@
   width: 30rem !important;
   font-family: "Nunito", sans-serif !important;
   font-size: 1rem !important;
-  background: transparent !important;
+  background-color: #f9f9f9 !important;
   border: none !important;
 }
 

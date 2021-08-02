@@ -7,7 +7,6 @@ import CalenderIcon from "./components/CalenderIcon/CalenderIcon";
 import CloseIcon from "./components/CloseIcon/CloseIcon";
 import Input from "../presentationcomponents/Input/Input";
 import Button from "../presentationcomponents/Button/Button";
-import LightButton from "../presentationcomponents/LightButton/LightButton";
 
 import arrowdown from "../../icons/arrowdown.svg";
 import arrowup from "../../icons/arrowup.svg";
@@ -41,8 +40,8 @@ export default function AddActivityModal() {
       <div className={AddActivityModalStyles.content}>
         <form>
           <div className={AddActivityModalStyles.name}>
-            <label className={AddActivityModalStyles.inputtitle}>
-              Activity Name
+            <label>
+              <p className={AddActivityModalStyles.inputtitle}>Activity Name</p>
               <Input type="text" required="true" placeholder="Activity Name" />
             </label>
           </div>
@@ -122,9 +121,6 @@ export default function AddActivityModal() {
             </div>
           </div>
           <div className={AddActivityModalStyles.buttons}>
-            <div className={AddActivityModalStyles.cancel}>
-              <LightButton text="Close" />
-            </div>
             <Button type="submit" text="Add" />
           </div>
         </form>
