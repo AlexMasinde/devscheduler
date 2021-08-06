@@ -13,11 +13,13 @@ import arrowup from "../../icons/arrowup.svg";
 import projectsicon from "../../icons/projectsicon.svg";
 import coursesicon from "../../icons/coursesicon.svg";
 import readingsicon from "../../icons/readingsicon.svg";
+import closeicon from "../../icons/closeicon.svg";
 
-export default function AddActivityModal() {
+export default function AddActivityModal({ modal }) {
   const [dropdown, setDropdown] = useState(false);
   const [selectText, setSelectText] = useState("Select Category");
   const [deadline, setDeadline] = useState(new Date());
+  const { adding, setAdding } = modal;
 
   function handleSelect() {
     setDropdown(!dropdown);
@@ -34,9 +36,16 @@ export default function AddActivityModal() {
     setDeadline(new Date());
   }
 
+  function handleModal() {
+    setAdding(!adding);
+  }
+
   return (
     <div className={AddActivityModalStyles.container}>
-      <h1>Add Activity</h1>
+      <div className={AddActivityModalStyles.title}>
+        <h1>Add Activity</h1>
+        <img onClick={() => handleModal()} src={closeicon} alt="close" />
+      </div>
       <div className={AddActivityModalStyles.content}>
         <form>
           <div className={AddActivityModalStyles.name}>

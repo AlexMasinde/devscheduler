@@ -2,9 +2,15 @@ import React from "react";
 
 import AddButtonStyles from "./AddButton.module.css";
 
-export default function AddButton({ text }) {
+export default function AddButton({ text, modal }) {
+  const { adding, setAdding } = modal;
+
+  function handleModal() {
+    setAdding(!adding);
+  }
+
   return (
-    <div className={AddButtonStyles.button}>
+    <div onClick={() => handleModal()} className={AddButtonStyles.button}>
       <div className={AddButtonStyles.circle}>
         <span className={AddButtonStyles.sign}></span>
       </div>

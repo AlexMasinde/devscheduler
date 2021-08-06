@@ -1,13 +1,31 @@
 .container {
   width: 60rem;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 0.8rem;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
-.container > h1 {
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title > h1 {
   color: #29a19c;
   font-size: 2rem;
   font-weight: 600;
+}
+
+.title > img {
+  transition: 0.1s;
+}
+
+.title > img:hover {
+  cursor: pointer;
+  transform: rotate(90deg);
 }
 
 .name > label {
@@ -33,9 +51,9 @@
 
 .selectheader {
   font-size: 1.4rem;
-  padding: 8px 15px;
+  padding: 0.8rem 1.5rem;
   border: 1px solid rgba(40, 40, 70, 0.1);
-  border-radius: 8px;
+  border-radius: 0.8rem;
   width: fit-content;
 }
 

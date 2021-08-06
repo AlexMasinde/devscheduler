@@ -1,12 +1,9 @@
-import AddActivityModal from "./components/AddActivityModal/AddActivityModal";
-import Nav from "./components/DashboardNav/DashboardNav";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
   return (
     <div className="App">
-      <h1>Dev Scheduler</h1>
-      <Nav />
-      <AddActivityModal />
+      <Dashboard />
     </div>
   );
 }

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import NavUserStyles from "./NavUser.module.css";
 
-import placeholderpic from "../../../icons/placeholderpic.png";
-import arrowdowncolored from "../../../icons/arrowdowncolored.svg";
-import arrowupcolored from "../../../icons/arrowupcolored.svg";
+import placeholderpic from "../../../../icons/placeholderpic.png";
+import arrowdowncolored from "../../../../icons/arrowdowncolored.svg";
+import arrowupcolored from "../../../../icons/arrowupcolored.svg";
 
 export default function NavUser() {
   const [dropdown, setDropdown] = useState(false);
