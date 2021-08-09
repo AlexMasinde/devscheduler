@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import DateTimePicker from "react-datetime-picker";
+import { v4 as uuidv4 } from "uuid";
+
+import { database } from "../../firebase";
 
 import AddActivityModalStyles from "./AddActivityModal.module.css";
 
@@ -15,9 +18,14 @@ import coursesicon from "../../icons/coursesicon.svg";
 import readingsicon from "../../icons/readingsicon.svg";
 import closeicon from "../../icons/closeicon.svg";
 
+import { validateActivity } from "../../utils/validators";
+
 export default function AddActivityModal({ modal }) {
   const [dropdown, setDropdown] = useState(false);
-  const [selectText, setSelectText] = useState("Select Category");
+  const [category, setCategory] = useState("Select Category");
+  const [activity, setActivity] = useState("Activity Name");
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
   const { setAdding } = modal;
 
@@ -26,18 +34,68 @@ export default function AddActivityModal({ modal }) {
   }
 
   function selectOption(e) {
-    const category = e.target.innerText;
-    setSelectText(category);
+    const category =
+      e.target.innerText === "Select Category" ? "" : e.target.innerText;
+    setCategory(category);
     setDropdown(false);
   }
 
-  function handleDeadline(e) {
-    console.log(e);
-    setDeadline(new Date());
+  function handleActivity(e) {
+    const activityName = e.target.value;
+    setActivity(activityName);
+  }
+
+  function handleDeadline(deadline) {
+    setDeadline(deadline);
   }
 
   function handleModal() {
     setAdding(false);
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    console.log("form submitted");
+    const { validationErrors, valid } = validateActivity(
+      activity,
+      category,
+      deadline
+    );
+
+    if (!valid) {
+      return setErrors(validationErrors);
+    }
+
+    try {
+      console.log("no errors, code moved forward");
+      setLoading(true);
+      const activityId = uuidv4();
+      const activityDetails = {
+        activityId,
+        activity,
+        deadline,
+      };
+      await database.projects.doc(activityId).set(activityDetails);
+      switch (category) {
+        case "Projects":
+          await database.projects.doc(activityId).set({ activityDetails });
+          break;
+        case "Courses":
+          await database.courses.doc(activityId).set(activityDetails);
+          break;
+        case "Readings":
+          await database.readings.doc(activityId).set(activityDetails);
+          break;
+        default:
+          return setErrors({ ...errors, category: "Category not found" });
+      }
+      setLoading(false);
+      setAdding(false);
+      console.log("code ran");
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
   }
 
   return (
@@ -47,11 +105,16 @@ export default function AddActivityModal({ modal }) {
         <img onClick={() => handleModal()} src={closeicon} alt="close" />
       </div>
       <div className={AddActivityModalStyles.content}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className={AddActivityModalStyles.name}>
             <label>
               <p className={AddActivityModalStyles.inputtitle}>Activity Name</p>
-              <Input type="text" required="true" placeholder="Activity Name" />
+              <Input
+                type="text"
+                required={true}
+                placeholder="Activity Name"
+                onChange={handleActivity}
+              />
             </label>
           </div>
           <div className={AddActivityModalStyles.details}>
@@ -63,7 +126,7 @@ export default function AddActivityModal({ modal }) {
                   className={AddActivityModalStyles.selectheader}
                 >
                   <span>
-                    {selectText}{" "}
+                    {category}{" "}
                     <img src={dropdown ? arrowup : arrowdown} alt="arrow" />
                   </span>
                 </div>
@@ -114,8 +177,8 @@ export default function AddActivityModal({ modal }) {
                     minuteAriaLabel="Minute"
                     monthAriaLabel="Month"
                     nativeInputAriaLabel="Date and time"
-                    onChange={(e) => {
-                      handleDeadline(e);
+                    onChange={(deadline) => {
+                      handleDeadline(deadline);
                     }}
                     secondAriaLabel="Second"
                     value={deadline}
@@ -130,7 +193,7 @@ export default function AddActivityModal({ modal }) {
             </div>
           </div>
           <div className={AddActivityModalStyles.buttons}>
-            <Button type="submit" text="Add" />
+            <Button text="Add" disabled={loading} type="submit" />
           </div>
         </form>
       </div>
