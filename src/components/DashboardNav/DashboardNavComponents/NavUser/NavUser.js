@@ -17,10 +17,10 @@ export default function NavUser() {
     <div className={NavUserStyles.container}>
       <p>John Doe</p>
       <div className={NavUserStyles.profilepicture}>
-        <img src={placeholderpic} />
+        <img src={placeholderpic} alt="profile" />
       </div>
       <div onClick={() => handleDropdown()} className={NavUserStyles.arrow}>
-        <img src={dropdown ? arrowupcolored : arrowdowncolored} />
+        <img src={dropdown ? arrowupcolored : arrowdowncolored} alt="" />
       </div>
     </div>
   );

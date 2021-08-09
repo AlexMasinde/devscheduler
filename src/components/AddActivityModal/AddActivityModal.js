@@ -19,7 +19,7 @@ export default function AddActivityModal({ modal }) {
   const [dropdown, setDropdown] = useState(false);
   const [selectText, setSelectText] = useState("Select Category");
   const [deadline, setDeadline] = useState(new Date());
-  const { adding, setAdding } = modal;
+  const { setAdding } = modal;
 
   function handleSelect() {
     setDropdown(!dropdown);
@@ -37,7 +37,7 @@ export default function AddActivityModal({ modal }) {
   }
 
   function handleModal() {
-    setAdding(!adding);
+    setAdding(false);
   }
 
   return (
