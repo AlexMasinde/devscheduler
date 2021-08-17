@@ -1,11 +1,10 @@
-import React from 'react'
+import React from "react";
 
-import ActivitiesStyles from './Activities.module.css'
+import DashboardNav from "../DashboardNav/DashboardNav";
+import PendingTasks from "../presentationcomponents/PendingTasks/PendingTasks";
+
+import ActivitiesStyles from "./Activities.module.css";
 
 export default function Activities() {
-    return (
-        <div>
-            
-        </div>
-    )
+  return <div></div>;
 }
