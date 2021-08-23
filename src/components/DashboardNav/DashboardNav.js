@@ -5,12 +5,12 @@ import NavUser from "./DashboardNavComponents/NavUser/NavUser";
 
 import DashboardNavStyles from "./DashboardNav.module.css";
 
-export default function Nav({ modal }) {
+export default function Nav() {
   const btnText = "Add Activity";
   return (
     <div className={DashboardNavStyles.container}>
       <div>
-        <AddButton modal={modal} text={btnText} />
+        <AddButton text={btnText} />
       </div>
       <div>
         <NavUser />

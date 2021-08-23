@@ -1,9 +1,10 @@
 import React from "react";
+import { useModal } from "../../../../contexts/modalContext";
 
 import AddButtonStyles from "./AddButton.module.css";
 
-export default function AddButton({ text, modal }) {
-  const { adding, setAdding } = modal;
+export default function AddButton({ text }) {
+  const { adding, setAdding } = useModal();
 
   function handleModal() {
     setAdding(!adding);
