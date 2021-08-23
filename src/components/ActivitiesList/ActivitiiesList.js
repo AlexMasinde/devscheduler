@@ -14,7 +14,7 @@ export default function ActivitiiesList() {
     async function getActivities() {
       try {
         setLoading(true);
-        const rawActivities = await database.projects.get();
+        const rawActivities = await database.activities.get();
         const formattedActivities = rawActivities.docs.map((rawActivity) => {
           return database.formatDocument(rawActivity);
         });

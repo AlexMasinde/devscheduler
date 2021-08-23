@@ -19,10 +19,8 @@ const storage = app.storage();
 
 const database = {
   users: firestore.collection("users"),
-  projects: firestore.collection("projects"),
-  courses: firestore.collection("courses"),
-  readings: firestore.collection("readings"),
-  projectTasks: firestore.collection("project-tasks"),
+  activities: firestore.collection("activities"),
+  tasks: firestore.collection("project-tasks"),
   formatDocument: (doc) => {
     return { id: doc.id, ...doc.data() };
   },

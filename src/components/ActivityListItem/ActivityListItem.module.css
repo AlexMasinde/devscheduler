@@ -8,4 +8,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: 0.4s;
+}
+
+.listItem:hover {
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: rgba(40, 40, 70, 0.05);
 }

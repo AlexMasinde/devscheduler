@@ -69,30 +69,16 @@ export default function AddActivityModal({ modal }) {
     }
 
     try {
-      console.log("no errors, code moved forward");
       setLoading(true);
       const activityId = uuidv4();
       const activityDetails = {
         name: activity,
+        category,
         deadline,
       };
-
-      switch (category) {
-        case "Projects":
-          await database.projects.doc(activityId).set(activityDetails);
-          break;
-        case "Courses":
-          await database.courses.doc(activityId).set(activityDetails);
-          break;
-        case "Readings":
-          await database.readings.doc(activityId).set(activityDetails);
-          break;
-        default:
-          return setErrors({ ...errors, category: "Category not found" });
-      }
+      await database.activities.doc(activityId).set(activityDetails);
       setLoading(false);
       setAdding(false);
-      console.log("code ran");
     } catch (err) {
       setLoading(false);
       console.log(err);

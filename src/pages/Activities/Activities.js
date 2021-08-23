@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useModal } from "../../contexts/modalContext";
+import { useActivities } from "../../contexts/activitiesContext";
 
 import ActivitiiesList from "../../components/ActivitiesList/ActivitiiesList";
 import DashboardNav from "../../components/DashboardNav/DashboardNav";
@@ -11,6 +12,7 @@ import ActivityView from "../../components/ActivityView/ActivityView";
 import ActivitiesStyles from "./Activities.module.css";
 
 export default function Activities() {
+  const { selectedActivity } = useActivities();
   const { mounted, adding } = useModal();
   const closingModal = adding ? "" : ActivitiesStyles.modalout;
 
@@ -25,9 +27,11 @@ export default function Activities() {
       <div>
         <ActivitiiesList />
       </div>
-      <div>
-        <ActivityView />
-      </div>
+      {selectedActivity && (
+        <div>
+          <ActivityView />
+        </div>
+      )}
       {mounted && (
         <div className={`${ActivitiesStyles.modal} ${closingModal}`}>
           <AddActivityModal />
