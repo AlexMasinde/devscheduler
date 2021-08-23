@@ -6,6 +6,7 @@ import ActivitiiesList from "../../components/ActivitiesList/ActivitiiesList";
 import DashboardNav from "../../components/DashboardNav/DashboardNav";
 import PendingTasks from "../../components/presentationcomponents/PendingTasks/PendingTasks";
 import AddActivityModal from "../../components/AddActivityModal/AddActivityModal";
+import ActivityView from "../../components/ActivityView/ActivityView";
 
 import ActivitiesStyles from "./Activities.module.css";
 
@@ -23,6 +24,9 @@ export default function Activities() {
       </div>
       <div>
         <ActivitiiesList />
+      </div>
+      <div>
+        <ActivityView />
       </div>
       {mounted && (
         <div className={`${ActivitiesStyles.modal} ${closingModal}`}>

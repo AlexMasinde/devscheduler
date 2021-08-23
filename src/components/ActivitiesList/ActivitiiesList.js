@@ -9,14 +9,12 @@ import ActivitiiesListStyles from "./ActivitiiesList.module.css";
 export default function ActivitiiesList() {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(false);
-  const projects = ["Groove", "Moove", "Snooze", "Loose"];
 
   useEffect(() => {
     async function getActivities() {
       try {
         setLoading(true);
         const rawActivities = await database.projects.get();
-
         const formattedActivities = rawActivities.docs.map((rawActivity) => {
           return database.formatDocument(rawActivity);
         });

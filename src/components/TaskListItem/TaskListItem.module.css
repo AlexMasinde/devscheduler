@@ -1,49 +1,28 @@
-.container {
-  background-color: #ffffff;
-  box-shadow: 0px 10px 25px rgba(29, 52, 54, 0.08);
-  border-radius: 1rem;
-  margin-top: 1rem;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2rem 2rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid rgba(40, 40, 70, 0.1);
-}
-
-.header > p {
-  font-size: 1.8rem;
-  color: #29a19c;
-  font-weight: 600;
-}
-
-.headercontent {
-  display: flex;
-  align-items: center;
+.listItem {
   font-size: 1.4rem;
   color: #282846;
-  justify-content: flex-start;
-}
-
-.headercontent > div {
+  border: 1px solid rgba(40, 40, 70, 0.1);
+  border-radius: 1rem;
+  margin: 1rem 2rem 0;
+  padding: 1rem 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.headericons > img {
+.text {
+  display: flex;
+  align-items: center;
+}
+
+.text > label {
+  margin-right: 1rem;
+}
+
+.icons > img {
+  cursor: pointer;
   height: 1.8rem;
-}
-.headericons {
-  margin-left: 2rem;
-}
-
-.headercontent > div > p {
-  margin-left: 1rem;
-  padding: 0;
-  vertical-align: baseline;
+  width: 1.8rem;
 }
 
 .checkboxcontainer {
@@ -94,17 +73,7 @@
   transform: rotate(45deg) translateX(-150%) translateY(10%);
 }
 
-.add {
-  display: flex;
-  align-items: center;
-  font-size: 1.4rem;
-  font-weight: 400;
-  margin: 2rem;
-  padding-bottom: 2rem;
-  color: #282846;
-}
-
-.add > span {
+.lefticon {
   display: inline-block;
-  margin-left: 0.5rem;
+  margin-right: 1rem;
 }

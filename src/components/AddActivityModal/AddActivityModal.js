@@ -76,7 +76,7 @@ export default function AddActivityModal({ modal }) {
         name: activity,
         deadline,
       };
-      // await database.projects.doc(activityId).set(activityDetails);
+
       switch (category) {
         case "Projects":
           await database.projects.doc(activityId).set(activityDetails);
