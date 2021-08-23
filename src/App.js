@@ -1,5 +1,4 @@
-import Activities from "./components/Activities/Activities";
-import Dashboard from "./components/Dashboard/Dashboard";
+import Activities from "./pages/Activities/Activities";
 import { ModalContextProvider } from "./contexts/modalContext";
 
 function App() {

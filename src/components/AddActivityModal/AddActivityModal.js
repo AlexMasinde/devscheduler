@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import { database } from "../../firebase";
 
+import { useModal } from "../../contexts/modalContext";
+
 import AddActivityModalStyles from "./AddActivityModal.module.css";
 
 import CalenderIcon from "./components/CalenderIcon/CalenderIcon";
@@ -27,7 +29,7 @@ export default function AddActivityModal({ modal }) {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
-  const { setAdding } = modal;
+  const { setAdding } = useModal();
 
   function handleSelect() {
     setDropdown(!dropdown);
@@ -71,14 +73,13 @@ export default function AddActivityModal({ modal }) {
       setLoading(true);
       const activityId = uuidv4();
       const activityDetails = {
-        activityId,
-        activity,
+        name: activity,
         deadline,
       };
-      await database.projects.doc(activityId).set(activityDetails);
+      // await database.projects.doc(activityId).set(activityDetails);
       switch (category) {
         case "Projects":
-          await database.projects.doc(activityId).set({ activityDetails });
+          await database.projects.doc(activityId).set(activityDetails);
           break;
         case "Courses":
           await database.courses.doc(activityId).set(activityDetails);
