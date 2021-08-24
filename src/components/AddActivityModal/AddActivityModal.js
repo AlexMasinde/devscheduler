@@ -27,29 +27,37 @@ export default function AddActivityModal() {
   const { activities, dispatch } = useActivities();
   const [dropdown, setDropdown] = useState(false);
   const [category, setCategory] = useState("Select Category");
-  const [activity, setActivity] = useState("Activity Name");
+  const [activity, setActivity] = useState("");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
   const { setAdding } = useModal();
 
   function handleSelect() {
+    if (errors.category) {
+      setErrors({ ...errors, category: "" });
+    }
     setDropdown(!dropdown);
   }
 
   function selectOption(e) {
-    const category =
-      e.target.innerText === "Select Category" ? "" : e.target.innerText;
-    setCategory(category);
+    const checkCategory = e.target.innerText;
+    setCategory(checkCategory);
     setDropdown(false);
   }
 
   function handleActivity(e) {
+    if (errors.activityName) {
+      setErrors({ ...errors, activityName: "" });
+    }
     const activityName = e.target.value;
     setActivity(activityName);
   }
 
   function handleDeadline(deadline) {
+    if (errors.deadline) {
+      setErrors({ ...errors, deadline: "" });
+    }
     setDeadline(deadline);
   }
 
@@ -59,14 +67,15 @@ export default function AddActivityModal() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("form submitted");
+    const selectedCategory = category === "Select Category" ? "" : category;
     const { validationErrors, valid } = validateActivity(
       activity,
-      category,
+      selectedCategory,
       deadline
     );
 
     if (!valid) {
+      console.log(validationErrors);
       return setErrors(validationErrors);
     }
 
@@ -75,7 +84,7 @@ export default function AddActivityModal() {
       const activityId = uuidv4();
       const activityDetails = {
         name: activity,
-        category,
+        selectedCategory,
         deadline,
       };
       await database.activities.doc(activityId).set(activityDetails);
@@ -109,6 +118,11 @@ export default function AddActivityModal() {
                 onChange={handleActivity}
               />
             </label>
+            {errors && errors.activityName && (
+              <p className={AddActivityModalStyles.error}>
+                {errors.activityName}
+              </p>
+            )}
           </div>
           <div className={AddActivityModalStyles.details}>
             <div className={AddActivityModalStyles.category}>
@@ -155,6 +169,11 @@ export default function AddActivityModal() {
                   </div>
                 )}
               </div>
+              {errors && errors.category && (
+                <p className={AddActivityModalStyles.error}>
+                  {errors.category}
+                </p>
+              )}
             </div>
             <div className={AddActivityModalStyles.deadline}>
               <p className={AddActivityModalStyles.inputtitle}>Deadline</p>
@@ -183,10 +202,20 @@ export default function AddActivityModal() {
                   />
                 </main>
               </div>
+              {errors && errors.deadline && (
+                <p className={AddActivityModalStyles.error}>
+                  {errors.deadline}
+                </p>
+              )}
             </div>
           </div>
           <div className={AddActivityModalStyles.buttons}>
-            <Button text="Add" disabled={loading} type="submit" />
+            <Button
+              text="Add"
+              disabled={loading}
+              loading={loading}
+              type="submit"
+            />
           </div>
         </form>
       </div>

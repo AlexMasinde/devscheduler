@@ -17,7 +17,6 @@ export default function ActivityListItem({ activity }) {
 
   return (
     <div onClick={selectActivity} className={ActivityListItemStyles.listItem}>
-      {console.log(selectedActivity)}
       <p>{activity.name}</p>
     </div>
   );

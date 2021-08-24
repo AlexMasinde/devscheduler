@@ -10,7 +10,7 @@ export function validateActivity(activityName, category, deadline) {
   }
 
   if (category.trim() === "") {
-    validationErrors.category = "Please select a valid category";
+    validationErrors.category = "Please select a category";
   }
 
   if (deadline <= new Date()) {

@@ -28,7 +28,7 @@ export default function ActivitiiesList() {
       }
     }
     getActivities();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={ActivitiiesListStyles.container}>
