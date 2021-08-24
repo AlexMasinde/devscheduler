@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import shortid from "shortid";
 
+import { useActivities } from "../../contexts/activitiesContext";
+
 import TaskListItem from "../TaskListItem/TaskListItem";
 
 import edit from "../../icons/edit.svg";
@@ -10,12 +12,12 @@ import add from "../../icons/add.svg";
 import ActivityViewStyles from "./ActivityView.module.css";
 
 export default function ActivityView() {
-  const [tasks, setTasks] = useState([]);
+  const { selectedActivity, activityTasks } = useActivities();
 
   return (
     <div className={ActivityViewStyles.container}>
       <div className={ActivityViewStyles.header}>
-        <p>Get children from school</p>
+        <p>{selectedActivity.name}</p>
         <div className={ActivityViewStyles.headercontent}>
           <div>
             <label className={ActivityViewStyles.checkboxcontainer}>
@@ -35,7 +37,7 @@ export default function ActivityView() {
         </div>
       </div>
       <div>
-        {tasks.map((task) => {
+        {activityTasks.map((task) => {
           return <TaskListItem key={shortid.generate()} task={task} />;
         })}
       </div>

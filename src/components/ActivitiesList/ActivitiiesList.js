@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import shortid from "shortid";
+
 import { database } from "../../firebase";
+
+import { useActivities } from "../../contexts/activitiesContext";
 
 import ActivityListItem from "../ActivityListItem/ActivityListItem";
 
 import ActivitiiesListStyles from "./ActivitiiesList.module.css";
 
 export default function ActivitiiesList() {
-  const [activities, setActivities] = useState([]);
+  const { activities, dispatch } = useActivities();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -18,7 +21,7 @@ export default function ActivitiiesList() {
         const formattedActivities = rawActivities.docs.map((rawActivity) => {
           return database.formatDocument(rawActivity);
         });
-        setActivities(formattedActivities);
+        dispatch({ type: "set-activities", payload: formattedActivities });
       } catch (err) {
         setLoading(false);
         console.log(err);
@@ -29,17 +32,13 @@ export default function ActivitiiesList() {
 
   return (
     <div className={ActivitiiesListStyles.container}>
-      {console.log(activities)}
       <div className={ActivitiiesListStyles.title}>
         <h1>Projects</h1>
       </div>
       <div>
         {activities.map((activity) => {
           return (
-            <ActivityListItem
-              activity={activity.name}
-              key={shortid.generate()}
-            />
+            <ActivityListItem activity={activity} key={shortid.generate()} />
           );
         })}
       </div>

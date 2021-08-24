@@ -10,6 +10,8 @@ function reducer(state, action) {
   switch (action.type) {
     case "select-activity":
       return { ...state, selectedActivity: action.payload };
+    case "set-activities":
+      return { ...state, activities: action.payload };
   }
 }
 
@@ -24,7 +26,10 @@ export default function ActivitiesContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const value = {
-    state,
+    selectedActivity: state.selectedActivity,
+    activities: state.activities,
+    activityTasks: state.activityTasks,
+    category: state.category,
     dispatch,
   };
 

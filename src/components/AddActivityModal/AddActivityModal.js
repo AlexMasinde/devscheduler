@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { database } from "../../firebase";
 
 import { useModal } from "../../contexts/modalContext";
+import { useActivities } from "../../contexts/activitiesContext";
 
 import AddActivityModalStyles from "./AddActivityModal.module.css";
 
@@ -22,7 +23,8 @@ import closeicon from "../../icons/closeicon.svg";
 
 import { validateActivity } from "../../utils/validators";
 
-export default function AddActivityModal({ modal }) {
+export default function AddActivityModal() {
+  const { activities, dispatch } = useActivities();
   const [dropdown, setDropdown] = useState(false);
   const [category, setCategory] = useState("Select Category");
   const [activity, setActivity] = useState("Activity Name");
@@ -77,6 +79,10 @@ export default function AddActivityModal({ modal }) {
         deadline,
       };
       await database.activities.doc(activityId).set(activityDetails);
+      dispatch({
+        type: "set-activities",
+        payload: [{ ...activityDetails, id: activityId }, ...activities],
+      });
       setLoading(false);
       setAdding(false);
     } catch (err) {
