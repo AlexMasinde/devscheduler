@@ -1,6 +1,6 @@
 import Activities from "./pages/Activities/Activities";
 import { ModalContextProvider } from "./contexts/modalContext";
-import ActivitiesContextProvider from "./contexts/activitiesContext";
+import { ActivitiesContextProvider } from "./contexts/activitiesContext";
 
 function App() {
   return (

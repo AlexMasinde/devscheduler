@@ -24,7 +24,7 @@ const initialState = {
   category: null,
 };
 
-export default function ActivitiesContextProvider({ children }) {
+export function ActivitiesContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const value = {

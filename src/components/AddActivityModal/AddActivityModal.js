@@ -16,22 +16,19 @@ import Button from "../presentationcomponents/Button/Button";
 
 import arrowdown from "../../icons/arrowdown.svg";
 import arrowup from "../../icons/arrowup.svg";
-import projectsicon from "../../icons/projectsicon.svg";
-import coursesicon from "../../icons/coursesicon.svg";
-import readingsicon from "../../icons/readingsicon.svg";
 import closeicon from "../../icons/closeicon.svg";
 
 import { validateActivity } from "../../utils/validators";
 
 export default function AddActivityModal() {
-  const { activities, dispatch } = useActivities();
+  const { setAdding } = useModal();
+  const { dispatch, activities } = useActivities();
   const [dropdown, setDropdown] = useState(false);
   const [category, setCategory] = useState("Select Category");
   const [activity, setActivity] = useState("");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
-  const { setAdding } = useModal();
 
   function handleSelect() {
     if (errors.category) {
@@ -41,7 +38,7 @@ export default function AddActivityModal() {
   }
 
   function selectOption(e) {
-    const checkCategory = e.target.innerText;
+    const checkCategory = e.target.innerText || e.target.textContent;
     setCategory(checkCategory);
     setDropdown(false);
   }
@@ -75,7 +72,6 @@ export default function AddActivityModal() {
     );
 
     if (!valid) {
-      console.log(validationErrors);
       return setErrors(validationErrors);
     }
 
@@ -119,7 +115,7 @@ export default function AddActivityModal() {
               />
             </label>
             {errors && errors.activityName && (
-              <p className={AddActivityModalStyles.error}>
+              <p data-testid="error" className={AddActivityModalStyles.error}>
                 {errors.activityName}
               </p>
             )}
@@ -140,37 +136,31 @@ export default function AddActivityModal() {
                 {dropdown && (
                   <div className={AddActivityModalStyles.options}>
                     <span
+                      data-testid="add-activity-category"
                       onClick={(e) => selectOption(e)}
                       className={AddActivityModalStyles.option}
                     >
-                      <span>
-                        <img src={projectsicon} alt="icon" />
-                      </span>
                       Projects
                     </span>
                     <span
+                      data-testid="add-activity-category"
                       onClick={(e) => selectOption(e)}
                       className={AddActivityModalStyles.option}
                     >
-                      <span>
-                        <img src={coursesicon} alt="icon" />
-                      </span>
                       Courses
                     </span>
                     <span
+                      data-testid="add-activity-category"
                       onClick={(e) => selectOption(e)}
                       className={AddActivityModalStyles.option}
                     >
-                      <span>
-                        <img src={readingsicon} alt="icon" />
-                      </span>
                       Readings
                     </span>
                   </div>
                 )}
               </div>
               {errors && errors.category && (
-                <p className={AddActivityModalStyles.error}>
+                <p data-testid="error" className={AddActivityModalStyles.error}>
                   {errors.category}
                 </p>
               )}
@@ -203,7 +193,7 @@ export default function AddActivityModal() {
                 </main>
               </div>
               {errors && errors.deadline && (
-                <p className={AddActivityModalStyles.error}>
+                <p data-testid="error" className={AddActivityModalStyles.error}>
                   {errors.deadline}
                 </p>
               )}
