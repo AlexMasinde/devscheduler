@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -18,10 +19,8 @@ const storage = app.storage();
 
 const database = {
   users: firestore.collection("users"),
-  projects: firestore.collection("projects"),
-  courses: firestore.collection("courses"),
-  readings: firestore.collection("readings"),
-  projectTasks: firestore.collection("project-tasks"),
+  activities: firestore.collection("activities"),
+  tasks: firestore.collection("project-tasks"),
   formatDocument: (doc) => {
     return { id: doc.id, ...doc.data() };
   },

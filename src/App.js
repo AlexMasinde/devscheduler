@@ -1,13 +1,18 @@
-import AddActivityModal from "./components/AddActivityModal/AddActivityModal";
-import Nav from "./components/DashboardNav/DashboardNav";
+import Activities from "./pages/Activities/Activities";
+
+import { ModalContextProvider } from "./contexts/modalContext";
+import { ActivitiesContextProvider } from "./contexts/activitiesContext";
+import { AddTaskModalContextProvider } from "./contexts/addtaskModalContext";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Dev Scheduler</h1>
-      <Nav />
-      <AddActivityModal />
-    </div>
+    <ActivitiesContextProvider>
+      <ModalContextProvider>
+        <AddTaskModalContextProvider>
+          <Activities />
+        </AddTaskModalContextProvider>
+      </ModalContextProvider>
+    </ActivitiesContextProvider>
   );
 }
 

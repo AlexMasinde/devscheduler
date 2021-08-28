@@ -2,7 +2,7 @@ import React from "react";
 
 import PendingTasksStyles from "./PendingTasks.module.css";
 
-import PendingTasksCounter from "../presentationcomponents/PendingTasksCounter/PendingTasksCounter";
+import PendingTasksCounter from "../PendingTasksCounter/PendingTasksCounter";
 
 export default function PendingTasks() {
   const countOne = "113";

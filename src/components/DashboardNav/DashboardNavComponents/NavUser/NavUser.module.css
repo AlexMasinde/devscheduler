@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  align-items: center;
+  height: 4.4rem;
+}
+
+.container > p {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.profilepicture {
+  margin: 0 2rem;
+}
+
+.profilepicture > img {
+  width: 4.4rem;
+  height: 4.4rem;
+}
+
+.arrow {
+  width: 2.4rem;
+  height: 2.4rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow:hover {
+  background-color: transparent;
+  cursor: pointer;
+}

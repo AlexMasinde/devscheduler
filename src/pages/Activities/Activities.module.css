@@ -1,0 +1,42 @@
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  animation: fadeInAnimation ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.modalout {
+  animation: fadeOutAnimation ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.modaldiv {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(40, 40, 70, 0.1);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
