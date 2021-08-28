@@ -59,7 +59,7 @@ describe("Add Activity Modal", () => {
     const inputElement = screen.getByPlaceholderText(/Activity Name/i);
     fireEvent.change(inputElement, { target: { value: "" } });
     fireEvent.click(buttonElement);
-    const errorElement = screen.getByText(/Activity name cannot be empty/i);
+    const errorElement = screen.getByText(/Name cannot be empty/i);
     expect(errorElement).toBeInTheDocument();
   });
 
