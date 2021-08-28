@@ -108,3 +108,7 @@
   display: inline-block;
   margin-left: 0.5rem;
 }
+
+.add:hover {
+  cursor: pointer;
+}

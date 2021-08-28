@@ -12,6 +12,8 @@ function reducer(state, action) {
       return { ...state, selectedActivity: action.payload };
     case "set-activities":
       return { ...state, activities: action.payload };
+    case "set-tasks":
+      return { ...state, activityTasks: action.payload };
     default:
       return state;
   }

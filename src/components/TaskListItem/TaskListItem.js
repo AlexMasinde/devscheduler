@@ -13,7 +13,7 @@ export default function TaskListItem({ task }) {
           <input type="checkbox" />
           <span className={TaskListItemStyles.checkmark}></span>
         </label>
-        <p>{task}</p>
+        <p>{task.name}</p>
       </div>
       <div className={TaskListItemStyles.icons}>
         <img className={TaskListItemStyles.lefticon} src={edit} alt="edit" />

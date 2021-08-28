@@ -2,6 +2,7 @@ import React from "react";
 import shortid from "shortid";
 
 import { useActivities } from "../../contexts/activitiesContext";
+import { useAddTaskModalContext } from "../../contexts/addtaskModalContext";
 
 import TaskListItem from "../TaskListItem/TaskListItem";
 
@@ -12,7 +13,12 @@ import add from "../../icons/add.svg";
 import ActivityViewStyles from "./ActivityView.module.css";
 
 export default function ActivityView() {
+  const { setAddingTask } = useAddTaskModalContext();
   const { selectedActivity, activityTasks } = useActivities();
+
+  function handleModal() {
+    setAddingTask(true);
+  }
 
   return (
     <div className={ActivityViewStyles.container}>
@@ -41,7 +47,7 @@ export default function ActivityView() {
           return <TaskListItem key={shortid.generate()} task={task} />;
         })}
       </div>
-      <div className={ActivityViewStyles.add}>
+      <div onClick={() => handleModal()} className={ActivityViewStyles.add}>
         <img src={add} alt="Add task" />
         <span>Add Task</span>
       </div>

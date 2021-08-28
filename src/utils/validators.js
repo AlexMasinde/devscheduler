@@ -1,7 +1,7 @@
 function validateName(validationErrors, name) {
   const nameRegex = /^[a-zA-Z\s]*$/;
   if (name.trim() === "") {
-    validationErrors.name = "Activity name cannot be empty";
+    validationErrors.name = "Name cannot be empty";
   } else if (!nameRegex.test(name.trim())) {
     validationErrors.name =
       "Activity name should include letters and spaces only";
@@ -10,8 +10,7 @@ function validateName(validationErrors, name) {
 
 function validateDeadline(validationErrors, deadline) {
   if (deadline <= new Date()) {
-    validationErrors.deadline =
-      "Please select a valid deadline for your activity";
+    validationErrors.deadline = "Please select a valid deadline";
   }
 }
 

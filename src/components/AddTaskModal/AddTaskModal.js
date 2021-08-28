@@ -1,5 +1,12 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import DateTimePicker from "react-datetime-picker/dist/DateTimePicker";
+
+import { useActivities } from "../../contexts/activitiesContext";
+import { useAddTaskModalContext } from "../../contexts/addtaskModalContext";
+
+import { database } from "../../firebase";
+import { validateTask } from "../../utils/validators";
 
 import AddTaskModalStyles from "./AddTaskModal.module.css";
 
@@ -11,14 +18,16 @@ import Button from "../presentationcomponents/Button/Button";
 import closeicon from "../../icons/closeicon.svg";
 
 export default function AddTaskModal() {
-  const [errors, setErrors] = useState();
-  const [loading, setLoading] = useState();
+  const { selectedActivity, dispatch, activityTasks } = useActivities();
+  const { setAddingTask } = useAddTaskModalContext();
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
-  const [task, setTask] = useState();
+  const [task, setTask] = useState("");
 
   function handleTask(e) {
-    if (errors.task) {
-      setErrors({ ...errors, task: "" });
+    if (errors.name) {
+      setErrors({ ...errors, name: "" });
     }
     setTask(e.target.value);
   }
@@ -30,17 +39,34 @@ export default function AddTaskModal() {
     setDeadline(deadline);
   }
 
+  function handleModal() {
+    setAddingTask(false);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const { errors, valid } = validateTask(deadline, task);
+    const { validationErrors, valid } = validateTask(deadline, task);
 
     if (!valid) {
-      return setErrors(errors);
+      return setErrors(validationErrors);
     }
 
     try {
       setLoading(true);
+      const taskId = uuidv4();
+      const taskObject = {
+        name: task,
+        deadline,
+        activityId: selectedActivity.id,
+      };
+      await database.tasks.doc(taskId).set(taskObject);
+      dispatch({
+        type: "set-tasks",
+        payload: [...activityTasks, taskObject],
+      });
+      setLoading(false);
+      setAddingTask(false);
     } catch (err) {
       setLoading(false);
       console.log(err);
@@ -50,23 +76,23 @@ export default function AddTaskModal() {
   return (
     <div className={AddTaskModalStyles.container}>
       <div className={AddTaskModalStyles.title}>
-        <h1>Add Activity</h1>
+        <h1>Add Task</h1>
         <img onClick={() => handleModal()} src={closeicon} alt="close" />
       </div>
       <form onSubmit={handleSubmit}>
         <div className={AddTaskModalStyles.name}>
           <label>
-            <p className={AddTaskModalStyles.inputtitle}>Activity Name</p>
+            <p className={AddTaskModalStyles.inputtitle}>Task Name</p>
             <Input
               type="text"
               required={true}
-              placeholder="Activity Name"
+              placeholder="Task Name"
               onChange={handleTask}
             />
           </label>
-          {errors && errors.activityName && (
+          {errors && errors.name && (
             <p data-testid="error" className={AddTaskModalStyles.error}>
-              {errors.activityName}
+              {errors.name}
             </p>
           )}
         </div>
@@ -104,7 +130,6 @@ export default function AddTaskModal() {
             </p>
           )}
         </div>
-
         <div className={AddTaskModalStyles.buttons}>
           <Button
             text="Add"
