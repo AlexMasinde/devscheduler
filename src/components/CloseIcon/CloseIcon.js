@@ -1,6 +1,6 @@
 import React from "react";
 
-import closeicon from "../../../../icons/closeicon.svg";
+import closeicon from "../../icons/closeicon.svg";
 
 export default function CloseIcon() {
   return (

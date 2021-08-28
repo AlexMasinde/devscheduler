@@ -9,8 +9,8 @@ import { useActivities } from "../../contexts/activitiesContext";
 
 import AddActivityModalStyles from "./AddActivityModal.module.css";
 
-import CalenderIcon from "./components/CalenderIcon/CalenderIcon";
-import CloseIcon from "./components/CloseIcon/CloseIcon";
+import CalenderIcon from "../CalenderIcon/CalenderIcon";
+import CloseIcon from "../CloseIcon/CloseIcon";
 import Input from "../presentationcomponents/Input/Input";
 import Button from "../presentationcomponents/Button/Button";
 
@@ -44,7 +44,7 @@ export default function AddActivityModal() {
   }
 
   function handleActivity(e) {
-    if (errors.activityName) {
+    if (errors.name) {
       setErrors({ ...errors, activityName: "" });
     }
     const activityName = e.target.value;
@@ -114,9 +114,9 @@ export default function AddActivityModal() {
                 onChange={handleActivity}
               />
             </label>
-            {errors && errors.activityName && (
+            {errors && errors.name && (
               <p data-testid="error" className={AddActivityModalStyles.error}>
-                {errors.activityName}
+                {errors.name}
               </p>
             )}
           </div>

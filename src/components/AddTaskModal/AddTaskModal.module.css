@@ -1,0 +1,81 @@
+.container {
+  width: 60rem;
+  padding: 2rem;
+  border-radius: 0.8rem;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title > h1 {
+  color: #29a19c;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.title > img {
+  transition: 0.1s;
+}
+
+.title > img:hover {
+  cursor: pointer;
+  transform: rotate(90deg);
+}
+
+.inputtitle {
+  color: #282846;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.name > label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+.error {
+  color: #f05454;
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0 0.5rem;
+  position: absolute;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 3rem;
+}
+
+.name,
+.select,
+.deadline {
+  position: relative;
+}
+
+.test {
+  font-family: "Nunito", sans-serif !important;
+  width: 30rem;
+}
+
+.test > div {
+  border: 1px solid rgba(40, 40, 70, 0.1) !important;
+  padding: 4px 15px !important;
+  font-size: 1.4rem !important;
+  border-radius: 8px;
+}
+
+.calender {
+  width: 30rem !important;
+  font-family: "Nunito", sans-serif !important;
+  font-size: 1rem !important;
+  background-color: #f9f9f9 !important;
+  border: none !important;
+}
