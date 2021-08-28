@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import shortid from "shortid";
 
 import { useActivities } from "../../contexts/activitiesContext";
@@ -11,10 +11,37 @@ import trash from "../../icons/trash.svg";
 import add from "../../icons/add.svg";
 
 import ActivityViewStyles from "./ActivityView.module.css";
+import { database } from "../../firebase";
 
 export default function ActivityView() {
   const { setAddingTask } = useAddTaskModalContext();
-  const { selectedActivity, activityTasks } = useActivities();
+  const { selectedActivity, activityTasks, dispatch } = useActivities();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function getActivityTasks() {
+      try {
+        setLoading(true);
+        const results = await database.tasks
+          .where("activityId", "==", selectedActivity.id)
+          .orderBy("deadline", "desc")
+          .get();
+        const formattedResults = results.docs.map((doc) => {
+          return database.formatDocument(doc);
+        });
+        dispatch({
+          type: "set-tasks",
+          payload: formattedResults,
+        });
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
+      }
+    }
+    getActivityTasks();
+    console.log("effect ran");
+  }, [selectedActivity, dispatch]);
 
   function handleModal() {
     setAddingTask(true);
@@ -22,6 +49,7 @@ export default function ActivityView() {
 
   return (
     <div className={ActivityViewStyles.container}>
+      {console.log(activityTasks)}
       <div className={ActivityViewStyles.header}>
         <p>{selectedActivity.name}</p>
         <div className={ActivityViewStyles.headercontent}>

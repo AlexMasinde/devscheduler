@@ -82,6 +82,7 @@ export default function AddActivityModal() {
         name: activity,
         selectedCategory,
         deadline,
+        complete: false,
       };
       await database.activities.doc(activityId).set(activityDetails);
       dispatch({
