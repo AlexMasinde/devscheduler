@@ -20,7 +20,6 @@ import closeicon from "../../icons/closeicon.svg";
 export default function AddTaskModal() {
   const { selectedActivity, dispatch, activityTasks, editingTask } =
     useActivities();
-  console.log(editingTask);
   const { edit, taskToEdit } = editingTask;
   const { setAddingTask } = useAddTaskModalContext();
   const [errors, setErrors] = useState({});
@@ -43,6 +42,15 @@ export default function AddTaskModal() {
   }
 
   function handleModal() {
+    if (edit) {
+      dispatch({
+        type: "set-editing-task",
+        payload: {
+          edit: false,
+          taskToEdit: {},
+        },
+      });
+    }
     setAddingTask(false);
   }
 

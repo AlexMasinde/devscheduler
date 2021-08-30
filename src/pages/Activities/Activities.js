@@ -14,7 +14,8 @@ import AddTaskModal from "../../components/AddTaskModal/AddTaskModal";
 import ActivitiesStyles from "./Activities.module.css";
 
 export default function Activities() {
-  const { selectedActivity } = useActivities();
+  const { selectedActivity, editingTask, dispatch } = useActivities();
+  const { edit } = editingTask;
   const { mounted, adding, setAdding } = useModal();
   const { mountedTaskModal, addingTask, setAddingTask } =
     useAddTaskModalContext();
@@ -23,6 +24,15 @@ export default function Activities() {
     adding || addingTask ? ActivitiesStyles.canvasin : "";
 
   function closeModal() {
+    if (edit) {
+      dispatch({
+        type: "set-editing-task",
+        payload: {
+          edit: false,
+          taskToEdit: {},
+        },
+      });
+    }
     adding ? setAdding(false) : setAddingTask(false);
   }
 

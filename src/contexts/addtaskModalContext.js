@@ -19,6 +19,7 @@ export function AddTaskModalContextProvider({ children }) {
         setMountedTaskModal(false);
       }, 500);
     }
+
     return () => clearTimeout(timeoutId);
   }, [addingTask, mountedTaskModal]);
 
