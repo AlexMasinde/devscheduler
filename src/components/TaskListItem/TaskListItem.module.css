@@ -77,3 +77,7 @@
   display: inline-block;
   margin-right: 1rem;
 }
+
+.complete {
+  text-decoration: line-through;
+}

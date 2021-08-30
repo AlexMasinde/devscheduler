@@ -14,6 +14,7 @@ export default function TaskListItem({ task }) {
   const { activityTasks, dispatch } = useActivities();
   const { setAddingTask } = useAddTaskModalContext();
   const [loading, setLoading] = useState(false);
+  const [complete, setComplete] = useState(task.complete);
 
   async function handleTaskDelete() {
     try {
@@ -23,9 +24,27 @@ export default function TaskListItem({ task }) {
         (activityTask) => activityTask.id !== task.id
       );
       dispatch({
-        type: "delete-task",
+        type: "set-tasks",
         payload: newActivities,
       });
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }
+
+  async function completeTask() {
+    if (loading) {
+      return;
+    }
+    try {
+      setLoading(true);
+      await database.tasks.doc(task.id).update({
+        complete: !complete,
+      });
+      const newComplete = !complete;
+      setComplete(newComplete);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -46,20 +65,25 @@ export default function TaskListItem({ task }) {
 
   return (
     <div className={TaskListItemStyles.listItem}>
-      <div className={TaskListItemStyles.text}>
+      {console.log(activityTasks)}
+      <div onClick={() => completeTask()} className={TaskListItemStyles.text}>
         <label className={TaskListItemStyles.checkboxcontainer}>
-          <input type="checkbox" />
+          <input type="checkbox" checked={complete} readOnly />
           <span className={TaskListItemStyles.checkmark}></span>
         </label>
-        <p>{task.name}</p>
+        <p className={complete ? TaskListItemStyles.complete : ""}>
+          {task.name}
+        </p>
       </div>
       <div className={TaskListItemStyles.icons}>
-        <img
-          onClick={() => handleTaskEdit()}
-          className={TaskListItemStyles.lefticon}
-          src={edit}
-          alt="edit"
-        />
+        {!complete && (
+          <img
+            onClick={() => handleTaskEdit()}
+            className={TaskListItemStyles.lefticon}
+            src={edit}
+            alt="edit"
+          />
+        )}
         <img onClick={() => handleTaskDelete()} src={trash} alt="delete" />
       </div>
     </div>

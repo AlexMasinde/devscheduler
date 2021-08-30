@@ -15,7 +15,8 @@ import { database } from "../../firebase";
 
 export default function ActivityView() {
   const { setAddingTask } = useAddTaskModalContext();
-  const { selectedActivity, activityTasks, dispatch } = useActivities();
+  const { activities, selectedActivity, activityTasks, dispatch } =
+    useActivities();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -42,6 +43,26 @@ export default function ActivityView() {
     getActivityTasks();
   }, [selectedActivity, dispatch]);
 
+  async function deleteActivity() {
+    if (loading) {
+      return;
+    }
+    try {
+      await database.activities.doc(selectedActivity.id).delete();
+      const newActivities = activities.filter(
+        (activity) => activity.id !== selectedActivity.id
+      );
+      dispatch({
+        type: "set-activities",
+        payload: newActivities,
+      });
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }
+
   function handleModal() {
     setAddingTask(true);
   }
@@ -51,18 +72,14 @@ export default function ActivityView() {
       <div className={ActivityViewStyles.header}>
         <p>{selectedActivity.name}</p>
         <div className={ActivityViewStyles.headercontent}>
-          <div>
-            <label className={ActivityViewStyles.checkboxcontainer}>
-              <input type="checkbox" />
-              <span className={ActivityViewStyles.checkmark}></span>
-            </label>
-            <p>Complete</p>
-          </div>
           <div className={ActivityViewStyles.headericons}>
             <img src={edit} alt="edit" />
             <p>Edit</p>
           </div>
-          <div className={ActivityViewStyles.headericons}>
+          <div
+            onClick={() => deleteActivity()}
+            className={ActivityViewStyles.headericons}
+          >
             <img src={trash} alt="trash" />
             <p>Delete</p>
           </div>

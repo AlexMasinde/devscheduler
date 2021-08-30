@@ -58,7 +58,6 @@ export default function AddTaskModal() {
     try {
       setLoading(true);
       if (taskToEdit.name === task && taskToEdit.deadline === deadline) {
-        console.log("Not new");
         return setErrors({
           ...errors,
           edit: "Please supply new task values to continue",
@@ -98,11 +97,12 @@ export default function AddTaskModal() {
         deadline,
         activityId: selectedActivity.id,
         complete: false,
+        id: taskId,
       };
       await database.tasks.doc(taskId).set(taskObject);
       dispatch({
         type: "set-tasks",
-        payload: [...activityTasks, taskObject],
+        payload: [taskObject, ...activityTasks],
       });
       setLoading(false);
       setAddingTask(false);
