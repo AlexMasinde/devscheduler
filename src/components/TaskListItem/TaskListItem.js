@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import TaskListItemStyles from "./TaskListItem.module.css";
 
 import { useActivities } from "../../contexts/activitiesContext";
+import { useAddTaskModalContext } from "../../contexts/addtaskModalContext";
 
 import { database } from "../../firebase";
 
@@ -11,6 +12,7 @@ import edit from "../../icons/edit.svg";
 
 export default function TaskListItem({ task }) {
   const { activityTasks, dispatch } = useActivities();
+  const { setAddingTask } = useAddTaskModalContext();
   const [loading, setLoading] = useState(false);
 
   async function handleTaskDelete() {
@@ -31,13 +33,19 @@ export default function TaskListItem({ task }) {
     }
   }
 
-  async function handleTaskEdit() {
-    console.log("Task edited");
+  function handleTaskEdit() {
+    dispatch({
+      type: "set-editing-task",
+      payload: {
+        edit: true,
+        taskToEdit: task,
+      },
+    });
+    setAddingTask(true);
   }
 
   return (
     <div className={TaskListItemStyles.listItem}>
-      {console.log(task.id)}
       <div className={TaskListItemStyles.text}>
         <label className={TaskListItemStyles.checkboxcontainer}>
           <input type="checkbox" />

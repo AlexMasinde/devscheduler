@@ -14,6 +14,9 @@ function reducer(state, action) {
       return { ...state, activities: action.payload };
     case "set-tasks":
       return { ...state, activityTasks: action.payload };
+    case "set-editing-task": {
+      return { ...state, editingTask: action.payload };
+    }
     default:
       return state;
   }
@@ -24,6 +27,10 @@ const initialState = {
   activities: [],
   activityTasks: [],
   category: null,
+  editingTask: {
+    edit: false,
+    taskToEdit: {},
+  },
 };
 
 export function ActivitiesContextProvider({ children }) {
@@ -34,6 +41,7 @@ export function ActivitiesContextProvider({ children }) {
     activities: state.activities,
     activityTasks: state.activityTasks,
     category: state.category,
+    editingTask: state.editingTask,
     dispatch,
   };
 

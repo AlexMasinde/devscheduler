@@ -40,7 +40,6 @@ export default function ActivityView() {
       }
     }
     getActivityTasks();
-    console.log("effect ran");
   }, [selectedActivity, dispatch]);
 
   function handleModal() {
@@ -49,7 +48,6 @@ export default function ActivityView() {
 
   return (
     <div className={ActivityViewStyles.container}>
-      {console.log(activityTasks)}
       <div className={ActivityViewStyles.header}>
         <p>{selectedActivity.name}</p>
         <div className={ActivityViewStyles.headercontent}>

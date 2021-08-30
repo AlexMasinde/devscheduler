@@ -15,7 +15,7 @@ export function ModalContextProvider({ children }) {
     if (adding && !mounted) {
       setMounted(true);
     } else if (!adding && mounted) {
-      timeoutId = setTimeout(() => setMounted(false), 490);
+      timeoutId = setTimeout(() => setMounted(false), 500);
     }
     return () => clearTimeout(timeoutId);
   }, [adding, mounted]);

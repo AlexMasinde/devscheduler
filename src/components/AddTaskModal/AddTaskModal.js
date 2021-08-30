@@ -18,12 +18,15 @@ import Button from "../presentationcomponents/Button/Button";
 import closeicon from "../../icons/closeicon.svg";
 
 export default function AddTaskModal() {
-  const { selectedActivity, dispatch, activityTasks } = useActivities();
+  const { selectedActivity, dispatch, activityTasks, editingTask } =
+    useActivities();
+  console.log(editingTask);
+  const { edit, taskToEdit } = editingTask;
   const { setAddingTask } = useAddTaskModalContext();
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
-  const [task, setTask] = useState("");
+  const [task, setTask] = useState(edit ? taskToEdit.name : "");
 
   function handleTask(e) {
     if (errors.name) {
@@ -43,15 +46,42 @@ export default function AddTaskModal() {
     setAddingTask(false);
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    const { validationErrors, valid } = validateTask(deadline, task);
-
-    if (!valid) {
-      return setErrors(validationErrors);
+  async function updateTask() {
+    try {
+      setLoading(true);
+      if (taskToEdit.name === task && taskToEdit.deadline === deadline) {
+        console.log("Not new");
+        return setErrors({
+          ...errors,
+          edit: "Please supply new task values to continue",
+        });
+      }
+      const newTask = {};
+      if (task !== taskToEdit.name) {
+        newTask.name = task;
+      }
+      if (deadline !== taskToEdit.deadline) {
+        newTask.deadline = deadline;
+      }
+      await database.tasks.doc(taskToEdit.id).update(newTask);
+      const newActivityTasks = activityTasks.filter(
+        (activityTask) => activityTask.id !== taskToEdit.id
+      );
+      newTask.activityId = taskToEdit.activityId;
+      newTask.complete = taskToEdit.complete;
+      dispatch({
+        type: "set-tasks",
+        payload: [newTask, ...newActivityTasks],
+      });
+      setLoading(false);
+      setAddingTask(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
     }
+  }
 
+  async function writeTask() {
     try {
       setLoading(true);
       const taskId = uuidv4();
@@ -74,6 +104,15 @@ export default function AddTaskModal() {
     }
   }
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const { validationErrors, valid } = validateTask(deadline, task);
+    if (!valid) {
+      return setErrors(validationErrors);
+    }
+    edit ? await updateTask() : await writeTask();
+  }
+
   return (
     <div className={AddTaskModalStyles.container}>
       <div className={AddTaskModalStyles.title}>
@@ -89,6 +128,7 @@ export default function AddTaskModal() {
               required={true}
               placeholder="Task Name"
               onChange={handleTask}
+              value={task}
             />
           </label>
           {errors && errors.name && (
@@ -133,7 +173,7 @@ export default function AddTaskModal() {
         </div>
         <div className={AddTaskModalStyles.buttons}>
           <Button
-            text="Add"
+            text={edit ? "Update" : "Add"}
             disabled={loading}
             loading={loading}
             type="submit"

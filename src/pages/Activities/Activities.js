@@ -19,6 +19,8 @@ export default function Activities() {
   const { mountedTaskModal, addingTask, setAddingTask } =
     useAddTaskModalContext();
   const closingModal = adding || addingTask ? "" : ActivitiesStyles.modalout;
+  const openingModalCanvas =
+    adding || addingTask ? ActivitiesStyles.canvasin : "";
 
   function closeModal() {
     adding ? setAdding(false) : setAddingTask(false);
@@ -44,9 +46,11 @@ export default function Activities() {
         <>
           <div
             onClick={() => closeModal()}
-            className={`${ActivitiesStyles.modaldiv} ${closingModal}`}
+            className={`${ActivitiesStyles.modaldiv} ${openingModalCanvas} ${closingModal}`}
           ></div>
-          <div className={`${ActivitiesStyles.modal} ${closingModal}`}>
+          <div
+            className={`${ActivitiesStyles.modal} ${openingModalCanvas} ${closingModal}`}
+          >
             <AddActivityModal />
           </div>
         </>
@@ -55,9 +59,11 @@ export default function Activities() {
         <>
           <div
             onClick={() => closeModal()}
-            className={`${ActivitiesStyles.modaldiv} ${closingModal}`}
+            className={`${ActivitiesStyles.modaldiv} ${openingModalCanvas} ${closingModal}`}
           ></div>
-          <div className={`${ActivitiesStyles.modal} ${closingModal}`}>
+          <div
+            className={`${ActivitiesStyles.modal} ${openingModalCanvas} ${closingModal}`}
+          >
             <AddTaskModal />
           </div>
         </>
