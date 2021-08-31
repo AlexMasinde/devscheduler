@@ -10,21 +10,49 @@ import CloseIcon from "../CloseIcon/CloseIcon";
 
 import DeleteModalStyles from "./DeleteModal.module.css";
 
-export default function DeleteModal({ task }) {
+export default function DeleteModal({ item }) {
   const [loading, setLoading] = useState(false);
   const { setDeleting } = useDeleteModal();
-  const { dispatch, activityTasks } = useActivities();
+  const { dispatch, activityTasks, activities } = useActivities();
 
   function closeModal() {
     setDeleting(false);
   }
 
-  async function handleDelete() {
+  async function deleteActivity() {
     try {
       setLoading(true);
-      await database.tasks.doc(task.id).delete();
+      await database.activities.doc(item.id).delete();
+      if (activityTasks.length > 0) {
+        activityTasks.forEach(async (activityTask) => {
+          await database.tasks.doc(activityTask.id).delete();
+        });
+      }
+      const newActivities = activities.filter(
+        (activity) => activity.id !== item.id
+      );
+      dispatch({
+        type: "set-activities",
+        payload: newActivities,
+      });
+      setLoading(false);
+      setDeleting(false);
+      dispatch({
+        type: "select-activity",
+        payload: null,
+      });
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }
+
+  async function deleteTask() {
+    try {
+      setLoading(true);
+      await database.tasks.doc(item.id).delete();
       const newActivities = activityTasks.filter(
-        (activityTask) => activityTask.id !== task.id
+        (activityTask) => activityTask.id !== item.id
       );
       dispatch({
         type: "set-tasks",
@@ -35,6 +63,16 @@ export default function DeleteModal({ task }) {
     } catch (err) {
       setLoading(false);
       console.log(err);
+    }
+  }
+
+  async function handleDelete() {
+    if (item.type === "task") {
+      await deleteTask();
+    }
+
+    if (item.type === "activity") {
+      await deleteActivity();
     }
   }
   return (
@@ -50,7 +88,7 @@ export default function DeleteModal({ task }) {
       </div>
       <div className={DeleteModalStyles.text}>
         <p>
-          Delete <span>{task.name}</span>?
+          Delete <span>{item.name}</span>?
         </p>
       </div>
       <div className={DeleteModalStyles.buttons}>

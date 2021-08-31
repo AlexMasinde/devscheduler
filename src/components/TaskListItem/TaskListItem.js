@@ -15,12 +15,16 @@ export default function TaskListItem({ task }) {
   const { activityTasks, dispatch } = useActivities();
   const { setAddingTask } = useAddTaskModalContext();
   const [loading, setLoading] = useState(false);
-  const { setDeleting, setTaskToDelete } = useDeleteModal();
+  const { setDeleting, setItemToDelete } = useDeleteModal();
   const [complete, setComplete] = useState(task.complete);
   const loadingClass = loading ? TaskListItemStyles.loading : "";
 
   async function handleTaskDelete() {
-    setTaskToDelete(task);
+    const toDelete = {
+      ...task,
+      type: "task",
+    };
+    setItemToDelete(toDelete);
     setDeleting(true);
   }
 

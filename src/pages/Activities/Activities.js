@@ -21,7 +21,7 @@ export default function Activities() {
   const { mounted, adding, setAdding } = useModal();
   const { mountedTaskModal, addingTask, setAddingTask } =
     useAddTaskModalContext();
-  const { deleting, setDeleting, deleteMounted, taskToDelete } =
+  const { deleting, setDeleting, deleteMounted, itemToDelete } =
     useDeleteModal();
   const closingModal =
     adding || addingTask || deleting ? "" : ActivitiesStyles.modalout;
@@ -102,7 +102,7 @@ export default function Activities() {
           <div
             className={`${ActivitiesStyles.modal} ${openingModalCanvas} ${closingModal}`}
           >
-            <DeleteModal task={taskToDelete} />
+            <DeleteModal item={itemToDelete} />
           </div>
         </>
       )}

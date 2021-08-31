@@ -86,35 +86,6 @@
   color: grey;
 }
 
-.modal {
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%, -50%);
-}
-
-.modalout {
-  animation: fadeOutAnimation ease 0.5s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-.modaldiv {
-  height: 100%;
-  width: 100%;
-  background-color: rgba(40, 40, 70, 0.1);
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-}
-
-.canvasin {
-  animation: fadeInAnimation ease 0.5s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;

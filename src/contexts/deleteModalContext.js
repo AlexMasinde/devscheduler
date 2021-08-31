@@ -9,7 +9,7 @@ export function useDeleteModal() {
 export function DeleteModalContextProvider({ children }) {
   const [deleting, setDeleting] = useState(false);
   const [deleteMounted, setDeleteMounted] = useState(false);
-  const [taskToDelete, setTaskToDelete] = useState({});
+  const [itemToDelete, setItemToDelete] = useState({});
 
   useEffect(() => {
     let timeoutId;
@@ -25,8 +25,8 @@ export function DeleteModalContextProvider({ children }) {
     deleting,
     setDeleting,
     deleteMounted,
-    setTaskToDelete,
-    taskToDelete,
+    setItemToDelete,
+    itemToDelete,
   };
 
   return (

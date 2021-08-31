@@ -3,6 +3,7 @@ import shortid from "shortid";
 
 import { useActivities } from "../../contexts/activitiesContext";
 import { useAddTaskModalContext } from "../../contexts/addtaskModalContext";
+import { useDeleteModal } from "../../contexts/deleteModalContext";
 
 import TaskListItem from "../TaskListItem/TaskListItem";
 
@@ -17,6 +18,7 @@ export default function ActivityView() {
   const { setAddingTask } = useAddTaskModalContext();
   const { activities, selectedActivity, activityTasks, dispatch } =
     useActivities();
+  const { setItemToDelete, setDeleting } = useDeleteModal();
   const [loading, setLoading] = useState(false);
   const [loadingTasks, setLoadingtasks] = useState(false);
 
@@ -44,34 +46,13 @@ export default function ActivityView() {
     getActivityTasks();
   }, [selectedActivity, dispatch]);
 
-  async function deleteActivity() {
-    if (loading) {
-      return;
-    }
-    try {
-      setLoading(true);
-      await database.activities.doc(selectedActivity.id).delete();
-      if (activityTasks.length > 0) {
-        activityTasks.forEach(async (activityTask) => {
-          await database.tasks.doc(activityTask.id).delete();
-        });
-      }
-      const newActivities = activities.filter(
-        (activity) => activity.id !== selectedActivity.id
-      );
-      dispatch({
-        type: "set-activities",
-        payload: newActivities,
-      });
-      setLoading(false);
-      dispatch({
-        type: "select-activity",
-        payload: null,
-      });
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
+  function deleteActivity() {
+    const toDelete = {
+      ...selectedActivity,
+      type: "activity",
+    };
+    setItemToDelete(toDelete);
+    setDeleting(true);
   }
 
   function handleModal() {

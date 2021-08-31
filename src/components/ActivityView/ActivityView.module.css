@@ -36,8 +36,13 @@
 .headericons > img {
   height: 1.8rem;
 }
+
 .headericons {
   margin-left: 2rem;
+}
+
+.headericons:hover {
+  cursor: pointer;
 }
 
 .headercontent > div > p {
