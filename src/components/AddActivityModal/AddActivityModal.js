@@ -25,8 +25,10 @@ export default function AddActivityModal() {
   const { dispatch, activities, editingItem } = useActivities();
   const { edit, item } = editingItem;
   const [dropdown, setDropdown] = useState(false);
-  const [category, setCategory] = useState("Select Category");
-  const [activity, setActivity] = useState("");
+  const [category, setCategory] = useState(
+    edit ? item.category : "Select Category"
+  );
+  const [activity, setActivity] = useState(edit ? item.name : "");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
@@ -152,6 +154,7 @@ export default function AddActivityModal() {
 
   return (
     <div className={AddActivityModalStyles.container}>
+      {console.log(item)}
       <div className={AddActivityModalStyles.title}>
         <h1>Add Activity</h1>
         <img onClick={() => handleModal()} src={closeicon} alt="close" />
@@ -164,7 +167,7 @@ export default function AddActivityModal() {
               <Input
                 type="text"
                 required={true}
-                placeholder="Activity Name"
+                value={activity}
                 onChange={handleActivity}
               />
             </label>
@@ -255,7 +258,7 @@ export default function AddActivityModal() {
           </div>
           <div className={AddActivityModalStyles.buttons}>
             <Button
-              text="Add Activity"
+              text={edit ? "Update Activity" : "Add Activity"}
               disabled={loading}
               loading={loading}
               type="submit"
