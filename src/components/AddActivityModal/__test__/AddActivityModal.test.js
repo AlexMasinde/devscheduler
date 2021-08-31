@@ -31,7 +31,9 @@ function renderAddActivityModal() {
 describe("Add Activity Modal", () => {
   it("Add activity component renders", () => {
     renderAddActivityModal();
-    const headerElement = screen.getByText(/Add Activity/i);
+    const headerElement = screen.getByRole("heading", {
+      name: /Add Activity/i,
+    });
     expect(headerElement).toBeInTheDocument();
   });
 
@@ -109,7 +111,7 @@ describe("Add Activity Modal", () => {
     const secondInput = screen.getByLabelText(/Second/i);
     const selectInput = screen.getByLabelText(/Select AM/i);
 
-    fireEvent.change(monthInput, { target: { value: 8 } });
+    fireEvent.change(monthInput, { target: { value: 9 } });
     fireEvent.change(dayInput, { target: { value: 30 } });
     fireEvent.change(yearInput, { target: { value: 2021 } });
     fireEvent.change(hourInput, { target: { value: 10 } });
@@ -117,7 +119,7 @@ describe("Add Activity Modal", () => {
     fireEvent.change(secondInput, { target: { value: 30 } });
     userEvent.selectOptions(selectInput, "pm");
 
-    const addButton = screen.getByRole("button", { name: "Add" });
+    const addButton = screen.getByRole("button", { name: "Add Activity" });
     fireEvent.click(addButton);
     const headerElement = await screen.findByRole("heading", {
       name: "Add Activity",
