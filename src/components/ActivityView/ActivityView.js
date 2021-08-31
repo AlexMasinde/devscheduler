@@ -18,11 +18,12 @@ export default function ActivityView() {
   const { activities, selectedActivity, activityTasks, dispatch } =
     useActivities();
   const [loading, setLoading] = useState(false);
+  const [loadingTasks, setLoadingtasks] = useState(false);
 
   useEffect(() => {
     async function getActivityTasks() {
       try {
-        setLoading(true);
+        setLoadingtasks(true);
         const results = await database.tasks
           .where("activityId", "==", selectedActivity.id)
           .orderBy("deadline", "desc")
@@ -34,9 +35,9 @@ export default function ActivityView() {
           type: "set-tasks",
           payload: formattedResults,
         });
-        setLoading(false);
+        setLoadingtasks(false);
       } catch (err) {
-        setLoading(false);
+        setLoadingtasks(false);
         console.log(err);
       }
     }
@@ -48,7 +49,13 @@ export default function ActivityView() {
       return;
     }
     try {
+      setLoading(true);
       await database.activities.doc(selectedActivity.id).delete();
+      if (activityTasks.length > 0) {
+        activityTasks.forEach(async (activityTask) => {
+          await database.tasks.doc(activityTask.id).delete();
+        });
+      }
       const newActivities = activities.filter(
         (activity) => activity.id !== selectedActivity.id
       );
@@ -57,6 +64,10 @@ export default function ActivityView() {
         payload: newActivities,
       });
       setLoading(false);
+      dispatch({
+        type: "select-activity",
+        payload: null,
+      });
     } catch (err) {
       setLoading(false);
       console.log(err);
@@ -85,11 +96,23 @@ export default function ActivityView() {
           </div>
         </div>
       </div>
-      <div>
-        {activityTasks.map((task) => {
-          return <TaskListItem key={shortid.generate()} task={task} />;
-        })}
-      </div>
+      {loadingTasks && (
+        <div className={ActivityViewStyles.info}>
+          <p>Fetching Tasks...</p>
+        </div>
+      )}
+      {!loadingTasks && activityTasks.length > 0 && (
+        <div>
+          {activityTasks.map((task) => {
+            return <TaskListItem key={shortid.generate()} task={task} />;
+          })}
+        </div>
+      )}
+      {!loadingTasks && activityTasks.length === 0 && (
+        <div className={ActivityViewStyles.info}>
+          <p>No tasks for this activity. You can add them below</p>
+        </div>
+      )}
       <div onClick={() => handleModal()} className={ActivityViewStyles.add}>
         <img src={add} alt="Add task" />
         <span>Add Task</span>

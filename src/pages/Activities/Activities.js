@@ -3,6 +3,7 @@ import React from "react";
 import { useModal } from "../../contexts/modalContext";
 import { useActivities } from "../../contexts/activitiesContext";
 import { useAddTaskModalContext } from "../../contexts/addtaskModalContext";
+import { useDeleteModal } from "../../contexts/deleteModalContext";
 
 import ActivitiiesList from "../../components/ActivitiesList/ActivitiiesList";
 import DashboardNav from "../../components/DashboardNav/DashboardNav";
@@ -12,6 +13,7 @@ import ActivityView from "../../components/ActivityView/ActivityView";
 import AddTaskModal from "../../components/AddTaskModal/AddTaskModal";
 
 import ActivitiesStyles from "./Activities.module.css";
+import DeleteModal from "../../components/DeleteModal/DeleteModal";
 
 export default function Activities() {
   const { selectedActivity, editingTask, dispatch } = useActivities();
@@ -19,9 +21,12 @@ export default function Activities() {
   const { mounted, adding, setAdding } = useModal();
   const { mountedTaskModal, addingTask, setAddingTask } =
     useAddTaskModalContext();
-  const closingModal = adding || addingTask ? "" : ActivitiesStyles.modalout;
+  const { deleting, setDeleting, deleteMounted, taskToDelete } =
+    useDeleteModal();
+  const closingModal =
+    adding || addingTask || deleting ? "" : ActivitiesStyles.modalout;
   const openingModalCanvas =
-    adding || addingTask ? ActivitiesStyles.canvasin : "";
+    adding || addingTask || deleting ? ActivitiesStyles.canvasin : "";
 
   function closeModal() {
     if (edit) {
@@ -33,7 +38,17 @@ export default function Activities() {
         },
       });
     }
-    adding ? setAdding(false) : setAddingTask(false);
+    if (adding) {
+      setAdding(false);
+    }
+
+    if (addingTask) {
+      setAddingTask();
+    }
+
+    if (deleting) {
+      setDeleting(false);
+    }
   }
 
   return (
@@ -75,6 +90,19 @@ export default function Activities() {
             className={`${ActivitiesStyles.modal} ${openingModalCanvas} ${closingModal}`}
           >
             <AddTaskModal />
+          </div>
+        </>
+      )}
+      {deleteMounted && (
+        <>
+          <div
+            onClick={() => closeModal()}
+            className={`${ActivitiesStyles.modaldiv} ${openingModalCanvas} ${closingModal}`}
+          ></div>
+          <div
+            className={`${ActivitiesStyles.modal} ${openingModalCanvas} ${closingModal}`}
+          >
+            <DeleteModal task={taskToDelete} />
           </div>
         </>
       )}

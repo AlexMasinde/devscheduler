@@ -202,7 +202,7 @@ export default function AddActivityModal() {
           </div>
           <div className={AddActivityModalStyles.buttons}>
             <Button
-              text="Add"
+              text="Add Activity"
               disabled={loading}
               loading={loading}
               type="submit"

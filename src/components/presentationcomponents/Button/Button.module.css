@@ -1,10 +1,9 @@
 .btn {
   background-color: #29a19c;
   color: #fafafa;
-  font-weight: 600;
   font-size: 1.4rem;
   border-radius: 8px;
-  padding: 8px 24px;
+  padding: 0.6rem 1rem;
   text-align: center;
   border: 1px solid transparent;
   transition: 0.5s;
@@ -42,6 +41,26 @@
   border-top-color: #ffffff;
   border-radius: 50%;
   animation: button-loading-spinner 1s ease infinite;
+}
+
+.danger {
+  background-color: #f05454;
+}
+
+.danger:hover {
+  border: 1px solid #f05454 !important;
+  color: #f05454 !important;
+}
+
+.light {
+  background-color: #fafafa !important;
+  color: #29a19c !important;
+  border: 1px solid #29a19c;
+}
+
+.light:hover {
+  color: #fafafa !important;
+  background-color: #29a19c !important;
 }
 
 /* animations */

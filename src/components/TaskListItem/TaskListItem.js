@@ -4,6 +4,7 @@ import TaskListItemStyles from "./TaskListItem.module.css";
 
 import { useActivities } from "../../contexts/activitiesContext";
 import { useAddTaskModalContext } from "../../contexts/addtaskModalContext";
+import { useDeleteModal } from "../../contexts/deleteModalContext";
 
 import { database } from "../../firebase";
 
@@ -14,24 +15,13 @@ export default function TaskListItem({ task }) {
   const { activityTasks, dispatch } = useActivities();
   const { setAddingTask } = useAddTaskModalContext();
   const [loading, setLoading] = useState(false);
+  const { setDeleting, setTaskToDelete } = useDeleteModal();
   const [complete, setComplete] = useState(task.complete);
+  const loadingClass = loading ? TaskListItemStyles.loading : "";
 
   async function handleTaskDelete() {
-    try {
-      setLoading(true);
-      await database.tasks.doc(task.id).delete();
-      const newActivities = activityTasks.filter(
-        (activityTask) => activityTask.id !== task.id
-      );
-      dispatch({
-        type: "set-tasks",
-        payload: newActivities,
-      });
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
+    setTaskToDelete(task);
+    setDeleting(true);
   }
 
   async function completeTask() {
@@ -64,7 +54,7 @@ export default function TaskListItem({ task }) {
   }
 
   return (
-    <div className={TaskListItemStyles.listItem}>
+    <div className={`${TaskListItemStyles.listItem} ${loadingClass}`}>
       {console.log(activityTasks)}
       <div onClick={() => completeTask()} className={TaskListItemStyles.text}>
         <label className={TaskListItemStyles.checkboxcontainer}>

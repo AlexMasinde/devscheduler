@@ -112,3 +112,10 @@
 .add:hover {
   cursor: pointer;
 }
+
+.info {
+  width: fit-content;
+  margin: 6rem auto 0;
+  font-size: 1.4rem;
+  color: #282846;
+}
