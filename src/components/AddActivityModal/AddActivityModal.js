@@ -22,7 +22,8 @@ import { validateActivity } from "../../utils/validators";
 
 export default function AddActivityModal() {
   const { setAdding } = useModal();
-  const { dispatch, activities } = useActivities();
+  const { dispatch, activities, editingItem } = useActivities();
+  const { edit, item } = editingItem;
   const [dropdown, setDropdown] = useState(false);
   const [category, setCategory] = useState("Select Category");
   const [activity, setActivity] = useState("");
@@ -59,7 +60,78 @@ export default function AddActivityModal() {
   }
 
   function handleModal() {
+    if (edit) {
+      dispatch({
+        type: "set-editing-task",
+        payload: {
+          edit: false,
+          item: {},
+        },
+      });
+    }
     setAdding(false);
+  }
+
+  async function updateActivity() {
+    try {
+      setLoading(true);
+      if (item.name === activity && item.deadline === deadline) {
+        return setErrors({
+          ...errors,
+          edit: "Please supply new activity values to update",
+        });
+      }
+      const newActivity = {};
+      if (activity !== item.name) {
+        newActivity.name = activity;
+      }
+      if (deadline !== item.deadline) {
+        newActivity.deadline = deadline;
+      }
+      await database.activities.doc(item.id).update(newActivity);
+      const newActivities = activities.filter(
+        (activity) => activity.id !== item.id
+      );
+      newActivity.id = item.id;
+      newActivity.complete = item.complete;
+      newActivity.category = item.category;
+      dispatch({
+        type: "set-activities",
+        payload: [newActivity, ...newActivities],
+      });
+      dispatch({
+        type: "select-activity",
+        payload: newActivity,
+      });
+      setLoading(false);
+      setAdding(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }
+
+  async function writeActivity(selectedCategory) {
+    try {
+      setLoading(true);
+      const activityId = uuidv4();
+      const activityDetails = {
+        name: activity,
+        category: selectedCategory,
+        deadline,
+        complete: false,
+      };
+      await database.activities.doc(activityId).set(activityDetails);
+      dispatch({
+        type: "set-activities",
+        payload: [{ ...activityDetails, id: activityId }, ...activities],
+      });
+      setLoading(false);
+      setAdding(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
   }
 
   async function handleSubmit(e) {
@@ -75,26 +147,7 @@ export default function AddActivityModal() {
       return setErrors(validationErrors);
     }
 
-    try {
-      setLoading(true);
-      const activityId = uuidv4();
-      const activityDetails = {
-        name: activity,
-        selectedCategory,
-        deadline,
-        complete: false,
-      };
-      await database.activities.doc(activityId).set(activityDetails);
-      dispatch({
-        type: "set-activities",
-        payload: [{ ...activityDetails, id: activityId }, ...activities],
-      });
-      setLoading(false);
-      setAdding(false);
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
+    edit ? await updateActivity() : await writeActivity(selectedCategory);
   }
 
   return (

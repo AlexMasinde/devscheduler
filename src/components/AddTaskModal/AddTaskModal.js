@@ -18,14 +18,14 @@ import Button from "../presentationcomponents/Button/Button";
 import closeicon from "../../icons/closeicon.svg";
 
 export default function AddTaskModal() {
-  const { selectedActivity, dispatch, activityTasks, editingTask } =
+  const { selectedActivity, dispatch, activityTasks, editingItem } =
     useActivities();
-  const { edit, taskToEdit } = editingTask;
+  const { edit, item } = editingItem;
   const { setAddingTask } = useAddTaskModalContext();
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
-  const [task, setTask] = useState(edit ? taskToEdit.name : "");
+  const [task, setTask] = useState(edit ? item.name : "");
 
   function handleTask(e) {
     if (errors.name) {
@@ -44,10 +44,10 @@ export default function AddTaskModal() {
   function handleModal() {
     if (edit) {
       dispatch({
-        type: "set-editing-task",
+        type: "set-editing-item",
         payload: {
           edit: false,
-          taskToEdit: {},
+          item: {},
         },
       });
     }
@@ -57,25 +57,26 @@ export default function AddTaskModal() {
   async function updateTask() {
     try {
       setLoading(true);
-      if (taskToEdit.name === task && taskToEdit.deadline === deadline) {
+      if (item.name === task && item.deadline === deadline) {
         return setErrors({
           ...errors,
           edit: "Please supply new task values to continue",
         });
       }
       const newTask = {};
-      if (task !== taskToEdit.name) {
+      if (task !== item.name) {
         newTask.name = task;
       }
-      if (deadline !== taskToEdit.deadline) {
+      if (deadline !== item.deadline) {
         newTask.deadline = deadline;
       }
-      await database.tasks.doc(taskToEdit.id).update(newTask);
+      await database.tasks.doc(item.id).update(newTask);
       const newActivityTasks = activityTasks.filter(
-        (activityTask) => activityTask.id !== taskToEdit.id
+        (activityTask) => activityTask.id !== item.id
       );
-      newTask.activityId = taskToEdit.activityId;
-      newTask.complete = taskToEdit.complete;
+      newTask.activityId = item.activityId;
+      newTask.complete = item.complete;
+      newTask.id = item.id;
       dispatch({
         type: "set-tasks",
         payload: [newTask, ...newActivityTasks],

@@ -4,6 +4,7 @@ import shortid from "shortid";
 import { useActivities } from "../../contexts/activitiesContext";
 import { useAddTaskModalContext } from "../../contexts/addtaskModalContext";
 import { useDeleteModal } from "../../contexts/deleteModalContext";
+import { useModal } from "../../contexts/modalContext";
 
 import TaskListItem from "../TaskListItem/TaskListItem";
 
@@ -16,10 +17,9 @@ import { database } from "../../firebase";
 
 export default function ActivityView() {
   const { setAddingTask } = useAddTaskModalContext();
-  const { activities, selectedActivity, activityTasks, dispatch } =
-    useActivities();
+  const { setAdding } = useModal();
+  const { selectedActivity, activityTasks, dispatch } = useActivities();
   const { setItemToDelete, setDeleting } = useDeleteModal();
-  const [loading, setLoading] = useState(false);
   const [loadingTasks, setLoadingtasks] = useState(false);
 
   useEffect(() => {
@@ -55,6 +55,17 @@ export default function ActivityView() {
     setDeleting(true);
   }
 
+  function editActivity() {
+    dispatch({
+      type: "set-editing-item",
+      payload: {
+        edit: true,
+        item: selectedActivity,
+      },
+    });
+    setAdding(true);
+  }
+
   function handleModal() {
     setAddingTask(true);
   }
@@ -64,7 +75,10 @@ export default function ActivityView() {
       <div className={ActivityViewStyles.header}>
         <p>{selectedActivity.name}</p>
         <div className={ActivityViewStyles.headercontent}>
-          <div className={ActivityViewStyles.headericons}>
+          <div
+            className={ActivityViewStyles.headericons}
+            onClick={() => editActivity()}
+          >
             <img src={edit} alt="edit" />
             <p>Edit</p>
           </div>

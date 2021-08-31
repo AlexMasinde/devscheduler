@@ -16,8 +16,8 @@ import ActivitiesStyles from "./Activities.module.css";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
 
 export default function Activities() {
-  const { selectedActivity, editingTask, dispatch } = useActivities();
-  const { edit } = editingTask;
+  const { selectedActivity, editingItem, dispatch } = useActivities();
+  const { edit } = editingItem;
   const { mounted, adding, setAdding } = useModal();
   const { mountedTaskModal, addingTask, setAddingTask } =
     useAddTaskModalContext();
@@ -31,10 +31,10 @@ export default function Activities() {
   function closeModal() {
     if (edit) {
       dispatch({
-        type: "set-editing-task",
+        type: "set-editing-item",
         payload: {
           edit: false,
-          taskToEdit: {},
+          item: {},
         },
       });
     }

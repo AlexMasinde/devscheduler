@@ -48,10 +48,10 @@ export default function TaskListItem({ task }) {
 
   function handleTaskEdit() {
     dispatch({
-      type: "set-editing-task",
+      type: "set-editing-item",
       payload: {
         edit: true,
-        taskToEdit: task,
+        item: task,
       },
     });
     setAddingTask(true);
