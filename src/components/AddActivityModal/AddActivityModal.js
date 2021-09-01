@@ -156,7 +156,7 @@ export default function AddActivityModal() {
     <div className={AddActivityModalStyles.container}>
       {errors && console.log(item)}
       <div className={AddActivityModalStyles.title}>
-        <h1>Add Activity</h1>
+        <h1>{edit ? "Edit Activity" : "Add Activity"}</h1>
         <img onClick={() => handleModal()} src={closeicon} alt="close" />
       </div>
       <div className={AddActivityModalStyles.content}>

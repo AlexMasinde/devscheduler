@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react";
 
-const ActivitiesContext = createContext();
+export const ActivitiesContext = createContext();
 
 export function useActivities() {
   return useContext(ActivitiesContext);
