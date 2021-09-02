@@ -93,7 +93,7 @@ describe("Add Activity Modal", () => {
     }
   });
 
-  it("Close modal when add function is complete", async () => {
+  it("Close modal when add function is complete", () => {
     renderAddActivityModal();
 
     const activityName = screen.getByPlaceholderText(/Activity Name/i);
@@ -121,9 +121,10 @@ describe("Add Activity Modal", () => {
 
     const addButton = screen.getByRole("button", { name: "Add Activity" });
     fireEvent.click(addButton);
-    const headerElement = await screen.findByRole("heading", {
+    const headerElement = screen.getByRole("heading", {
       name: "Add Activity",
     });
+
     const errorElement = screen.queryAllByTestId("error");
     expect(errorElement.length).toBe(0);
 

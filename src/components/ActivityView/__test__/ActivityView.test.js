@@ -98,16 +98,6 @@ describe("Unit test activity view component with tasks", () => {
     });
   });
 
-  it("Renders add task modal", () => {
-    renderActivityView();
-    const addTaskElement = screen.getByText(/Add Task/i);
-    fireEvent.click(addTaskElement);
-    setTimeout(() => {
-      const headerElement = screen.getByRole("heading", { name: /Add Task/i });
-      expect(headerElement).toBeInTheDocument();
-    }, 600);
-  });
-
   it("Activity view removed when there is no selected task", async () => {
     renderActivityView();
     const nameElement = screen.getByText(selectedActivity.name);
@@ -135,8 +125,45 @@ describe("Unit test activity view component with tasks", () => {
       expect(buttonElement).toBeInTheDocument();
     }, 600);
   });
+
+  it("Allows users to add a task", () => {
+    renderActivityView();
+    const addTaskElement = screen.getByText(/Add Task/i);
+    fireEvent.click(addTaskElement);
+
+    waitFor(() => {
+      const taskName = screen.getByPlaceholderText("Task Name");
+      fireEvent.change(taskName, { target: { value: "Test task" } });
+      const monthInput = screen.getByLabelText(/Month/i);
+      const dayInput = screen.getByLabelText(/Day/i);
+      const yearInput = screen.getByLabelText(/Year/i);
+      const hourInput = screen.getByLabelText(/Hour/i);
+      const minuteInput = screen.getByLabelText(/Minute/i);
+      const secondInput = screen.getByLabelText(/Second/i);
+      const selectInput = screen.getByLabelText(/Select AM/i);
+
+      fireEvent.change(monthInput, { target: { value: 9 } });
+      fireEvent.change(dayInput, { target: { value: 30 } });
+      fireEvent.change(yearInput, { target: { value: 2021 } });
+      fireEvent.change(hourInput, { target: { value: 10 } });
+      fireEvent.change(minuteInput, { target: { value: 15 } });
+      fireEvent.change(secondInput, { target: { value: 30 } });
+      userEvent.selectOptions(selectInput, "pm");
+
+      const submitElement = screen.getByRole("button", { name: "Add" });
+      fireEvent.click(submitElement);
+      const errorElements = screen.getAllByTestId("error");
+      expect(errorElements.length).toBe(0);
+
+      const headerElement = screen.getByRole("heading", { name: "Add Task" });
+      setTimeout(() => {
+        expect(headerElement).not.toBeInTheDocument();
+      }, 600);
+    });
+
+    waitFor(() => {
+      const newTaskElement = screen.getByText(/Test task/i);
+      expect(newTaskElement).toBeInTheDocument();
+    });
+  });
 });
-
-// describe("Integration tests for activity view", () => {
-
-// });
