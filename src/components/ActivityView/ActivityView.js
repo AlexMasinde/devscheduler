@@ -79,14 +79,14 @@ export default function ActivityView() {
             className={ActivityViewStyles.headericons}
             onClick={() => editActivity()}
           >
-            <img src={edit} alt="edit" />
+            <img src={edit} alt="edit activity" />
             <p>Edit</p>
           </div>
           <div
             onClick={() => deleteActivity()}
             className={ActivityViewStyles.headericons}
           >
-            <img src={trash} alt="trash" />
+            <img src={trash} alt="delete activity" />
             <p>Delete</p>
           </div>
         </div>

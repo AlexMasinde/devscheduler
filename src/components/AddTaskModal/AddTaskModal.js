@@ -125,7 +125,7 @@ export default function AddTaskModal() {
   return (
     <div className={AddTaskModalStyles.container}>
       <div className={AddTaskModalStyles.title}>
-        <h1>Add Task</h1>
+        <h1>{edit ? "Edit Task" : "Add Task"}</h1>
         <img onClick={() => handleModal()} src={closeicon} alt="close" />
       </div>
       <form onSubmit={handleSubmit}>

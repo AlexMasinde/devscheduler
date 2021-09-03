@@ -58,7 +58,10 @@ export default function TaskListItem({ task }) {
   }
 
   return (
-    <div className={`${TaskListItemStyles.listItem} ${loadingClass}`}>
+    <div
+      data-testid="task-list-item"
+      className={`${TaskListItemStyles.listItem} ${loadingClass}`}
+    >
       {console.log(activityTasks)}
       <div onClick={() => completeTask()} className={TaskListItemStyles.text}>
         <label className={TaskListItemStyles.checkboxcontainer}>
@@ -75,10 +78,10 @@ export default function TaskListItem({ task }) {
             onClick={() => handleTaskEdit()}
             className={TaskListItemStyles.lefticon}
             src={edit}
-            alt="edit"
+            alt="edit task"
           />
         )}
-        <img onClick={() => handleTaskDelete()} src={trash} alt="delete" />
+        <img onClick={() => handleTaskDelete()} src={trash} alt="delete task" />
       </div>
     </div>
   );

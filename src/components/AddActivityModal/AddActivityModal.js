@@ -154,9 +154,8 @@ export default function AddActivityModal() {
 
   return (
     <div className={AddActivityModalStyles.container}>
-      {console.log(item)}
       <div className={AddActivityModalStyles.title}>
-        <h1>Add Activity</h1>
+        <h1>{edit ? "Edit Activity" : "Add Activity"}</h1>
         <img onClick={() => handleModal()} src={closeicon} alt="close" />
       </div>
       <div className={AddActivityModalStyles.content}>
@@ -167,6 +166,7 @@ export default function AddActivityModal() {
               <Input
                 type="text"
                 required={true}
+                placeholder="Activity Name"
                 value={activity}
                 onChange={handleActivity}
               />
