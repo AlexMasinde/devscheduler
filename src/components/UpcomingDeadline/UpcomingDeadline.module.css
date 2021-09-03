@@ -1,0 +1,46 @@
+.container {
+  box-shadow: 0px 10px 25px rgba(29, 52, 54, 0.08);
+  border-radius: 1rem;
+  width: 47rem;
+  padding: 2rem;
+  background-color: #ffffff;
+  margin-top: 1rem;
+}
+
+.header > h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #29a19c;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.timeleft > p {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.timer > p {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+
+.activity {
+  font-size: 1.4rem;
+  color: #29a19c;
+}
+
+.activity > span {
+  font-weight: 600;
+}

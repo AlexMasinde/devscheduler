@@ -11,9 +11,10 @@ import PendingTasks from "../../components/presentationcomponents/PendingTasks/P
 import AddActivityModal from "../../components/AddActivityModal/AddActivityModal";
 import ActivityView from "../../components/ActivityView/ActivityView";
 import AddTaskModal from "../../components/AddTaskModal/AddTaskModal";
+import DeleteModal from "../../components/DeleteModal/DeleteModal";
+import UpcomingDeadline from "../../components/UpcomingDeadline/UpcomingDeadline";
 
 import ActivitiesStyles from "./Activities.module.css";
-import DeleteModal from "../../components/DeleteModal/DeleteModal";
 
 export default function Activities() {
   const { selectedActivity, editingItem, dispatch } = useActivities();
@@ -58,6 +59,9 @@ export default function Activities() {
       </div>
       <div>
         <PendingTasks />
+      </div>
+      <div>
+        <UpcomingDeadline />
       </div>
       <div>
         <ActivitiiesList />
