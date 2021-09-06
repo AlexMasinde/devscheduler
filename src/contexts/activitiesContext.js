@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
+import { database } from "../firebase";
 
 export const ActivitiesContext = createContext();
 
@@ -38,6 +39,34 @@ const initialState = {
 
 export function ActivitiesContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    async function getActivities() {
+      try {
+        dispatch({
+          type: "ACTIVITIES_LOADING",
+          payload: true,
+        });
+        const rawActivities = await database.activities.get();
+        const formattedActivities = rawActivities.docs.map((rawActivity) => {
+          return database.formatDocument(rawActivity);
+        });
+        dispatch({ type: "SET_ACTIVITIES", payload: formattedActivities });
+        dispatch({
+          type: "ACTIVITIES_LOADING",
+          payload: false,
+        });
+        console.log("effect ran");
+      } catch (err) {
+        dispatch({
+          type: "ACTIVITIES_LOADING",
+          payload: false,
+        });
+        console.log(err);
+      }
+    }
+    getActivities();
+  }, [dispatch]);
 
   const value = {
     selectedActivity: state.selectedActivity,

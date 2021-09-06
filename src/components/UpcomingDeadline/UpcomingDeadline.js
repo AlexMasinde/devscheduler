@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { useActivities } from "../../contexts/activitiesContext";
 import { database } from "../../firebase";
@@ -14,43 +14,48 @@ export default function UpcomingDeadline() {
   const [timeleft, setTimeLeft] = useState();
   const { activitiesLoading, activities } = useActivities();
 
-  const earliestDeadline =
-    activities.length >= 1
-      ? activities.reduce((min, activity) =>
-          min.deadline < activity.deadline ? min : activity
-        )
-      : null;
-
-  const { deadline, timeleft, interval } = useEffect(() => {
-    const { deadline, timeleft, interval } = findDeadline(
-      earliestDeadline.deadline
-    );
-    setInterval(() => {
-      setDeadline(deadline);
-      setTimeLeft(timeleft);
-    }, interval);
-  });
+  useEffect(() => {
+    let countDown;
+    if (activities.length < 1) {
+      console.log("not ready");
+    } else {
+      const earliestDeadline =
+        activities.length >= 1
+          ? activities.reduce((min, activity) =>
+              min.deadline < activity.deadline ? min : activity
+            )
+          : null;
+      const { deadline, timeleft, interval } = findDeadline(
+        earliestDeadline.deadline
+      );
+      countDown = setInterval(() => {
+        setDeadline(deadline);
+        setTimeLeft(timeleft);
+      }, interval);
+    }
+    return () => clearInterval(countDown);
+  }, [timeleft]);
 
   return (
     <div className={UpcomingDeadlineStyles.container}>
-      {console.log(deadline)}
-      {console.log(timeleft)}
       <div className={UpcomingDeadlineStyles.header}>
         <h1>Upcoming Deadline</h1>
       </div>
       <div className={UpcomingDeadlineStyles.time}>
         <div className={UpcomingDeadlineStyles.timeleft}>
-          <p>Time left</p>
+          <p>Time Left</p>
           <div className={UpcomingDeadlineStyles.timer}>
             <img src={clock} alt="Clock" />
-            <p className={UpcomingDeadlineStyles.timeleftdigits}>12:30:43</p>
+            <p className={UpcomingDeadlineStyles.timeleftdigits}>
+              {timeleft ?? "Time Left"}
+            </p>
           </div>
         </div>
         <div className={UpcomingDeadlineStyles.timeleft}>
           <p>Deadline</p>
           <div className={UpcomingDeadlineStyles.timer}>
             <img src={deadlinecalendar} alt="Icon" />
-            <p>5 December 2021</p>
+            <p>{deadline ?? "5 December 2021"}</p>
           </div>
         </div>
       </div>
