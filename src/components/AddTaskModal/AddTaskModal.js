@@ -44,7 +44,7 @@ export default function AddTaskModal() {
   function handleModal() {
     if (edit) {
       dispatch({
-        type: "set-editing-item",
+        type: "SET_EDITING_ITEM",
         payload: {
           edit: false,
           item: {},
@@ -78,7 +78,7 @@ export default function AddTaskModal() {
       newTask.complete = item.complete;
       newTask.id = item.id;
       dispatch({
-        type: "set-tasks",
+        type: "SET_TASKS",
         payload: [newTask, ...newActivityTasks],
       });
       setLoading(false);
@@ -102,7 +102,7 @@ export default function AddTaskModal() {
       };
       await database.tasks.doc(taskId).set(taskObject);
       dispatch({
-        type: "set-tasks",
+        type: "SET_TASKS",
         payload: [taskObject, ...activityTasks],
       });
       setLoading(false);

@@ -64,7 +64,7 @@ export default function AddActivityModal() {
   function handleModal() {
     if (edit) {
       dispatch({
-        type: "set-editing-task",
+        type: "SET_EDITING_ITEM",
         payload: {
           edit: false,
           item: {},
@@ -98,11 +98,11 @@ export default function AddActivityModal() {
       newActivity.complete = item.complete;
       newActivity.category = item.category;
       dispatch({
-        type: "set-activities",
+        type: "SET_ACTIVITIES",
         payload: [newActivity, ...newActivities],
       });
       dispatch({
-        type: "select-activity",
+        type: "SELECT_ACTIVITY",
         payload: newActivity,
       });
       setLoading(false);
@@ -125,7 +125,7 @@ export default function AddActivityModal() {
       };
       await database.activities.doc(activityId).set(activityDetails);
       dispatch({
-        type: "set-activities",
+        type: "SET_ACTIVITIES",
         payload: [{ ...activityDetails, id: activityId }, ...activities],
       });
       setLoading(false);

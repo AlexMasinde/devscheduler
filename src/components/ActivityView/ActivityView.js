@@ -34,7 +34,7 @@ export default function ActivityView() {
           return database.formatDocument(doc);
         });
         dispatch({
-          type: "set-tasks",
+          type: "SET_TASKS",
           payload: formattedResults,
         });
         setLoadingtasks(false);
@@ -57,7 +57,7 @@ export default function ActivityView() {
 
   function editActivity() {
     dispatch({
-      type: "set-editing-item",
+      type: "SET_EDITING_ITEM",
       payload: {
         edit: true,
         item: selectedActivity,

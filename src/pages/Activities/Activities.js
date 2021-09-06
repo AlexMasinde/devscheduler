@@ -32,7 +32,7 @@ export default function Activities() {
   function closeModal() {
     if (edit) {
       dispatch({
-        type: "set-editing-item",
+        type: "SET_EDITING_ITEM",
         payload: {
           edit: false,
           item: {},

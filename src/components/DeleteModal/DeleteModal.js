@@ -32,13 +32,13 @@ export default function DeleteModal({ item }) {
         (activity) => activity.id !== item.id
       );
       dispatch({
-        type: "set-activities",
+        type: "SET_ACTIVITIES",
         payload: newActivities,
       });
       setLoading(false);
       setDeleting(false);
       dispatch({
-        type: "select-activity",
+        type: "SELECT_ACTIVITY",
         payload: null,
       });
     } catch (err) {
@@ -55,7 +55,7 @@ export default function DeleteModal({ item }) {
         (activityTask) => activityTask.id !== item.id
       );
       dispatch({
-        type: "set-tasks",
+        type: "SET_TASKS",
         payload: newActivities,
       });
       setLoading(false);

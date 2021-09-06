@@ -1,40 +1,35 @@
 import React, { useEffect, useState } from "react";
 
+import { useActivities } from "../../contexts/activitiesContext";
+import { database } from "../../firebase";
+import { findDeadline } from "../../utils/findDeadline";
+
 import UpcomingDeadlineStyles from "./UpcomingDeadline.module.css";
 
 import clock from "../../icons/clock.svg";
 import deadlinecalendar from "../../icons/deadlinecalendar.svg";
-import { database } from "../../firebase";
-import { findDeadline } from "../../utils/findDeadline";
 
 export default function UpcomingDeadline() {
   const [deadline, setDeadline] = useState();
   const [timeleft, setTimeLeft] = useState();
-  const [loading, setLoading] = useState(false);
+  const { activitiesLoading, activities } = useActivities();
 
-  useEffect(() => {
-    async function getActivity() {
-      try {
-        setLoading(false);
-        const unformattedActivity = await database.activities
-          .orderBy("deadline", "asc")
-          .limit(1)
-          .get();
-        const activity = unformattedActivity.docs.map((doc) => {
-          return database.formatDocument(doc);
-        });
-        console.log(activity[0].deadline.toDate());
-        const { deadline, timeleft } = findDeadline(activity[0].deadline);
-        setDeadline(deadline);
-        setTimeLeft(timeleft);
-        setLoading(false);
-      } catch (err) {
-        setLoading(false);
-        console.log(err);
-      }
-    }
-    getActivity();
-  }, []);
+  const earliestDeadline =
+    activities.length >= 1
+      ? activities.reduce((min, activity) =>
+          min.deadline < activity.deadline ? min : activity
+        )
+      : null;
+
+  const { deadline, timeleft, interval } = useEffect(() => {
+    const { deadline, timeleft, interval } = findDeadline(
+      earliestDeadline.deadline
+    );
+    setInterval(() => {
+      setDeadline(deadline);
+      setTimeLeft(timeleft);
+    }, interval);
+  });
 
   return (
     <div className={UpcomingDeadlineStyles.container}>

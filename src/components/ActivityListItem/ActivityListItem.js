@@ -9,9 +9,9 @@ export default function ActivityListItem({ activity }) {
 
   function selectActivity() {
     if (selectedActivity && selectedActivity.id === activity.id) {
-      dispatch({ type: "select-activity", payload: null });
+      dispatch({ type: "SELECT_ACTIVITY", payload: null });
     } else {
-      dispatch({ type: "select-activity", payload: activity });
+      dispatch({ type: "SELECT_ACTIVITY", payload: activity });
     }
   }
 

@@ -11,19 +11,28 @@ import ActivitiiesListStyles from "./ActivitiiesList.module.css";
 
 export default function ActivitiiesList() {
   const { activities, dispatch } = useActivities();
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getActivities() {
       try {
-        setLoading(true);
+        dispatch({
+          type: "ACTIVITIES_LOADING",
+          payload: true,
+        });
         const rawActivities = await database.activities.get();
         const formattedActivities = rawActivities.docs.map((rawActivity) => {
           return database.formatDocument(rawActivity);
         });
-        dispatch({ type: "set-activities", payload: formattedActivities });
+        dispatch({ type: "SET_ACTIVITIES", payload: formattedActivities });
+        dispatch({
+          type: "ACTIVITIES_LOADING",
+          payload: false,
+        });
       } catch (err) {
-        setLoading(false);
+        dispatch({
+          type: "ACTIVITIES_LOADING",
+          payload: false,
+        });
         console.log(err);
       }
     }
