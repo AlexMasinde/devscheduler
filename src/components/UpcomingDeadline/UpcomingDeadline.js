@@ -20,10 +20,12 @@ export default function UpcomingDeadline() {
             min.deadline < activity.deadline ? min : activity
           )
         : null;
-    const { deadline, timeleft } = findDeadline(earliestDeadline.deadline);
+    const { deadline, timeleft, interval } = findDeadline(
+      earliestDeadline.deadline
+    );
     setDeadline(deadline);
     setTimer(timeleft);
-    return earliestDeadline;
+    return interval;
   }
 
   useEffect(() => {
@@ -31,8 +33,7 @@ export default function UpcomingDeadline() {
     if (activities.length < 1) {
       console.log("not ready");
     } else {
-      const { earliestDeadline } = fetchTimeleft();
-      const { interval } = fetchTimeleft(earliestDeadline);
+      const interval = fetchTimeleft();
       countdown = setInterval(fetchTimeleft, interval);
     }
     return () => clearInterval(countdown);

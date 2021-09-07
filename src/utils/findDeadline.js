@@ -4,7 +4,7 @@ export function findDeadline(rawDeadline) {
   const diff = rawDeadline.toDate() - new Date();
   const seconds = ("0" + Math.floor((diff / 1000) % 60)).slice(-2);
   const minutes = ("0" + Math.floor((diff / 1000 / 60) % 60)).slice(-2);
-  const hours = ("0" + Math.floor((diff / 1000 / 60 / 60) % 60)).slice(-2);
+  const hours = ("0" + Math.floor((diff / 1000 / 60 / 60) % 24)).slice(-2);
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   let timeleft;
   let interval;
@@ -14,7 +14,7 @@ export function findDeadline(rawDeadline) {
     timeleft = `${days}d:${hours}h`;
   }
 
-  if (days > 1) {
+  if (days >= 1) {
     interval = 1000 * 60 * 60;
   } else {
     interval = 1000;
