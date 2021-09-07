@@ -48,7 +48,7 @@ export default function AddActivityModal() {
 
   function handleActivity(e) {
     if (errors.name) {
-      setErrors({ ...errors, activityName: "" });
+      setErrors({ ...errors, name: "" });
     }
     const activityName = e.target.value;
     setActivity(activityName);

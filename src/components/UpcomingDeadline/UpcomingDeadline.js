@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useActivities } from "../../contexts/activitiesContext";
-import { database } from "../../firebase";
 import { findDeadline } from "../../utils/findDeadline";
 
 import UpcomingDeadlineStyles from "./UpcomingDeadline.module.css";
@@ -11,33 +10,38 @@ import deadlinecalendar from "../../icons/deadlinecalendar.svg";
 
 export default function UpcomingDeadline() {
   const [deadline, setDeadline] = useState();
-  const [timeleft, setTimeLeft] = useState();
-  const { activitiesLoading, activities } = useActivities();
+  const [timer, setTimer] = useState();
+  const { activities } = useActivities();
+
+  function fetchTimeleft() {
+    const earliestDeadline =
+      activities.length >= 1
+        ? activities.reduce((min, activity) =>
+            min.deadline < activity.deadline ? min : activity
+          )
+        : null;
+    const { deadline, timeleft } = findDeadline(earliestDeadline.deadline);
+    setDeadline(deadline);
+    setTimer(timeleft);
+    return earliestDeadline;
+  }
 
   useEffect(() => {
-    let countDown;
+    let countdown;
     if (activities.length < 1) {
       console.log("not ready");
     } else {
-      const earliestDeadline =
-        activities.length >= 1
-          ? activities.reduce((min, activity) =>
-              min.deadline < activity.deadline ? min : activity
-            )
-          : null;
-      const { deadline, timeleft, interval } = findDeadline(
-        earliestDeadline.deadline
-      );
-      countDown = setInterval(() => {
-        setDeadline(deadline);
-        setTimeLeft(timeleft);
-      }, interval);
+      const { earliestDeadline } = fetchTimeleft();
+      const { interval } = fetchTimeleft(earliestDeadline);
+      countdown = setInterval(fetchTimeleft, interval);
     }
-    return () => clearInterval(countDown);
-  }, [timeleft]);
+    return () => clearInterval(countdown);
+  });
 
   return (
     <div className={UpcomingDeadlineStyles.container}>
+      {console.log(timer)}
+      {console.log(deadline)}
       <div className={UpcomingDeadlineStyles.header}>
         <h1>Upcoming Deadline</h1>
       </div>
@@ -47,7 +51,7 @@ export default function UpcomingDeadline() {
           <div className={UpcomingDeadlineStyles.timer}>
             <img src={clock} alt="Clock" />
             <p className={UpcomingDeadlineStyles.timeleftdigits}>
-              {timeleft ?? "Time Left"}
+              {timer ?? "Time Left"}
             </p>
           </div>
         </div>
