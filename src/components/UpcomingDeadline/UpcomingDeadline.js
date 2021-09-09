@@ -15,7 +15,7 @@ export default function UpcomingDeadline() {
 
   function fetchTimeleft() {
     const earliestDeadline =
-      activities.length >= 1
+      activities.length !== 0
         ? activities.reduce((min, activity) =>
             min.deadline < activity.deadline ? min : activity
           )
@@ -34,15 +34,15 @@ export default function UpcomingDeadline() {
       console.log("not ready");
     } else {
       const interval = fetchTimeleft();
-      countdown = setInterval(fetchTimeleft, interval);
+      countdown = setInterval(() => {
+        fetchTimeleft();
+      }, interval);
     }
     return () => clearInterval(countdown);
   });
 
   return (
     <div className={UpcomingDeadlineStyles.container}>
-      {console.log(timer)}
-      {console.log(deadline)}
       <div className={UpcomingDeadlineStyles.header}>
         <h1>Upcoming Deadline</h1>
       </div>

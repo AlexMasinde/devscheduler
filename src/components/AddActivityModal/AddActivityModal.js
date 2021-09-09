@@ -97,9 +97,10 @@ export default function AddActivityModal() {
       newActivity.id = item.id;
       newActivity.complete = item.complete;
       newActivity.category = item.category;
+      const updatedActivities = [newActivity, ...newActivities];
       dispatch({
         type: "SET_ACTIVITIES",
-        payload: [newActivity, ...newActivities],
+        payload: updatedActivities,
       });
       dispatch({
         type: "SELECT_ACTIVITY",
@@ -123,6 +124,8 @@ export default function AddActivityModal() {
         deadline,
         complete: false,
       };
+      const timeStamp = deadline.getTime();
+      console.log(new Date(timeStamp));
       await database.activities.doc(activityId).set(activityDetails);
       dispatch({
         type: "SET_ACTIVITIES",

@@ -56,7 +56,6 @@ export function ActivitiesContextProvider({ children }) {
           type: "ACTIVITIES_LOADING",
           payload: false,
         });
-        console.log("effect ran");
       } catch (err) {
         dispatch({
           type: "ACTIVITIES_LOADING",
