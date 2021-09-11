@@ -11,6 +11,7 @@ import deadlinecalendar from "../../icons/deadlinecalendar.svg";
 export default function UpcomingDeadline() {
   const [deadline, setDeadline] = useState();
   const [timer, setTimer] = useState();
+  const [activityName, setActivityName] = useState("");
   const { activities } = useActivities();
 
   function fetchTimeleft() {
@@ -25,6 +26,7 @@ export default function UpcomingDeadline() {
     );
     setDeadline(deadline);
     setTimer(timeleft);
+    setActivityName(earliestDeadline.name);
     return interval;
   }
 
@@ -65,7 +67,7 @@ export default function UpcomingDeadline() {
         </div>
       </div>
       <p className={UpcomingDeadlineStyles.activity}>
-        Activity: <span>Build a new website</span>
+        Activity: <span>{activityName}</span>
       </p>
     </div>
   );

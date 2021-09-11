@@ -121,12 +121,14 @@ export default function AddActivityModal() {
       const activityDetails = {
         name: activity,
         category: selectedCategory,
-        deadline,
+        deadline: deadline.getTime(),
         complete: false,
+        createdAt: database.timestamp,
       };
       const timeStamp = deadline.getTime();
       console.log(new Date(timeStamp));
       await database.activities.doc(activityId).set(activityDetails);
+      console.log(activityDetails);
       dispatch({
         type: "SET_ACTIVITIES",
         payload: [{ ...activityDetails, id: activityId }, ...activities],
