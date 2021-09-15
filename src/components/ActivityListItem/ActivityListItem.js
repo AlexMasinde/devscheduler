@@ -6,6 +6,7 @@ import ActivityListItemStyles from "./ActivityListItem.module.css";
 
 export default function ActivityListItem({ activity }) {
   const { dispatch, selectedActivity } = useActivities();
+  const selected = selectedActivity && activity.id === selectedActivity.id;
 
   function selectActivity() {
     if (selectedActivity && selectedActivity.id === activity.id) {
@@ -16,7 +17,12 @@ export default function ActivityListItem({ activity }) {
   }
 
   return (
-    <div onClick={selectActivity} className={ActivityListItemStyles.listItem}>
+    <div
+      onClick={selectActivity}
+      className={`${ActivityListItemStyles.listItem} ${
+        selected ? `${ActivityListItemStyles.selected}` : ""
+      }`}
+    >
       <p>{activity.name}</p>
     </div>
   );

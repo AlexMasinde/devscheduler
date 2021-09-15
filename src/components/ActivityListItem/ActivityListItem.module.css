@@ -15,3 +15,8 @@
   border: 1px solid transparent;
   background: rgba(40, 40, 70, 0.05);
 }
+
+.selected {
+  background: rgba(40, 40, 70, 0.05);
+  border: 1px solid transparent !important;
+}
