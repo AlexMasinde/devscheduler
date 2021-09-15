@@ -1,10 +1,13 @@
 .container {
   box-shadow: 0px 10px 25px rgba(29, 52, 54, 0.08);
   border-radius: 1rem;
-  width: 47rem;
+  width: 100%;
   padding: 2rem;
   background-color: #ffffff;
-  margin-top: 1rem;
+  height: 21.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .header > h1 {
@@ -16,7 +19,6 @@
 .time {
   display: flex;
   justify-content: space-between;
-  margin-top: 2rem;
 }
 
 .timeleft > p {
@@ -27,7 +29,6 @@
 .timer {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
 }
 
 .timer > p {

@@ -1,3 +1,28 @@
+.container {
+  width: 70%;
+}
+
+.pendingTasksContainer,
+.listContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.listContainer {
+  margin-top: 2rem;
+}
+
+.pendingTasks,
+.list {
+  width: 50%;
+}
+
+.upcomingDeadline,
+.activityView {
+  width: 40%;
+}
+
 .modal {
   position: absolute;
   left: 50%;

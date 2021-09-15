@@ -54,24 +54,28 @@ export default function Activities() {
   }
 
   return (
-    <div>
+    <div className={ActivitiesStyles.container}>
       <div>
         <DashboardNav />
       </div>
-      <div>
-        <PendingTasks />
-      </div>
-      <div>
-        <UpcomingDeadline />
-      </div>
-      <div>
-        <ActivitiiesList />
-      </div>
-      {selectedActivity && (
-        <div>
-          <ActivityView />
+      <div className={ActivitiesStyles.pendingTasksContainer}>
+        <div className={ActivitiesStyles.pendingTasks}>
+          <PendingTasks />
         </div>
-      )}
+        <div className={ActivitiesStyles.upcomingDeadline}>
+          <UpcomingDeadline />
+        </div>
+      </div>
+      <div className={ActivitiesStyles.listContainer}>
+        <div className={ActivitiesStyles.list}>
+          <ActivitiiesList />
+        </div>
+        {selectedActivity && (
+          <div className={ActivitiesStyles.activityView}>
+            <ActivityView />
+          </div>
+        )}
+      </div>
       {mounted && (
         <>
           <div
