@@ -73,7 +73,7 @@ export default function ActivityView() {
   return (
     <div className={ActivityViewStyles.container}>
       <div className={ActivityViewStyles.header}>
-        <p>{selectedActivity.name}</p>
+        <h1>{selectedActivity.name}</h1>
         <div className={ActivityViewStyles.headercontent}>
           <div
             className={ActivityViewStyles.headericons}

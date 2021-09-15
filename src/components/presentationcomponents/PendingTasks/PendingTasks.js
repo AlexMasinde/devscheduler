@@ -14,7 +14,7 @@ export default function PendingTasks() {
 
   return (
     <div className={PendingTasksStyles.container}>
-      <p>Pending Tasks</p>
+      <h1>Pending Tasks</h1>
       <div className={PendingTasksStyles.counters}>
         <div>
           <PendingTasksCounter title={titleOne} count={countOne} />

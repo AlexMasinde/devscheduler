@@ -10,7 +10,7 @@ import ActivityListItem from "../ActivityListItem/ActivityListItem";
 import ActivitiiesListStyles from "./ActivitiiesList.module.css";
 
 export default function ActivitiiesList() {
-  const { activities, dispatch } = useActivities();
+  const { activities } = useActivities();
 
   return (
     <div className={ActivitiiesListStyles.container}>

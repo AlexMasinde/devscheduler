@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-const DeleteModalContext = createContext();
+export const DeleteModalContext = createContext();
 
 export function useDeleteModal() {
   return useContext(DeleteModalContext);

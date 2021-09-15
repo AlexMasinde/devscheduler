@@ -66,15 +66,16 @@ export default function DeleteModal({ item }) {
     }
   }
 
-  async function handleDelete() {
+  function handleDelete() {
     if (item.type === "task") {
-      await deleteTask();
+      deleteTask();
     }
 
     if (item.type === "activity") {
-      await deleteActivity();
+      deleteActivity();
     }
   }
+
   return (
     <div className={DeleteModalStyles.container}>
       <div className={DeleteModalStyles.header}>

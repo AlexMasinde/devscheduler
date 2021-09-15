@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-const AddTaskModalContext = createContext();
+export const AddTaskModalContext = createContext();
 
 export function useAddTaskModalContext() {
   return useContext(AddTaskModalContext);

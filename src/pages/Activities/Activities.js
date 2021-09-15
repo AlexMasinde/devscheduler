@@ -39,12 +39,13 @@ export default function Activities() {
         },
       });
     }
+
     if (adding) {
       setAdding(false);
     }
 
     if (addingTask) {
-      setAddingTask();
+      setAddingTask(false);
     }
 
     if (deleting) {
@@ -76,6 +77,7 @@ export default function Activities() {
           <div
             onClick={() => closeModal()}
             className={`${ActivitiesStyles.modaldiv} ${openingModalCanvas} ${closingModal}`}
+            data-testid="modal container"
           ></div>
           <div
             className={`${ActivitiesStyles.modal} ${openingModalCanvas} ${closingModal}`}
@@ -89,6 +91,7 @@ export default function Activities() {
           <div
             onClick={() => closeModal()}
             className={`${ActivitiesStyles.modaldiv} ${openingModalCanvas} ${closingModal}`}
+            data-testid="modal container"
           ></div>
           <div
             className={`${ActivitiesStyles.modal} ${openingModalCanvas} ${closingModal}`}
@@ -102,6 +105,7 @@ export default function Activities() {
           <div
             onClick={() => closeModal()}
             className={`${ActivitiesStyles.modaldiv} ${openingModalCanvas} ${closingModal}`}
+            data-testid="modal container"
           ></div>
           <div
             className={`${ActivitiesStyles.modal} ${openingModalCanvas} ${closingModal}`}
