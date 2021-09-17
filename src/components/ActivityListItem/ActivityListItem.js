@@ -18,6 +18,7 @@ export default function ActivityListItem({ activity }) {
 
   return (
     <div
+      data-testid="div"
       onClick={selectActivity}
       className={`${ActivityListItemStyles.listItem} ${
         selected ? `${ActivityListItemStyles.selected}` : ""

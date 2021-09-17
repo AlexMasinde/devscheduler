@@ -66,7 +66,7 @@ function renderTaskListItem() {
   );
 }
 
-jest.mock("../../../firebase", () => {});
+jest.mock("../../../firebase", () => ({}));
 
 describe("Unit tests for task list item", () => {
   it("Renders the passed task", () => {

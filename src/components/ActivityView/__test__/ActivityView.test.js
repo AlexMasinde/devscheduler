@@ -69,17 +69,7 @@ function renderActivityView() {
   );
 }
 
-jest.mock("../../../firebase", () => ({
-  database: {
-    tasks: jest.fn(() => ({
-      where: jest.fn(() => ({
-        orderBy: jest.fn(() => ({
-          get: jest.fn(() => Promise.resolve("Tasks resolved")),
-        })),
-      })),
-    })),
-  },
-}));
+jest.mock("../../../firebase", () => ({}));
 
 describe("Unit test activity view component with tasks", () => {
   it("Component renders", () => {

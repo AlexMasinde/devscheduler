@@ -42,7 +42,7 @@ export default function TaskListItem({ task }) {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      console.log(err);
+      // console.log(err);
     }
   }
 
@@ -62,7 +62,6 @@ export default function TaskListItem({ task }) {
       data-testid="task-list-item"
       className={`${TaskListItemStyles.listItem} ${loadingClass}`}
     >
-      {console.log(activityTasks)}
       <div onClick={() => completeTask()} className={TaskListItemStyles.text}>
         <label className={TaskListItemStyles.checkboxcontainer}>
           <input type="checkbox" checked={complete} readOnly />
