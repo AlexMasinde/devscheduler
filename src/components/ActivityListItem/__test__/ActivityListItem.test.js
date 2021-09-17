@@ -1,10 +1,5 @@
-import {
-  screen,
-  render,
-  fireEvent,
-  waitFor,
-  queryByRole,
-} from "@testing-library/react";
+import { screen, render, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { ActivitiesContext } from "../../../contexts/activitiesContext";
 import { AddTaskModalContextProvider } from "../../../contexts/addtaskModalContext";
 import { DeleteModalContextProvider } from "../../../contexts/deleteModalContext";
@@ -27,10 +22,20 @@ const activities = [
   },
 ];
 
+const tasks = [
+  {
+    name: "Buy timber",
+    deadline: "September 5, 2021 at 10:44:35 PM UTC+3",
+    activityId: "123454-123445a8s-hjgasjhgas",
+    complete: false,
+    id: "1123423454-asasjknm-hjgasjhgas",
+  },
+];
+
 const testValues = {
   selectedActivity: null,
   activities: activities,
-  activityTasks: [],
+  activityTasks: tasks,
   category: "Projects",
   editingItem: {
     edit: false,
@@ -62,12 +67,11 @@ describe("Test activity list item functionality", () => {
     expect(nameElement).toBeInTheDocument();
   });
 
-  it("Sets selected activity when clicked", async () => {
-    renderActivityListItem();
-    const nameElement = screen.getByTestId("div");
-    fireEvent.click(nameElement);
-    await waitFor(() => {
-      screen.debug();
-    });
-  });
+  // it("Sets selected activity when clicked", async () => {
+  //   renderActivityListItem();
+  //   const nameElement = screen.getByTestId("div");
+  //   userEvent.click(nameElement);
+  //   const headerElement = screen.getByRole("heading", { name: activity.name });
+  //   screen.debug();
+  // });
 });

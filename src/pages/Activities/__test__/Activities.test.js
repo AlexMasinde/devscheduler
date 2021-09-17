@@ -1,4 +1,10 @@
-import { screen, render, cleanup, fireEvent } from "@testing-library/react";
+import {
+  screen,
+  render,
+  cleanup,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react";
 import Activities from "../Activities";
 import { ActivitiesContext } from "../../../contexts/activitiesContext";
 import {
@@ -13,6 +19,7 @@ import {
   DeleteModalContext,
   DeleteModalContextProvider,
 } from "../../../contexts/deleteModalContext";
+import userEvent from "@testing-library/user-event";
 
 const activities = [
   {
@@ -42,7 +49,7 @@ const activities = [
 ];
 
 const testValues = {
-  selectedActivity: activities[0],
+  selectedActivity: null,
   activities: activities,
   activityTasks: [],
   category: "Projects",
@@ -50,7 +57,7 @@ const testValues = {
     edit: false,
     item: {},
   },
-  dispatch: jest.fn(() => {}),
+  dispatch: jest.fn(),
 };
 
 function renderActivities() {
@@ -74,7 +81,7 @@ function closeModal(heading) {
 
   setTimeout(() => {
     expect(headerElement).not.toBeInTheDocument();
-  }, 600);
+  });
 }
 
 jest.mock("../../../firebase", () => {});
@@ -91,13 +98,9 @@ describe("Unit tests for activities page", () => {
     const upcomingDeadlineComponent = screen.getByRole("heading", {
       name: "Upcoming Deadline",
     });
-    const activityViewComponent = screen.getByRole("heading", {
-      name: "Buy timber",
-    });
     expect(pendingTasksComponent).toBeInTheDocument();
     expect(activityListComponent).toBeInTheDocument();
     expect(upcomingDeadlineComponent).toBeInTheDocument();
-    expect(activityViewComponent).toBeInTheDocument();
   });
 
   it("Add activity modal closes when container div is clicked", () => {
@@ -170,5 +173,12 @@ describe("Unit tests for activities page", () => {
     );
     const heading = "Confirm Deletion";
     closeModal(heading);
+  });
+
+  it("Selects Activity when activitylist item is clicked", async () => {
+    renderActivities();
+    const acvtivityElement = screen.getByText("Get workers");
+    userEvent.click(acvtivityElement);
+    screen.debug();
   });
 });
