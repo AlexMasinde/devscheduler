@@ -37,7 +37,7 @@ const initialState = {
   },
 };
 
-export function ActivitiesContextProvider({ children }) {
+export function ActivitiesContextProvider({ children, testActivities }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -61,15 +61,15 @@ export function ActivitiesContextProvider({ children }) {
           type: "ACTIVITIES_LOADING",
           payload: false,
         });
-        console.log(err);
       }
     }
     getActivities();
   }, [dispatch]);
 
+  const activities = testActivities ?? state.activities;
   const value = {
     selectedActivity: state.selectedActivity,
-    activities: state.activities,
+    activities,
     activityTasks: state.activityTasks,
     category: state.category,
     editingItem: state.editingItem,

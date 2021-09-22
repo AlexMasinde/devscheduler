@@ -40,7 +40,6 @@ export default function ActivityView() {
         setLoadingtasks(false);
       } catch (err) {
         setLoadingtasks(false);
-        console.log(err);
       }
     }
     getActivityTasks();
