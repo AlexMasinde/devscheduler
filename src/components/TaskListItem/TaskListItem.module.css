@@ -77,3 +77,29 @@
   display: inline-block;
   margin-right: 1rem;
 }
+
+.complete {
+  text-decoration: line-through;
+}
+
+.loading {
+  color: grey;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

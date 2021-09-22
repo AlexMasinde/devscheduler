@@ -6,17 +6,24 @@ import ActivityListItemStyles from "./ActivityListItem.module.css";
 
 export default function ActivityListItem({ activity }) {
   const { dispatch, selectedActivity } = useActivities();
+  const selected = selectedActivity && activity.id === selectedActivity.id;
 
   function selectActivity() {
     if (selectedActivity && selectedActivity.id === activity.id) {
-      dispatch({ type: "select-activity", payload: null });
+      dispatch({ type: "SELECT_ACTIVITY", payload: null });
     } else {
-      dispatch({ type: "select-activity", payload: activity });
+      dispatch({ type: "SELECT_ACTIVITY", payload: activity });
     }
   }
 
   return (
-    <div onClick={selectActivity} className={ActivityListItemStyles.listItem}>
+    <div
+      data-testid="div"
+      onClick={selectActivity}
+      className={`${ActivityListItemStyles.listItem} ${
+        selected ? `${ActivityListItemStyles.selected}` : ""
+      }`}
+    >
       <p>{activity.name}</p>
     </div>
   );

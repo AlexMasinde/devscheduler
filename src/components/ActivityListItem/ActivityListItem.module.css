@@ -1,6 +1,5 @@
 .listItem {
-  font-size: 1.4rem;
-  color: #282846;
+  font-size: 1.6rem;
   border: 1px solid rgba(40, 40, 70, 0.1);
   border-radius: 1rem;
   margin: 1rem 0;
@@ -15,4 +14,9 @@
   cursor: pointer;
   border: 1px solid transparent;
   background: rgba(40, 40, 70, 0.05);
+}
+
+.selected {
+  background: rgba(40, 40, 70, 0.05);
+  border: 1px solid transparent !important;
 }

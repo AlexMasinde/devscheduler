@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-const ModalContext = createContext();
+export const ModalContext = createContext();
 
 export function useModal() {
   return useContext(ModalContext);
@@ -15,7 +15,7 @@ export function ModalContextProvider({ children }) {
     if (adding && !mounted) {
       setMounted(true);
     } else if (!adding && mounted) {
-      timeoutId = setTimeout(() => setMounted(false), 490);
+      timeoutId = setTimeout(() => setMounted(false), 500);
     }
     return () => clearTimeout(timeoutId);
   }, [adding, mounted]);

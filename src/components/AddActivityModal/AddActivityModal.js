@@ -22,10 +22,13 @@ import { validateActivity } from "../../utils/validators";
 
 export default function AddActivityModal() {
   const { setAdding } = useModal();
-  const { dispatch, activities } = useActivities();
+  const { dispatch, activities, editingItem } = useActivities();
+  const { edit, item } = editingItem;
   const [dropdown, setDropdown] = useState(false);
-  const [category, setCategory] = useState("Select Category");
-  const [activity, setActivity] = useState("");
+  const [category, setCategory] = useState(
+    edit ? item.category : "Select Category"
+  );
+  const [activity, setActivity] = useState(edit ? item.name : "");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
@@ -45,7 +48,7 @@ export default function AddActivityModal() {
 
   function handleActivity(e) {
     if (errors.name) {
-      setErrors({ ...errors, activityName: "" });
+      setErrors({ ...errors, name: "" });
     }
     const activityName = e.target.value;
     setActivity(activityName);
@@ -59,7 +62,83 @@ export default function AddActivityModal() {
   }
 
   function handleModal() {
+    if (edit) {
+      dispatch({
+        type: "SET_EDITING_ITEM",
+        payload: {
+          edit: false,
+          item: {},
+        },
+      });
+    }
     setAdding(false);
+  }
+
+  async function updateActivity() {
+    try {
+      setLoading(true);
+      if (item.name === activity && item.deadline === deadline) {
+        return setErrors({
+          ...errors,
+          edit: "Please supply new activity values to update",
+        });
+      }
+      const newActivity = {};
+      if (activity !== item.name) {
+        newActivity.name = activity;
+      }
+      if (deadline !== item.deadline) {
+        newActivity.deadline = deadline;
+      }
+      await database.activities.doc(item.id).update(newActivity);
+      const newActivities = activities.filter(
+        (activity) => activity.id !== item.id
+      );
+      newActivity.id = item.id;
+      newActivity.complete = item.complete;
+      newActivity.category = item.category;
+      const updatedActivities = [newActivity, ...newActivities];
+      dispatch({
+        type: "SET_ACTIVITIES",
+        payload: updatedActivities,
+      });
+      dispatch({
+        type: "SELECT_ACTIVITY",
+        payload: newActivity,
+      });
+      setLoading(false);
+      setAdding(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }
+
+  async function writeActivity(selectedCategory) {
+    try {
+      setLoading(true);
+      const activityId = uuidv4();
+      const activityDetails = {
+        name: activity,
+        category: selectedCategory,
+        deadline: deadline.getTime(),
+        complete: false,
+        createdAt: database.timestamp,
+      };
+      const timeStamp = deadline.getTime();
+      console.log(new Date(timeStamp));
+      await database.activities.doc(activityId).set(activityDetails);
+      console.log(activityDetails);
+      dispatch({
+        type: "SET_ACTIVITIES",
+        payload: [{ ...activityDetails, id: activityId }, ...activities],
+      });
+      setLoading(false);
+      setAdding(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
   }
 
   async function handleSubmit(e) {
@@ -75,31 +154,13 @@ export default function AddActivityModal() {
       return setErrors(validationErrors);
     }
 
-    try {
-      setLoading(true);
-      const activityId = uuidv4();
-      const activityDetails = {
-        name: activity,
-        selectedCategory,
-        deadline,
-      };
-      await database.activities.doc(activityId).set(activityDetails);
-      dispatch({
-        type: "set-activities",
-        payload: [{ ...activityDetails, id: activityId }, ...activities],
-      });
-      setLoading(false);
-      setAdding(false);
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
+    edit ? await updateActivity() : await writeActivity(selectedCategory);
   }
 
   return (
     <div className={AddActivityModalStyles.container}>
       <div className={AddActivityModalStyles.title}>
-        <h1>Add Activity</h1>
+        <h1>{edit ? "Edit Activity" : "Add Activity"}</h1>
         <img onClick={() => handleModal()} src={closeicon} alt="close" />
       </div>
       <div className={AddActivityModalStyles.content}>
@@ -111,6 +172,7 @@ export default function AddActivityModal() {
                 type="text"
                 required={true}
                 placeholder="Activity Name"
+                value={activity}
                 onChange={handleActivity}
               />
             </label>
@@ -201,7 +263,7 @@ export default function AddActivityModal() {
           </div>
           <div className={AddActivityModalStyles.buttons}>
             <Button
-              text="Add"
+              text={edit ? "Update Activity" : "Add Activity"}
               disabled={loading}
               loading={loading}
               type="submit"

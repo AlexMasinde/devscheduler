@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-const AddTaskModalContext = createContext();
+export const AddTaskModalContext = createContext();
 
 export function useAddTaskModalContext() {
   return useContext(AddTaskModalContext);
@@ -19,6 +19,7 @@ export function AddTaskModalContextProvider({ children }) {
         setMountedTaskModal(false);
       }, 500);
     }
+
     return () => clearTimeout(timeoutId);
   }, [addingTask, mountedTaskModal]);
 

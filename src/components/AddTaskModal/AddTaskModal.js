@@ -18,12 +18,14 @@ import Button from "../presentationcomponents/Button/Button";
 import closeicon from "../../icons/closeicon.svg";
 
 export default function AddTaskModal() {
-  const { selectedActivity, dispatch, activityTasks } = useActivities();
+  const { selectedActivity, dispatch, activityTasks, editingItem } =
+    useActivities();
+  const { edit, item } = editingItem;
   const { setAddingTask } = useAddTaskModalContext();
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
-  const [task, setTask] = useState("");
+  const [task, setTask] = useState(edit ? item.name : "");
 
   function handleTask(e) {
     if (errors.name) {
@@ -40,30 +42,44 @@ export default function AddTaskModal() {
   }
 
   function handleModal() {
+    if (edit) {
+      dispatch({
+        type: "SET_EDITING_ITEM",
+        payload: {
+          edit: false,
+          item: {},
+        },
+      });
+    }
     setAddingTask(false);
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    const { validationErrors, valid } = validateTask(deadline, task);
-
-    if (!valid) {
-      return setErrors(validationErrors);
-    }
-
+  async function updateTask() {
     try {
       setLoading(true);
-      const taskId = uuidv4();
-      const taskObject = {
-        name: task,
-        deadline,
-        activityId: selectedActivity.id,
-      };
-      await database.tasks.doc(taskId).set(taskObject);
+      if (item.name === task && item.deadline === deadline) {
+        return setErrors({
+          ...errors,
+          edit: "Please supply new task values to continue",
+        });
+      }
+      const newTask = {};
+      if (task !== item.name) {
+        newTask.name = task;
+      }
+      if (deadline !== item.deadline) {
+        newTask.deadline = deadline;
+      }
+      await database.tasks.doc(item.id).update(newTask);
+      const newActivityTasks = activityTasks.filter(
+        (activityTask) => activityTask.id !== item.id
+      );
+      newTask.activityId = item.activityId;
+      newTask.complete = item.complete;
+      newTask.id = item.id;
       dispatch({
-        type: "set-tasks",
-        payload: [...activityTasks, taskObject],
+        type: "SET_TASKS",
+        payload: [newTask, ...newActivityTasks],
       });
       setLoading(false);
       setAddingTask(false);
@@ -73,10 +89,43 @@ export default function AddTaskModal() {
     }
   }
 
+  async function writeTask() {
+    try {
+      setLoading(true);
+      const taskId = uuidv4();
+      const taskObject = {
+        name: task,
+        deadline,
+        activityId: selectedActivity.id,
+        complete: false,
+        id: taskId,
+      };
+      await database.tasks.doc(taskId).set(taskObject);
+      dispatch({
+        type: "SET_TASKS",
+        payload: [taskObject, ...activityTasks],
+      });
+      setLoading(false);
+      setAddingTask(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const { validationErrors, valid } = validateTask(deadline, task);
+    if (!valid) {
+      return setErrors(validationErrors);
+    }
+    edit ? await updateTask() : await writeTask();
+  }
+
   return (
     <div className={AddTaskModalStyles.container}>
       <div className={AddTaskModalStyles.title}>
-        <h1>Add Task</h1>
+        <h1>{edit ? "Edit Task" : "Add Task"}</h1>
         <img onClick={() => handleModal()} src={closeicon} alt="close" />
       </div>
       <form onSubmit={handleSubmit}>
@@ -88,6 +137,7 @@ export default function AddTaskModal() {
               required={true}
               placeholder="Task Name"
               onChange={handleTask}
+              value={task}
             />
           </label>
           {errors && errors.name && (
@@ -132,7 +182,7 @@ export default function AddTaskModal() {
         </div>
         <div className={AddTaskModalStyles.buttons}>
           <Button
-            text="Add"
+            text={edit ? "Update" : "Add"}
             disabled={loading}
             loading={loading}
             type="submit"
