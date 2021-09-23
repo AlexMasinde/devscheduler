@@ -66,7 +66,7 @@ export function ActivitiesContextProvider({ children, testActivities }) {
     getActivities();
   }, [dispatch]);
 
-  const activities = testActivities ?? state.activities;
+  const activities = testActivities ? testActivities : state.activities;
   const value = {
     selectedActivity: state.selectedActivity,
     activities,

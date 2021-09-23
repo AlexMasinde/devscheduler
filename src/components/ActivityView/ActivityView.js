@@ -108,7 +108,7 @@ export default function ActivityView() {
         </div>
       )}
       <div onClick={() => handleModal()} className={ActivityViewStyles.add}>
-        <img src={add} alt="Add task" />
+        <img src={add} alt="add task" />
         <span>Add Task</span>
       </div>
     </div>

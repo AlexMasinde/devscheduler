@@ -4,40 +4,39 @@ import Activities from "../Activities";
 
 jest.mock("../../../firebase", () => ({}));
 
-async function testModals(altText, heading) {
+async function testModals(text, heading) {
   render(<Activities />);
   const activityElement = screen.getByText("Develop a new game");
   userEvent.click(activityElement);
-  screen.debug();
-  const deleteElement = screen.getByAltText(altText);
+  const deleteElement = screen.getByAltText(text);
   userEvent.click(deleteElement);
   const containerElement = await screen.findByTestId("modal container");
   userEvent.click(containerElement);
   await waitFor(() => {
-    const headerElement = screen.queryByRole("heading", {
-      name: heading,
-    });
-    expect(headerElement).toBeNull();
+    expect(screen.queryByRole("heading", { name: heading })).toBeNull();
   });
 }
 
 describe("Tests for Activities page", () => {
-  it("Delete modal closes when conatiner div is clicked", () => {
-    testModals("delete activity", "Confirm Deletion");
+  it("Delete modal closes when conatiner div is clicked", async () => {
+    await testModals("delete activity", "Confirm Deletion");
   });
 
   it("Add task modal closes when container div is clicked", async () => {
+    await testModals("add task", "Add Task");
+  });
+
+  it("Add activity modal closes when container div is clicked", async () => {
     render(<Activities />);
-    const activityElement = screen.getByText("Develop a new game");
-    userEvent.click(activityElement);
-    screen.debug();
-    const taskElement = screen.getByText("Add Task");
-    userEvent.click(taskElement);
+    const addElement = screen.getByText("Add Activity");
+    userEvent.click(addElement);
     const containerElement = await screen.findByTestId("modal container");
     userEvent.click(containerElement);
     await waitFor(() => {
-      const headerElement = screen.queryByRole("heading", { name: "Add Task" });
-      expect(headerElement).toBeNull();
+      expect(
+        screen.queryByRole("heading", { name: "Add Activity" })
+      ).toBeNull();
+      console.log(screen.queryByRole("heading", { name: "Add Activity" }));
     });
   });
 });
