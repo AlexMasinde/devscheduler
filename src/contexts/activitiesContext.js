@@ -22,6 +22,8 @@ function reducer(state, action) {
       return { ...state, activitiesLoading: action.payload };
     case "SET_ACTIVE_CATEGORY":
       return { ...state, activeCategory: action.payload };
+    case "SET_LATEST_TASKS":
+      return { ...state, latestTasks: action.payload };
     default:
       return state;
   }
@@ -37,6 +39,7 @@ const initialState = {
     edit: false,
     item: {},
   },
+  latestTasks: [],
 };
 
 export function ActivitiesContextProvider({ children, testActivities }) {
@@ -49,7 +52,9 @@ export function ActivitiesContextProvider({ children, testActivities }) {
           type: "ACTIVITIES_LOADING",
           payload: true,
         });
-        const rawActivities = await database.activities.get();
+        const rawActivities = await database.activities
+          .orderBy("createdAt", "desc")
+          .get();
         const formattedActivities = rawActivities.docs.map((rawActivity) => {
           return database.formatDocument(rawActivity);
         });
@@ -77,6 +82,7 @@ export function ActivitiesContextProvider({ children, testActivities }) {
     activeCategory: state.activeCategory,
     editingItem: state.editingItem,
     activitiesLoading: state.activitiesLoading,
+    latestTasks: state.latestTasks,
     dispatch,
   };
 

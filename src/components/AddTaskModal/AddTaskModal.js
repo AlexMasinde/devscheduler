@@ -99,6 +99,7 @@ export default function AddTaskModal() {
         activityId: selectedActivity.id,
         complete: false,
         id: taskId,
+        createdAt: database.timestamp,
       };
       await database.tasks.doc(taskId).set(taskObject);
       dispatch({

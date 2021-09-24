@@ -14,11 +14,13 @@ import AddTaskModal from "../../components/AddTaskModal/AddTaskModal";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
 import UpcomingDeadline from "../../components/UpcomingDeadline/UpcomingDeadline";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import LatestContainer from "../../components/LatestContainer/LatestContainer";
 
 import ActivitiesStyles from "./Activities.module.css";
 
 export default function Activities() {
-  const { selectedActivity, editingItem, dispatch } = useActivities();
+  const { selectedActivity, editingItem, dispatch, activeCategory } =
+    useActivities();
   const { edit } = editingItem;
   const { mounted, adding, setAdding } = useModal();
   const { mountedTaskModal, addingTask, setAddingTask } =
@@ -29,6 +31,7 @@ export default function Activities() {
     adding || addingTask || deleting ? "" : ActivitiesStyles.modalout;
   const openingModalCanvas =
     adding || addingTask || deleting ? ActivitiesStyles.canvasin : "";
+  const homeActive = activeCategory === "Home";
 
   function closeModal() {
     if (edit) {
@@ -74,7 +77,8 @@ export default function Activities() {
           </div>
           <div className={ActivitiesStyles.listContainer}>
             <div className={ActivitiesStyles.list}>
-              <ActivitiiesList />
+              {!homeActive && <ActivitiiesList />}
+              {homeActive && <LatestContainer />}
             </div>
             {selectedActivity && (
               <div className={ActivitiesStyles.activityView}>

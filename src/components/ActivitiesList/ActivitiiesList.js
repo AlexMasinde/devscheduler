@@ -9,11 +9,13 @@ import ActivitiiesListStyles from "./ActivitiiesList.module.css";
 
 export default function ActivitiiesList() {
   const { activities, activeCategory } = useActivities();
+  const title =
+    activeCategory === "Home" ? "Latest Activities" : activeCategory;
 
   return (
     <div className={ActivitiiesListStyles.container}>
       <div className={ActivitiiesListStyles.title}>
-        <h1>{activeCategory}</h1>
+        <h1>{title}</h1>
       </div>
       <div>
         {activities.map((activity) => {

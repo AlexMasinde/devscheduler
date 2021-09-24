@@ -13,9 +13,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div>
-        <DashboardNav modal={{ adding, setAdding }} />
-      </div>
+      <div>{/* <DashboardNav modal={{ adding, setAdding }} /> */}</div>
       {mounted && (
         <div className={`${DashboardStyles.modal} ${closingModal}`}>
           <AddActivityModal />
