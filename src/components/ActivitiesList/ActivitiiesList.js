@@ -8,12 +8,12 @@ import ActivityListItem from "../ActivityListItem/ActivityListItem";
 import ActivitiiesListStyles from "./ActivitiiesList.module.css";
 
 export default function ActivitiiesList() {
-  const { activities } = useActivities();
+  const { activities, activeCategory } = useActivities();
 
   return (
     <div className={ActivitiiesListStyles.container}>
       <div className={ActivitiiesListStyles.title}>
-        <h1>Projects</h1>
+        <h1>{activeCategory}</h1>
       </div>
       <div>
         {activities.map((activity) => {

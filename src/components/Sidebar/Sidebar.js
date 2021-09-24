@@ -33,7 +33,7 @@ export default function Sidebar() {
       </div>
       <div className={SidebarStyles.categories}>
         <div className={SidebarStyles.header}>
-          <h1>Activities</h1>
+          <h1>Categories</h1>
         </div>
         <div
           onClick={() => selectCategory("Home")}

@@ -26,6 +26,18 @@ describe("Tests for Activities page", () => {
     await testModals("add task", "Add Task");
   });
 
+  it("Updates selected category when clicked", () => {
+    render(<Activities />);
+    const productElement = screen.getByAltText("select projects");
+    userEvent.click(productElement);
+    const categoryHeader = screen.getByRole("heading", { name: "Projects" });
+    expect(categoryHeader).toBeInTheDocument();
+    const readingsElement = screen.getByAltText("select readings");
+    userEvent.click(readingsElement);
+    const readingsHeader = screen.getByRole("heading", { name: "Readings" });
+    expect(readingsHeader).toBeInTheDocument();
+  });
+
   it("Add activity modal closes when container div is clicked", async () => {
     render(<Activities />);
     const addElement = screen.getByText("Add Activity");
@@ -36,7 +48,6 @@ describe("Tests for Activities page", () => {
       expect(
         screen.queryByRole("heading", { name: "Add Activity" })
       ).toBeNull();
-      console.log(screen.queryByRole("heading", { name: "Add Activity" }));
     });
   });
 });
