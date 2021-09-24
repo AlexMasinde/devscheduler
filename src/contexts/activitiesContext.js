@@ -20,6 +20,8 @@ function reducer(state, action) {
     }
     case "ACTIVITIES_LOADING":
       return { ...state, activitiesLoading: action.payload };
+    case "SET_ACTIVE_CATEGORY":
+      return { ...state, activeCategory: action.payload };
     default:
       return state;
   }
@@ -29,7 +31,7 @@ const initialState = {
   selectedActivity: null,
   activities: [],
   activityTasks: [],
-  category: null,
+  activeCategory: "home",
   activitiesLoading: false,
   editingItem: {
     edit: false,
@@ -67,11 +69,12 @@ export function ActivitiesContextProvider({ children, testActivities }) {
   }, [dispatch]);
 
   const activities = testActivities ? testActivities : state.activities;
+
   const value = {
     selectedActivity: state.selectedActivity,
     activities,
     activityTasks: state.activityTasks,
-    category: state.category,
+    activeCategory: state.activeCategory,
     editingItem: state.editingItem,
     activitiesLoading: state.activitiesLoading,
     dispatch,

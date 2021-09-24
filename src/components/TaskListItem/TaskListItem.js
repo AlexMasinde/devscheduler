@@ -12,7 +12,7 @@ import trash from "../../icons/trash.svg";
 import edit from "../../icons/edit.svg";
 
 export default function TaskListItem({ task }) {
-  const { activityTasks, dispatch } = useActivities();
+  const { dispatch } = useActivities();
   const { setAddingTask } = useAddTaskModalContext();
   const [loading, setLoading] = useState(false);
   const { setDeleting, setItemToDelete } = useDeleteModal();

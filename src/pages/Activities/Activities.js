@@ -13,6 +13,7 @@ import ActivityView from "../../components/ActivityView/ActivityView";
 import AddTaskModal from "../../components/AddTaskModal/AddTaskModal";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
 import UpcomingDeadline from "../../components/UpcomingDeadline/UpcomingDeadline";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 import ActivitiesStyles from "./Activities.module.css";
 
@@ -55,6 +56,9 @@ export default function Activities() {
 
   return (
     <div className={ActivitiesStyles.container}>
+      <div>
+        <Sidebar />
+      </div>
       <div>
         <DashboardNav />
       </div>
