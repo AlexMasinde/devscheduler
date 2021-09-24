@@ -15,10 +15,10 @@ import SidebarStyles from "./Sidebar.module.css";
 
 export default function Sidebar() {
   const { activeCategory, dispatch } = useActivities();
-  const homeActive = activeCategory === "home" ? true : false;
-  const projectsActive = activeCategory === "projects" ? true : false;
-  const coursesActive = activeCategory === "courses" ? true : false;
-  const readingsActive = activeCategory === "readings" ? true : false;
+  const homeActive = activeCategory === "Home" ? true : false;
+  const projectsActive = activeCategory === "Projects" ? true : false;
+  const coursesActive = activeCategory === "Courses" ? true : false;
+  const readingsActive = activeCategory === "Readings" ? true : false;
 
   function selectCategory(category) {
     dispatch({
@@ -36,7 +36,7 @@ export default function Sidebar() {
           <h1>Activities</h1>
         </div>
         <div
-          onClick={() => selectCategory("home")}
+          onClick={() => selectCategory("Home")}
           className={SidebarStyles.categorycontainer}
         >
           <div className={SidebarStyles.category}>
@@ -46,7 +46,7 @@ export default function Sidebar() {
           {homeActive && <ActiveSign />}
         </div>
         <div
-          onClick={() => selectCategory("projects")}
+          onClick={() => selectCategory("Projects")}
           className={SidebarStyles.categorycontainer}
         >
           <div className={SidebarStyles.category}>
@@ -56,7 +56,7 @@ export default function Sidebar() {
           {projectsActive && <ActiveSign />}
         </div>
         <div
-          onClick={() => selectCategory("courses")}
+          onClick={() => selectCategory("Courses")}
           className={SidebarStyles.categorycontainer}
         >
           <div className={SidebarStyles.category}>
@@ -66,7 +66,7 @@ export default function Sidebar() {
           {coursesActive && <ActiveSign />}
         </div>
         <div
-          onClick={() => selectCategory("readings")}
+          onClick={() => selectCategory("Readings")}
           className={SidebarStyles.categorycontainer}
         >
           <div className={SidebarStyles.category}>

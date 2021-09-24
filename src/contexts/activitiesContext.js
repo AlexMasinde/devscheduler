@@ -31,7 +31,7 @@ const initialState = {
   selectedActivity: null,
   activities: [],
   activityTasks: [],
-  activeCategory: "home",
+  activeCategory: "Home",
   activitiesLoading: false,
   editingItem: {
     edit: false,

@@ -56,29 +56,33 @@ export default function Activities() {
 
   return (
     <div className={ActivitiesStyles.container}>
-      <div>
+      <div className={ActivitiesStyles.sidebar}>
         <Sidebar />
       </div>
-      <div>
-        <DashboardNav />
-      </div>
-      <div className={ActivitiesStyles.pendingTasksContainer}>
-        <div className={ActivitiesStyles.pendingTasks}>
-          <PendingTasks />
-        </div>
-        <div className={ActivitiesStyles.upcomingDeadline}>
-          <UpcomingDeadline />
-        </div>
-      </div>
-      <div className={ActivitiesStyles.listContainer}>
-        <div className={ActivitiesStyles.list}>
-          <ActivitiiesList />
-        </div>
-        {selectedActivity && (
-          <div className={ActivitiesStyles.activityView}>
-            <ActivityView />
+      <div className={ActivitiesStyles.dashboardcontainer}>
+        <div className={ActivitiesStyles.dashboard}>
+          <div>
+            <DashboardNav />
           </div>
-        )}
+          <div className={ActivitiesStyles.pendingTasksContainer}>
+            <div className={ActivitiesStyles.pendingTasks}>
+              <PendingTasks />
+            </div>
+            <div className={ActivitiesStyles.upcomingDeadline}>
+              <UpcomingDeadline />
+            </div>
+          </div>
+          <div className={ActivitiesStyles.listContainer}>
+            <div className={ActivitiesStyles.list}>
+              <ActivitiiesList />
+            </div>
+            {selectedActivity && (
+              <div className={ActivitiesStyles.activityView}>
+                <ActivityView />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
       {mounted && (
         <>
