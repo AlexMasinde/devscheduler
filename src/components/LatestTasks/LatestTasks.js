@@ -33,7 +33,7 @@ export default function LatestTasks() {
           console.log(error);
         }
       );
-    return () => unsubscribe();
+    return unsubscribe;
   }, [dispatch]);
 
   return (
