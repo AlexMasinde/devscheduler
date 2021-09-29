@@ -3,11 +3,13 @@ import LatestTasks from "../LatestTasks";
 
 jest.mock("../../../firebase", () => ({
   database: {
-    tasks: jest.fn(() => ({
-      orderBy: jest.fn(),
-      limit: jest.fn(),
-      onSnapshot: jest.fn(() => Promise.resolve("resolved")),
-    })),
+    tasks: {
+      orderBy: jest.fn(() => ({
+        limit: jest.fn(() => ({
+          onSnapshot: jest.fn(() => Promise.resolve(true)),
+        })),
+      })),
+    },
   },
 }));
 

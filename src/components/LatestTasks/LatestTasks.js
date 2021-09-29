@@ -9,7 +9,7 @@ import LatesTasksStyles from "./LatestTasks.module.css";
 export default function LatestTasks() {
   const { latestTasks, dispatch } = useActivities();
   const [loading, setLoading] = useState(false);
-
+  console.log(database.tasks.orderBy);
   useEffect(() => {
     setLoading(true);
     const unsubscribe = database.tasks
