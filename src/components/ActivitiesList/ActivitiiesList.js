@@ -8,15 +8,19 @@ import ActivityListItem from "../ActivityListItem/ActivityListItem";
 import ActivitiiesListStyles from "./ActivitiiesList.module.css";
 
 export default function ActivitiiesList() {
-  const { activities } = useActivities();
+  const { activities, activeCategory } = useActivities();
+  const title =
+    activeCategory === "Home" ? "Latest Activities" : activeCategory;
+  const renderActivities =
+    activeCategory === "Home" ? activities.slice(0, 2) : activities;
 
   return (
     <div className={ActivitiiesListStyles.container}>
       <div className={ActivitiiesListStyles.title}>
-        <h1>Projects</h1>
+        <h1>{title}</h1>
       </div>
       <div>
-        {activities.map((activity) => {
+        {renderActivities.map((activity) => {
           return (
             <ActivityListItem activity={activity} key={shortid.generate()} />
           );
