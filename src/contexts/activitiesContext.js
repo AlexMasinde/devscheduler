@@ -73,6 +73,26 @@ export function ActivitiesContextProvider({ children, testActivities }) {
     getActivities();
   }, [dispatch]);
 
+  useEffect(() => {
+    async function getTasks() {
+      try {
+        const rawTasks = await database.tasks
+          .orderBy("createdAt", "desc")
+          .get();
+        const formattedtasks = rawTasks.docs.map((task) => {
+          return database.formatDocument(task);
+        });
+        dispatch({
+          type: "SET_TASKS",
+          payload: formattedtasks,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getTasks();
+  }, [dispatch]);
+
   const activities = testActivities ? testActivities : state.activities;
 
   const value = {
