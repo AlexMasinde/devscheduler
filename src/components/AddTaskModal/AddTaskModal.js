@@ -18,8 +18,7 @@ import Button from "../presentationcomponents/Button/Button";
 import closeicon from "../../icons/closeicon.svg";
 
 export default function AddTaskModal() {
-  const { selectedActivity, dispatch, activityTasks, editingItem } =
-    useActivities();
+  const { selectedActivity, dispatch, tasks, editingItem } = useActivities();
   const { edit, item } = editingItem;
   const { setAddingTask } = useAddTaskModalContext();
   const [errors, setErrors] = useState({});
@@ -71,15 +70,13 @@ export default function AddTaskModal() {
         newTask.deadline = deadline;
       }
       await database.tasks.doc(item.id).update(newTask);
-      const newActivityTasks = activityTasks.filter(
-        (activityTask) => activityTask.id !== item.id
-      );
+      const newTasks = tasks.filter((task) => task.id !== item.id);
       newTask.activityId = item.activityId;
       newTask.complete = item.complete;
       newTask.id = item.id;
       dispatch({
         type: "SET_TASKS",
-        payload: [newTask, ...newActivityTasks],
+        payload: [newTask, ...newTasks],
       });
       setLoading(false);
       setAddingTask(false);
@@ -104,7 +101,7 @@ export default function AddTaskModal() {
       await database.tasks.doc(taskId).set(taskObject);
       dispatch({
         type: "SET_TASKS",
-        payload: [taskObject, ...activityTasks],
+        payload: [taskObject, ...tasks],
       });
       setLoading(false);
       setAddingTask(false);
