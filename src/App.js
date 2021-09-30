@@ -4,6 +4,7 @@ import { ModalContextProvider } from "./contexts/modalContext";
 import { ActivitiesContextProvider } from "./contexts/activitiesContext";
 import { AddTaskModalContextProvider } from "./contexts/addtaskModalContext";
 import { DeleteModalContextProvider } from "./contexts/deleteModalContext";
+import UserForm from "./components/SIgnup/UserForm";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <ModalContextProvider>
         <AddTaskModalContextProvider>
           <DeleteModalContextProvider>
+            <UserForm />
             <Activities />
           </DeleteModalContextProvider>
         </AddTaskModalContextProvider>
