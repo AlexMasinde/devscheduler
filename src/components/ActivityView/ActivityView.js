@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import shortid from "shortid";
 
 import { useActivities } from "../../contexts/activitiesContext";
@@ -13,38 +13,18 @@ import trash from "../../icons/trash.svg";
 import add from "../../icons/add.svg";
 
 import ActivityViewStyles from "./ActivityView.module.css";
-import { database } from "../../firebase";
 
 export default function ActivityView() {
   const { setAddingTask } = useAddTaskModalContext();
   const { setAdding } = useModal();
-  const { selectedActivity, activityTasks, dispatch } = useActivities();
+  const { selectedActivity, tasks, dataLoading, dispatch } = useActivities();
   const { setItemToDelete, setDeleting } = useDeleteModal();
-  const [loadingTasks, setLoadingtasks] = useState(false);
 
-  useEffect(() => {
-    async function getActivityTasks() {
-      try {
-        setLoadingtasks(true);
-        const results = await database.tasks
-          .where("activityId", "==", selectedActivity.id)
-          .orderBy("deadline", "desc")
-          .get();
-        const formattedResults = results.docs.map((doc) => {
-          return database.formatDocument(doc);
-        });
-        dispatch({
-          type: "SET_TASKS",
-          payload: formattedResults,
-        });
-        setLoadingtasks(false);
-      } catch (err) {
-        setLoadingtasks(false);
-      }
-    }
-    getActivityTasks();
-  }, [selectedActivity, dispatch]);
+  const activityTasks = tasks.filter(
+    (task) => task.activityId === selectedActivity.id
+  );
 
+  //delete activity modal
   function deleteActivity() {
     const toDelete = {
       ...selectedActivity,
@@ -54,6 +34,7 @@ export default function ActivityView() {
     setDeleting(true);
   }
 
+  //Edita activity modal
   function editActivity() {
     dispatch({
       type: "SET_EDITING_ITEM",
@@ -65,6 +46,7 @@ export default function ActivityView() {
     setAdding(true);
   }
 
+  //Add tasks modal
   function handleModal() {
     setAddingTask(true);
   }
@@ -90,19 +72,19 @@ export default function ActivityView() {
           </div>
         </div>
       </div>
-      {loadingTasks && (
+      {dataLoading && (
         <div className={ActivityViewStyles.info}>
           <p>Fetching Tasks...</p>
         </div>
       )}
-      {!loadingTasks && activityTasks.length > 0 && (
+      {!dataLoading && activityTasks.length > 0 && (
         <div>
           {activityTasks.map((task) => {
             return <TaskListItem key={shortid.generate()} task={task} />;
           })}
         </div>
       )}
-      {!loadingTasks && activityTasks.length === 0 && (
+      {!dataLoading && activityTasks.length === 0 && (
         <div className={ActivityViewStyles.info}>
           <p>No tasks for this activity. You can add them below</p>
         </div>

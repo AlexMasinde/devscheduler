@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useState,
+} from "react";
 import { database } from "../firebase";
 
 export const ActivitiesContext = createContext();
@@ -14,12 +20,12 @@ function reducer(state, action) {
     case "SET_ACTIVITIES":
       return { ...state, activities: action.payload };
     case "SET_TASKS":
-      return { ...state, activityTasks: action.payload };
+      return { ...state, tasks: action.payload };
     case "SET_EDITING_ITEM": {
       return { ...state, editingItem: action.payload };
     }
-    case "ACTIVITIES_LOADING":
-      return { ...state, activitiesLoading: action.payload };
+    case "LOADING":
+      return { ...state, loading: action.payload };
     case "SET_ACTIVE_CATEGORY":
       return { ...state, activeCategory: action.payload };
     case "SET_LATEST_TASKS":
@@ -32,9 +38,8 @@ function reducer(state, action) {
 const initialState = {
   selectedActivity: null,
   activities: [],
-  activityTasks: [],
+  tasks: [],
   activeCategory: "Home",
-  activitiesLoading: false,
   editingItem: {
     edit: false,
     item: {},
@@ -44,53 +49,36 @@ const initialState = {
 
 export function ActivitiesContextProvider({ children, testActivities }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [loadingData, setLoadingData] = useState(false);
+  const [dataError, setDataError] = useState(false);
 
   useEffect(() => {
-    async function getActivities() {
+    async function getData() {
       try {
-        dispatch({
-          type: "ACTIVITIES_LOADING",
-          payload: true,
-        });
+        setLoadingData(true);
         const rawActivities = await database.activities
           .orderBy("createdAt", "desc")
           .get();
-        const formattedActivities = rawActivities.docs.map((rawActivity) => {
-          return database.formatDocument(rawActivity);
-        });
-        dispatch({ type: "SET_ACTIVITIES", payload: formattedActivities });
-        dispatch({
-          type: "ACTIVITIES_LOADING",
-          payload: false,
-        });
-      } catch (err) {
-        dispatch({
-          type: "ACTIVITIES_LOADING",
-          payload: false,
-        });
-      }
-    }
-    getActivities();
-  }, [dispatch]);
-
-  useEffect(() => {
-    async function getTasks() {
-      try {
         const rawTasks = await database.tasks
           .orderBy("createdAt", "desc")
           .get();
         const formattedtasks = rawTasks.docs.map((task) => {
           return database.formatDocument(task);
         });
-        dispatch({
-          type: "SET_TASKS",
-          payload: formattedtasks,
+        const formattedActivities = rawActivities.docs.map((rawActivity) => {
+          return database.formatDocument(rawActivity);
         });
+
+        dispatch({ type: "SET_ACTIVITIES", payload: formattedActivities });
+        dispatch({ type: "SET_TASKS", payload: formattedtasks });
+        setLoadingData(false);
       } catch (err) {
         console.log(err);
+        setDataError(true);
+        setLoadingData(false);
       }
     }
-    getTasks();
+    getData();
   }, [dispatch]);
 
   const activities = testActivities ? testActivities : state.activities;
@@ -98,11 +86,13 @@ export function ActivitiesContextProvider({ children, testActivities }) {
   const value = {
     selectedActivity: state.selectedActivity,
     activities,
-    activityTasks: state.activityTasks,
+    tasks: state.tasks,
     activeCategory: state.activeCategory,
     editingItem: state.editingItem,
     activitiesLoading: state.activitiesLoading,
     latestTasks: state.latestTasks,
+    loadingData,
+    dataError,
     dispatch,
   };
 
