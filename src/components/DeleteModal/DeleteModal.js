@@ -13,7 +13,7 @@ import DeleteModalStyles from "./DeleteModal.module.css";
 export default function DeleteModal({ item }) {
   const [loading, setLoading] = useState(false);
   const { setDeleting } = useDeleteModal();
-  const { dispatch, activityTasks, activities } = useActivities();
+  const { dispatch, tasks, activities } = useActivities();
 
   function closeModal() {
     setDeleting(false);
@@ -23,6 +23,7 @@ export default function DeleteModal({ item }) {
     try {
       setLoading(true);
       await database.activities.doc(item.id).delete();
+      const activityTasks = tasks.filter((task) => task.activityId === item.id);
       if (activityTasks.length > 0) {
         activityTasks.forEach(async (activityTask) => {
           await database.tasks.doc(activityTask.id).delete();
@@ -51,12 +52,10 @@ export default function DeleteModal({ item }) {
     try {
       setLoading(true);
       await database.tasks.doc(item.id).delete();
-      const newActivities = activityTasks.filter(
-        (activityTask) => activityTask.id !== item.id
-      );
+      const newTasks = tasks.filter((task) => task.id !== item.id);
       dispatch({
         type: "SET_TASKS",
-        payload: newActivities,
+        payload: newTasks,
       });
       setLoading(false);
       setDeleting(false);
