@@ -27,12 +27,15 @@
   width: 31rem;
 }
 
-.input,
 .formcontainer > h1,
 .button,
 .or,
 .accountcheck {
   margin-bottom: 2rem;
+}
+
+.input {
+  margin-bottom: 3rem;
 }
 
 .button {
@@ -97,4 +100,15 @@
 .icons > img {
   width: 2.2rem;
   height: 2.2rem;
+}
+
+.input {
+  position: relative;
+}
+.error {
+  color: #f05454;
+  font-size: 1.2rem;
+  position: absolute;
+  bottom: -2rem;
+  left: 1rem;
 }

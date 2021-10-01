@@ -50,6 +50,9 @@ export default function UserForm() {
         <form onSubmit={handleSubmit}>
           <div className={UserFormStyles.input}>
             <Input placeholder="E-mail" type="text" onChange={handleEmail} />
+            {errors.email && (
+              <p className={UserFormStyles.error}>{errors.email}</p>
+            )}
           </div>
           <div className={UserFormStyles.input}>
             <Input
@@ -57,6 +60,9 @@ export default function UserForm() {
               type="password"
               onChange={handlePassword}
             />
+            {errors.password && (
+              <p className={UserFormStyles.error}>{errors.password}</p>
+            )}
           </div>
           <div className={UserFormStyles.button}>
             <Button type="submit" disabled={loading} text="Sign-Up" />
