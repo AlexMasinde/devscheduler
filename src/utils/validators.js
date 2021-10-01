@@ -14,6 +14,27 @@ function validateDeadline(validationErrors, deadline) {
   }
 }
 
+export function validateUserDetails(email, password) {
+  const errors = {};
+
+  const emailRegex = /\S+@\S+\.\S+/;
+
+  if (email.trim() === "") {
+    errors.email = "Ener your email address";
+  } else if (!emailRegex.test(email)) {
+    errors.email = "Please provide a valid email address";
+  }
+
+  if (password.length < 6) {
+    errors.password = "Password should contain at least six characters";
+  }
+
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1,
+  };
+}
+
 //validate new activity inputs
 export function validateActivity(activityName, category, deadline) {
   const validationErrors = {};
