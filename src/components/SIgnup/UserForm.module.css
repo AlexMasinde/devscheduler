@@ -1,0 +1,114 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.formcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 10px 25px rgba(29, 52, 54, 0.08);
+  width: 35rem;
+  padding: 2rem;
+  margin: auto;
+  border-radius: 1rem;
+}
+
+.formcontainer > h1 {
+  color: #29a19c;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.input > input {
+  width: 31rem;
+}
+
+.formcontainer > h1,
+.button,
+.or,
+.accountcheck {
+  margin-bottom: 2rem;
+}
+
+.input {
+  margin-bottom: 3rem;
+}
+
+.button {
+  text-align: center;
+}
+
+.accountcheck {
+  font-size: 1.4rem;
+}
+
+.accountcheck > p > span {
+  color: #29a19c;
+  text-decoration: underline;
+}
+
+.or {
+  position: relative;
+  color: rgba(40, 40, 70, 0.5);
+}
+
+.or::before {
+  content: "";
+  position: absolute;
+  bottom: 50%;
+  left: -1100%;
+  width: 15rem;
+  height: 1px;
+  background-color: rgba(40, 40, 70, 0.3);
+}
+
+.or::after {
+  content: "";
+  position: absolute;
+  bottom: 50%;
+  right: -1100%;
+  width: 15rem;
+  height: 1px;
+  background-color: rgba(40, 40, 70, 0.3);
+}
+
+.iconscontainer {
+  display: flex;
+}
+
+.iconscontainer > div:last-child {
+  margin-left: 2rem;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  color: rgba(40, 40, 70, 0.5);
+  font-size: 1.4rem;
+  padding: 1rem;
+  border: 1px solid rgba(40, 40, 70, 0.1);
+  border-radius: 10px;
+}
+.icons > p {
+  margin-right: 1rem;
+}
+
+.icons > img {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+.input {
+  position: relative;
+}
+.error {
+  color: #f05454;
+  font-size: 1.2rem;
+  position: absolute;
+  bottom: -2rem;
+  left: 1rem;
+}
