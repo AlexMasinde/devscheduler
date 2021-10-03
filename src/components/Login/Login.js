@@ -17,7 +17,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const { signUp, googleSignUp } = useAuth();
+  const { signIn, googleSignUp } = useAuth();
 
   function handleEmail(e) {
     if (errors) {
@@ -42,14 +42,15 @@ export default function Login() {
     try {
       setLoading(true);
       setErrors({});
-      await signUp(email, password);
+      await signIn(email, password);
       setLoading(false);
     } catch (err) {
-      //auth/popup-closed-by-user --error
-      if (err.code === "auth/email-already-in-use") {
-        setErrors({ ...errors, email: "Email already in use" });
+      if (err.code === "auth/user-not-found") {
+        setErrors({ ...errors, email: "User not registered!" });
+      } else if (err.code === "auth/wrong-password") {
+        setErrors({ ...errors, password: "Wrong password! Try again" });
       } else {
-        setErrors({ ...errors, authError: "Could not register. Try again" });
+        setErrors({ ...errors, authError: "Could not log in! Try again" });
       }
       setLoading(false);
     }
@@ -61,8 +62,15 @@ export default function Login() {
       await googleSignUp();
       setLoading(false);
     } catch (err) {
+      if (err.code === "auth/popup-closed-by-user") {
+        setErrors({
+          ...errors,
+          authError: "Log in aborted by user! Try again",
+        });
+      } else {
+        setErrors({ ...errors, authError: "Could not log in. Try again" });
+      }
       setLoading(false);
-      console.log(err);
     }
   }
 

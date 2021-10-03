@@ -61,8 +61,15 @@ export default function UserForm() {
       await googleSignUp();
       setLoading(false);
     } catch (err) {
+      if (err.code === "auth/popup-closed-by-user") {
+        setErrors({
+          ...errors,
+          authError: "Sign up aborted by user! Try again",
+        });
+      } else {
+        setErrors({ ...errors, authError: "Could not log in. Try again" });
+      }
       setLoading(false);
-      console.log(err);
     }
   }
 
