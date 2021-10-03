@@ -34,7 +34,7 @@ export default function ActivityView() {
     setDeleting(true);
   }
 
-  //Edita activity modal
+  //Edit activity modal
   function editActivity() {
     dispatch({
       type: "SET_EDITING_ITEM",
