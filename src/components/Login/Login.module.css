@@ -15,9 +15,14 @@
   padding: 2rem;
   margin: auto;
   border-radius: 1rem;
+  position: relative;
 }
 
-.formcontainer > h1 {
+.header {
+  position: relative;
+}
+
+.header > h1 {
   color: #29a19c;
   font-size: 1.6rem;
   font-weight: 600;
@@ -27,7 +32,7 @@
   width: 31rem;
 }
 
-.formcontainer > h1,
+.header > h1,
 .button,
 .or,
 .accountcheck {
@@ -46,9 +51,12 @@
   font-size: 1.4rem;
 }
 
-.accountcheck > p > span {
+.link {
   color: #29a19c;
-  text-decoration: underline;
+}
+
+a {
+  text-decoration: none;
 }
 
 .or {
@@ -87,11 +95,12 @@
 .icons {
   display: flex;
   align-items: center;
-  color: rgba(40, 40, 70, 0.5);
+  color: rgba(40, 40, 70, 0.8);
   font-size: 1.4rem;
   padding: 1rem;
   border: 1px solid rgba(40, 40, 70, 0.1);
   border-radius: 10px;
+  transition: 0.1s;
 }
 .icons > p {
   margin-right: 1rem;
@@ -105,10 +114,20 @@
 .input {
   position: relative;
 }
+
 .error {
   color: #f05454;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   position: absolute;
-  bottom: -2rem;
+  bottom: -2.5rem;
   left: 1rem;
+}
+
+.icons:hover {
+  cursor: pointer;
+  transform: scale(0.9);
+}
+
+.footer {
+  margin: 0 auto;
 }

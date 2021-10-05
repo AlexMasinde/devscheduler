@@ -5,7 +5,10 @@ import React, {
   useEffect,
   useState,
 } from "react";
+
 import { database } from "../firebase";
+
+import { useAuth } from "./authContext";
 
 export const ActivitiesContext = createContext();
 
@@ -48,18 +51,24 @@ const initialState = {
 };
 
 export function ActivitiesContextProvider({ children, testActivities }) {
+  const { currentUser } = useAuth();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [loadingData, setLoadingData] = useState(false);
   const [dataError, setDataError] = useState(false);
 
   useEffect(() => {
     async function getData() {
+      if (!currentUser) {
+        return;
+      }
       try {
         setLoadingData(true);
         const rawActivities = await database.activities
+          .where("userId", "==", currentUser.uid)
           .orderBy("createdAt", "desc")
           .get();
         const rawTasks = await database.tasks
+          .where("userId", "==", currentUser.uid)
           .orderBy("createdAt", "desc")
           .get();
         const formattedtasks = rawTasks.docs.map((task) => {
@@ -79,7 +88,7 @@ export function ActivitiesContextProvider({ children, testActivities }) {
       }
     }
     getData();
-  }, [dispatch]);
+  }, [dispatch, currentUser]);
 
   const activities = testActivities ? testActivities : state.activities;
 

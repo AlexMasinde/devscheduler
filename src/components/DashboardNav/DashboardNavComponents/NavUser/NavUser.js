@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 
-import NavUserStyles from "./NavUser.module.css";
+import { useAuth } from "../../../../contexts/authContext";
 
-import placeholderpic from "../../../../icons/placeholderpic.png";
+import placeholderpic from "../../../../icons/placeholder.jpg";
 import arrowdowncolored from "../../../../icons/arrowdowncolored.svg";
 import arrowupcolored from "../../../../icons/arrowupcolored.svg";
 
+import NavUserStyles from "./NavUser.module.css";
+
 export default function NavUser() {
+  const { currentUser } = useAuth();
   const [dropdown, setDropdown] = useState(false);
 
   function handleDropdown() {
@@ -15,7 +18,7 @@ export default function NavUser() {
 
   return (
     <div className={NavUserStyles.container}>
-      <p>John Doe</p>
+      <p>{currentUser.name ?? currentUser.email}</p>
       <div className={NavUserStyles.profilepicture}>
         <img src={placeholderpic} alt="profile" />
       </div>

@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { isElement } from "react-dom/test-utils";
-import { auth } from "../firebase";
+import { auth, firebase } from "../firebase";
 
 const AuthContext = createContext();
 
@@ -16,6 +15,11 @@ export function AuthContextProvider({ children }) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
 
+  function googleSignUp() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return auth.signInWithPopup(provider);
+  }
+
   function signIn(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
   }
@@ -27,6 +31,7 @@ export function AuthContextProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log(user);
         setCurrentUser(user);
       } else {
         setCurrentUser(null);
@@ -40,6 +45,7 @@ export function AuthContextProvider({ children }) {
     signIn,
     signOut,
     signUp,
+    googleSignUp,
     currentUser,
   };
   return (

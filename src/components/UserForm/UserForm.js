@@ -1,20 +1,27 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
+
+import { validateUserDetails } from "../../utils/validators";
+import { useAuth } from "../../contexts/authContext";
 
 import Button from "../presentationcomponents/Button/Button";
 import Input from "../presentationcomponents/Input/Input";
+import Footer from "../Footer/Footer";
 
 import logo from "../../icons/logo.svg";
 import facebook from "../../icons/facebook.svg";
 import google from "../../icons/google.svg";
 
 import UserFormStyles from "./UserForm.module.css";
-import { validateUserDetails } from "../../utils/validators";
+import { Link } from "react-router-dom";
 
 export default function UserForm() {
+  const { signUp, googleSignUp } = useAuth();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const history = useHistory();
 
   function handleEmail(e) {
     if (errors) {
@@ -30,14 +37,46 @@ export default function UserForm() {
     setPassword(e.target.value);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const { valid, errors } = validateUserDetails(email, password);
     if (!valid) {
       return setErrors({ ...errors });
     }
-    console.log(email);
-    console.log(password);
+    try {
+      setLoading(true);
+      setErrors({});
+      await signUp(email, password);
+      setLoading(false);
+      history.push("/dashboard");
+    } catch (err) {
+      //auth/popup-closed-by-user --error
+      if (err.code === "auth/email-already-in-use") {
+        setErrors({ ...errors, email: "Email already in use" });
+      } else {
+        setErrors({ ...errors, authError: "Could not register. Try again" });
+      }
+      setLoading(false);
+    }
+  }
+
+  async function handleGoogle() {
+    try {
+      setLoading(true);
+      await googleSignUp();
+      setLoading(false);
+      history.push("/dashboard");
+    } catch (err) {
+      if (err.code === "auth/popup-closed-by-user") {
+        setErrors({
+          ...errors,
+          authError: "Sign up aborted by user! Try again",
+        });
+      } else {
+        setErrors({ ...errors, authError: "Could not log in. Try again" });
+      }
+      setLoading(false);
+    }
   }
 
   return (
@@ -46,7 +85,9 @@ export default function UserForm() {
         <img src={logo} alt="logo" />
       </div>
       <div className={UserFormStyles.formcontainer}>
-        <h1>Sign Up</h1>
+        <div className={UserFormStyles.header}>
+          <h1>Sign Up</h1>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className={UserFormStyles.input}>
             <Input placeholder="E-mail" type="text" onChange={handleEmail} />
@@ -63,19 +104,25 @@ export default function UserForm() {
             {errors.password && (
               <p className={UserFormStyles.error}>{errors.password}</p>
             )}
+            {errors.authError && (
+              <p className={UserFormStyles.error}>{errors.authError}</p>
+            )}
           </div>
           <div className={UserFormStyles.button}>
-            <Button type="submit" disabled={loading} text="Sign-Up" />
+            <Button type="submit" loading={loading} text="Sign-Up" />
           </div>
         </form>
         <div className={UserFormStyles.accountcheck}>
           <p>
-            Already have an account? <span>Login</span>
+            Already have an account?{" "}
+            <Link to="/login">
+              <span className={UserFormStyles.link}>Login</span>
+            </Link>
           </p>
         </div>
         <div className={UserFormStyles.or}>OR</div>
         <div className={UserFormStyles.iconscontainer}>
-          <div className={UserFormStyles.icons}>
+          <div onClick={() => handleGoogle()} className={UserFormStyles.icons}>
             <p>Google</p>
             <img src={google} alt="google" />
           </div>
@@ -85,8 +132,8 @@ export default function UserForm() {
           </div>
         </div>
       </div>
-      <div>
-        <p>Footer</p>
+      <div className={UserFormStyles.footer}>
+        <Footer />
       </div>
     </div>
   );
