@@ -9,6 +9,7 @@ import { AuthContextProvider } from "./contexts/authContext";
 import Activities from "./pages/Activities/Activities";
 import UserForm from "./components/UserForm/UserForm";
 import Login from "./components/Login/Login";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
                 <Switch>
                   <Route path="/login" component={Login} />
                   <Route path="/signup" component={UserForm} />
-                  <Route path="/" component={Activities} exact />
+                  <PrivateRoute path="/dashboard" component={Activities} />
                 </Switch>
               </Router>
             </DeleteModalContextProvider>

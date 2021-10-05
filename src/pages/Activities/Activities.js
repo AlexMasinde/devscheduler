@@ -4,6 +4,7 @@ import { useModal } from "../../contexts/modalContext";
 import { useActivities } from "../../contexts/activitiesContext";
 import { useAddTaskModalContext } from "../../contexts/addtaskModalContext";
 import { useDeleteModal } from "../../contexts/deleteModalContext";
+import { useAuth } from "../../contexts/authContext";
 
 import ActivitiiesList from "../../components/ActivitiesList/ActivitiiesList";
 import DashboardNav from "../../components/DashboardNav/DashboardNav";
@@ -27,6 +28,8 @@ export default function Activities() {
     useAddTaskModalContext();
   const { deleting, setDeleting, deleteMounted, itemToDelete } =
     useDeleteModal();
+  const { currentUser } = useAuth();
+
   const closingModal =
     adding || addingTask || deleting ? "" : ActivitiesStyles.modalout;
   const openingModalCanvas =
@@ -59,6 +62,7 @@ export default function Activities() {
 
   return (
     <div className={ActivitiesStyles.container}>
+      {console.log(currentUser)}
       <div className={ActivitiesStyles.sidebar}>
         <Sidebar />
       </div>

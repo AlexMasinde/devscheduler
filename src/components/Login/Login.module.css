@@ -51,9 +51,12 @@
   font-size: 1.4rem;
 }
 
-.accountcheck > p > span {
+.link {
   color: #29a19c;
-  text-decoration: underline;
+}
+
+a {
+  text-decoration: none;
 }
 
 .or {

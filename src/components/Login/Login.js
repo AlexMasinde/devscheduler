@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 
 import { validateUserDetails } from "../../utils/validators";
 import { useAuth } from "../../contexts/authContext";
@@ -11,6 +12,7 @@ import facebook from "../../icons/facebook.svg";
 import google from "../../icons/google.svg";
 
 import LoginStyles from "./Login.module.css";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -18,6 +20,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { signIn, googleSignUp } = useAuth();
+  const history = useHistory();
 
   function handleEmail(e) {
     if (errors) {
@@ -44,6 +47,7 @@ export default function Login() {
       setErrors({});
       await signIn(email, password);
       setLoading(false);
+      history.push("/dashboard");
     } catch (err) {
       if (err.code === "auth/user-not-found") {
         setErrors({ ...errors, email: "User not registered!" });
@@ -61,6 +65,7 @@ export default function Login() {
       setLoading(true);
       await googleSignUp();
       setLoading(false);
+      history.push("/dashboard");
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") {
         setErrors({
@@ -109,7 +114,10 @@ export default function Login() {
         </form>
         <div className={LoginStyles.accountcheck}>
           <p>
-            Don't have an account? <span>Sign Up</span>
+            Don't have an account?{" "}
+            <Link to="/signup">
+              <span className={LoginStyles.link}>Sign up</span>
+            </Link>
           </p>
         </div>
         <div className={LoginStyles.or}>OR</div>

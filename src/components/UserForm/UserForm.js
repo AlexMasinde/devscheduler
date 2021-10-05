@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 
 import { validateUserDetails } from "../../utils/validators";
 import { useAuth } from "../../contexts/authContext";
@@ -11,13 +12,15 @@ import facebook from "../../icons/facebook.svg";
 import google from "../../icons/google.svg";
 
 import UserFormStyles from "./UserForm.module.css";
+import { Link } from "react-router-dom";
 
 export default function UserForm() {
+  const { signUp, googleSignUp } = useAuth();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const { signUp, googleSignUp } = useAuth();
+  const history = useHistory();
 
   function handleEmail(e) {
     if (errors) {
@@ -44,6 +47,7 @@ export default function UserForm() {
       setErrors({});
       await signUp(email, password);
       setLoading(false);
+      history.push("/dashboard");
     } catch (err) {
       //auth/popup-closed-by-user --error
       if (err.code === "auth/email-already-in-use") {
@@ -60,6 +64,7 @@ export default function UserForm() {
       setLoading(true);
       await googleSignUp();
       setLoading(false);
+      history.push("/dashboard");
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") {
         setErrors({
@@ -108,7 +113,10 @@ export default function UserForm() {
         </form>
         <div className={UserFormStyles.accountcheck}>
           <p>
-            Already have an account? <span>Login</span>
+            Already have an account?{" "}
+            <Link to="/login">
+              <span className={UserFormStyles.link}>Login</span>
+            </Link>
           </p>
         </div>
         <div className={UserFormStyles.or}>OR</div>
