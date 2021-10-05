@@ -1,5 +1,4 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import { Switch } from "react-router";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { ModalContextProvider } from "./contexts/modalContext";
 import { ActivitiesContextProvider } from "./contexts/activitiesContext";
@@ -18,9 +17,13 @@ function App() {
         <ModalContextProvider>
           <AddTaskModalContextProvider>
             <DeleteModalContextProvider>
-              <Login />
-              <UserForm />
-              <Activities />
+              <Router>
+                <Switch>
+                  <Route path="/login" component={Login} />
+                  <Route path="/signup" component={UserForm} />
+                  <Route path="/" component={Activities} exact />
+                </Switch>
+              </Router>
             </DeleteModalContextProvider>
           </AddTaskModalContextProvider>
         </ModalContextProvider>
