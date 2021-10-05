@@ -127,3 +127,7 @@ a {
   cursor: pointer;
   transform: scale(0.9);
 }
+
+.footer {
+  margin: 0 auto;
+}

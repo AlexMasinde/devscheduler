@@ -58,6 +58,9 @@ export function ActivitiesContextProvider({ children, testActivities }) {
 
   useEffect(() => {
     async function getData() {
+      if (!currentUser) {
+        return;
+      }
       try {
         setLoadingData(true);
         const rawActivities = await database.activities

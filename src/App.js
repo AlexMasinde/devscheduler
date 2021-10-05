@@ -22,7 +22,7 @@ function App() {
                 <Switch>
                   <Route path="/login" component={Login} />
                   <Route path="/signup" component={UserForm} />
-                  <PrivateRoute path="/dashboard" component={Activities} />
+                  <PrivateRoute path="/" component={Activities} />
                 </Switch>
               </Router>
             </DeleteModalContextProvider>

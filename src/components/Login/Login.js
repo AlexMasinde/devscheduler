@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { Link, useHistory } from "react-router-dom";
 
 import { validateUserDetails } from "../../utils/validators";
 import { useAuth } from "../../contexts/authContext";
 
 import Button from "../presentationcomponents/Button/Button";
 import Input from "../presentationcomponents/Input/Input";
+import Footer from "../Footer/Footer";
 
 import logo from "../../icons/logo.svg";
 import facebook from "../../icons/facebook.svg";
 import google from "../../icons/google.svg";
 
 import LoginStyles from "./Login.module.css";
-import { Link } from "react-router-dom";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -132,8 +132,8 @@ export default function Login() {
           </div>
         </div>
       </div>
-      <div>
-        <p>Footer</p>
+      <div className={LoginStyles.footer}>
+        <Footer />
       </div>
     </div>
   );

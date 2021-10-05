@@ -6,6 +6,7 @@ import { useAuth } from "../../contexts/authContext";
 
 import Button from "../presentationcomponents/Button/Button";
 import Input from "../presentationcomponents/Input/Input";
+import Footer from "../Footer/Footer";
 
 import logo from "../../icons/logo.svg";
 import facebook from "../../icons/facebook.svg";
@@ -131,8 +132,8 @@ export default function UserForm() {
           </div>
         </div>
       </div>
-      <div>
-        <p>Footer</p>
+      <div className={UserFormStyles.footer}>
+        <Footer />
       </div>
     </div>
   );
