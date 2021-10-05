@@ -4,6 +4,7 @@ import DateTimePicker from "react-datetime-picker/dist/DateTimePicker";
 
 import { useActivities } from "../../contexts/activitiesContext";
 import { useAddTaskModalContext } from "../../contexts/addtaskModalContext";
+import { useAuth } from "../../contexts/authContext";
 
 import { database } from "../../firebase";
 import { validateTask } from "../../utils/validators";
@@ -18,6 +19,7 @@ import Button from "../presentationcomponents/Button/Button";
 import closeicon from "../../icons/closeicon.svg";
 
 export default function AddTaskModal() {
+  const { currentUser } = useAuth();
   const { selectedActivity, dispatch, tasks, editingItem } = useActivities();
   const { edit, item } = editingItem;
   const { setAddingTask } = useAddTaskModalContext();
@@ -74,6 +76,7 @@ export default function AddTaskModal() {
       newTask.activityId = item.activityId;
       newTask.complete = item.complete;
       newTask.id = item.id;
+      newTask.userId = currentUser.uid;
       dispatch({
         type: "SET_TASKS",
         payload: [newTask, ...newTasks],
@@ -96,6 +99,7 @@ export default function AddTaskModal() {
         activityId: selectedActivity.id,
         complete: false,
         id: taskId,
+        userId: currentUser.uid,
         createdAt: database.timestamp,
       };
       await database.tasks.doc(taskId).set(taskObject);

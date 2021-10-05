@@ -6,6 +6,7 @@ import { database } from "../../firebase";
 
 import { useModal } from "../../contexts/modalContext";
 import { useActivities } from "../../contexts/activitiesContext";
+import { useAuth } from "../../contexts/authContext";
 
 import AddActivityModalStyles from "./AddActivityModal.module.css";
 
@@ -21,6 +22,7 @@ import closeicon from "../../icons/closeicon.svg";
 import { validateActivity } from "../../utils/validators";
 
 export default function AddActivityModal() {
+  const { currentUser } = useAuth();
   const { setAdding } = useModal();
   const { dispatch, activities, editingItem } = useActivities();
   const { edit, item } = editingItem;
@@ -95,6 +97,7 @@ export default function AddActivityModal() {
         (activity) => activity.id !== item.id
       );
       newActivity.id = item.id;
+      newActivity.userId = currentUser.uid;
       newActivity.complete = item.complete;
       newActivity.category = item.category;
       const updatedActivities = [newActivity, ...newActivities];
@@ -123,6 +126,7 @@ export default function AddActivityModal() {
         category: selectedCategory,
         deadline: deadline.getTime(),
         complete: false,
+        userId: currentUser.uid,
         createdAt: database.timestamp,
       };
       const timeStamp = deadline.getTime();
