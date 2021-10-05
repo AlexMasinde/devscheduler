@@ -19,7 +19,7 @@ import Button from "../presentationcomponents/Button/Button";
 import closeicon from "../../icons/closeicon.svg";
 
 export default function AddTaskModal() {
-  const { currentUser } = useAuth();
+  const { currentUser } = useAuth()
   const { selectedActivity, dispatch, tasks, editingItem } = useActivities();
   const { edit, item } = editingItem;
   const { setAddingTask } = useAddTaskModalContext();
