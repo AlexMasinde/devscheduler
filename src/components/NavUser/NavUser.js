@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { useAuth } from "../../../../contexts/authContext";
+import { useAuth } from "../../contexts/authContext";
 
-import placeholderpic from "../../../../icons/placeholder.jpg";
-import arrowdowncolored from "../../../../icons/arrowdowncolored.svg";
-import arrowupcolored from "../../../../icons/arrowupcolored.svg";
+import placeholderpic from "../../icons/placeholder.jpg";
+import arrowdowncolored from "../../icons/arrowdowncolored.svg";
+import arrowupcolored from "../../icons/arrowupcolored.svg";
 
 import NavUserStyles from "./NavUser.module.css";
 
