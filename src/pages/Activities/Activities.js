@@ -62,7 +62,7 @@ export default function Activities() {
 
   return (
     <div className={ActivitiesStyles.container}>
-      {console.log(currentUser)}
+      {console.log(currentUser.photoURL)}
       <div className={ActivitiesStyles.sidebar}>
         <Sidebar />
       </div>

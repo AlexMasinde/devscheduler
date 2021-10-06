@@ -21,9 +21,9 @@ export default function NavUser() {
 
   return (
     <div className={NavUserStyles.container}>
-      <p>{currentUser.name ?? currentUser.email}</p>
+      <p>{currentUser.displayName ?? currentUser.email}</p>
       <div className={NavUserStyles.profilepicture}>
-        <img src={placeholderpic} alt="profile" />
+        <img src={currentUser.photoURL ?? placeholderpic} alt="profile" />
       </div>
       <div onClick={() => handleDropdown()} className={NavUserStyles.arrow}>
         <img src={dropdown ? arrowupcolored : arrowdowncolored} alt="" />

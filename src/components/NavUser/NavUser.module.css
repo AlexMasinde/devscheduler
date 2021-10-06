@@ -10,13 +10,18 @@
   font-weight: 600;
 }
 
+.container:hover {
+  cursor: pointer;
+}
+
 .profilepicture {
   margin: 0 2rem;
 }
 
 .profilepicture > img {
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
 }
 
 .arrow {
