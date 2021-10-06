@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+import { auth } from "../../firebase";
+
+import { validateProfile } from "../../utils/validators";
 
 import { useAuth } from "../../contexts/authContext";
 
@@ -15,6 +20,7 @@ export default function UserProfile() {
   const { currentUser } = useAuth();
   const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const [image, setImage] = useState();
 
   function handleUserName(e) {
@@ -27,12 +33,19 @@ export default function UserProfile() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const { validationErrors, valid } = validateProfile(image, userName);
+    if (!valid) {
+      console.log(validationErrors);
+      return setErrors(validationErrors);
+    }
   }
 
   return (
     <div className={UserProfileStyles.container}>
       <div className={UserProfileStyles.logo}>
-        <img src={logo} />
+        <Link to="/">
+          <img src={logo} />
+        </Link>
       </div>
       <div className={UserProfileStyles.details}>
         <div className={UserProfileStyles.currentdetails}>
@@ -64,3 +77,10 @@ export default function UserProfile() {
     </div>
   );
 }
+
+// if (
+//   currentUser.displayName.trim() !== userName.trim() &&
+//   currentUser.displayName.trim() !== ""
+// ) {
+//   return setErrors({ ...errors, userName: "" });
+// }

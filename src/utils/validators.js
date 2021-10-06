@@ -3,8 +3,7 @@ function validateName(validationErrors, name) {
   if (name.trim() === "") {
     validationErrors.name = "Name cannot be empty";
   } else if (!nameRegex.test(name.trim())) {
-    validationErrors.name =
-      "Activity name should include letters and spaces only";
+    validationErrors.name = "Name should include letters and spaces only";
   }
 }
 
@@ -58,5 +57,24 @@ export function validateTask(deadline, task) {
   return {
     validationErrors,
     valid: Object.keys(validationErrors).length < 1,
+  };
+}
+
+//validate profile
+export function validateProfile(image, userName) {
+  const validationErrors = {};
+  const imageName = image.name;
+  const extension = imageName.substring(imageName.lastIndexOf(".") + 1);
+  const extensions = ["png", "jpg", "jpeg"];
+  if (!extensions.includes(extension)) {
+    validationErrors.image = "Upload png, jpeg, and jpg only";
+  }
+  const nameRegex = /^[a-zA-Z\s]*$/;
+  if (!nameRegex.test(userName.trim())) {
+    validationErrors.name = "User name should include letters and spaces only";
+  }
+  return {
+    validationErrors,
+    valid: Object.keys(validationErrors) < 1,
   };
 }

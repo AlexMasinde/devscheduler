@@ -10,6 +10,7 @@ import arrowdowncolored from "../../icons/arrowdowncolored.svg";
 import arrowupcolored from "../../icons/arrowupcolored.svg";
 
 import NavUserStyles from "./NavUser.module.css";
+import { Link } from "react-router-dom";
 
 export default function NavUser() {
   const { currentUser } = useAuth();
@@ -21,10 +22,15 @@ export default function NavUser() {
 
   return (
     <div className={NavUserStyles.container}>
-      <p>{currentUser.displayName ?? currentUser.email}</p>
-      <div className={NavUserStyles.profilepicture}>
-        <img src={currentUser.photoURL ?? placeholderpic} alt="profile" />
-      </div>
+      <Link to="/profile">
+        <p>{currentUser.displayName ?? currentUser.email}</p>
+      </Link>
+      <Link to="/profile">
+        <div className={NavUserStyles.profilepicture}>
+          <img src={currentUser.photoURL ?? placeholderpic} alt="profile" />
+        </div>
+      </Link>
+
       <div onClick={() => handleDropdown()} className={NavUserStyles.arrow}>
         <img src={dropdown ? arrowupcolored : arrowdowncolored} alt="" />
       </div>

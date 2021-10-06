@@ -13,8 +13,13 @@
   font-size: 1.4rem;
 }
 
-.item:not(:last-child) {
+.item:not(:last-child),
+.container > a {
   margin-bottom: 2.5rem;
+}
+
+.container > a {
+  display: inline-block;
 }
 
 .item > img {

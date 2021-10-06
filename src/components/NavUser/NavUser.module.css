@@ -5,9 +5,14 @@
   position: relative;
 }
 
-.container > p {
+.container > a > p {
   font-size: 1.6rem;
   font-weight: 600;
+  color: #000000;
+}
+
+a:visited {
+  color: #000000;
 }
 
 .container:hover {
