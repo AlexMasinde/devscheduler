@@ -16,7 +16,6 @@ import DeleteModal from "../../components/DeleteModal/DeleteModal";
 import UpcomingDeadline from "../../components/UpcomingDeadline/UpcomingDeadline";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import LatestContainer from "../../components/LatestContainer/LatestContainer";
-import HeaderDropdown from "../../components/HeaderDropdown/HeaderDropdown";
 
 import ActivitiesStyles from "./Activities.module.css";
 
@@ -68,9 +67,6 @@ export default function Activities() {
         <Sidebar />
       </div>
       <div className={ActivitiesStyles.dashboardcontainer}>
-        <div>
-          <HeaderDropdown />
-        </div>
         <div className={ActivitiesStyles.dashboard}>
           <div>
             <DashboardNav />

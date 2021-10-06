@@ -7,8 +7,8 @@ import { DeleteModalContextProvider } from "./contexts/deleteModalContext";
 import { AuthContextProvider } from "./contexts/authContext";
 
 import Activities from "./pages/Activities/Activities";
-import UserForm from "./components/UserForm/UserForm";
-import Login from "./components/Login/Login";
+import UserForm from "./pages/UserForm/UserForm";
+import Login from "./pages/Login/Login";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
                   <Route path="/login" component={Login} />
                   <Route path="/signup" component={UserForm} />
                   <PrivateRoute path="/" component={Activities} />
+                  <PrivateRoute path="/profile" component={Activities} />
                 </Switch>
               </Router>
             </DeleteModalContextProvider>

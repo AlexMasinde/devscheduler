@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   color: #282846;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .item:not(:last-child) {
