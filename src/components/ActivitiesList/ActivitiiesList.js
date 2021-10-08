@@ -12,7 +12,9 @@ export default function ActivitiiesList() {
   const title =
     activeCategory === "Home" ? "Latest Activities" : activeCategory;
   const renderActivities =
-    activeCategory === "Home" ? activities.slice(0, 2) : activities;
+    activeCategory === "Home"
+      ? activities.slice(0, 2)
+      : activities.filter((activity) => activity.category === activeCategory);
 
   return (
     <div className={ActivitiiesListStyles.container}>

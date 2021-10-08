@@ -61,18 +61,34 @@ export function validateTask(deadline, task) {
 }
 
 //validate profile
-export function validateProfile(image, userName) {
+export function validateProfile(image, userName, currentUser) {
   const validationErrors = {};
-  const imageName = image.name;
-  const extension = imageName.substring(imageName.lastIndexOf(".") + 1);
-  const extensions = ["png", "jpg", "jpeg"];
-  if (!extensions.includes(extension)) {
-    validationErrors.image = "Upload png, jpeg, and jpg only";
+
+  const noUpdate =
+    (!image && userName.trim() === "") ||
+    (!image && userName.trim() === currentUser.displayName.trim());
+
+  if (noUpdate) {
+    validationErrors.updateError = "Provide at least one detail to update";
   }
-  const nameRegex = /^[a-zA-Z\s]*$/;
-  if (!nameRegex.test(userName.trim())) {
-    validationErrors.name = "User name should include letters and spaces only";
+
+  if (image) {
+    const imageName = image.name;
+    const extension = imageName.substring(imageName.lastIndexOf(".") + 1);
+    const extensions = ["png", "jpg", "jpeg"];
+    if (!extensions.includes(extension)) {
+      validationErrors.image = "Upload png, jpeg, and jpg only";
+    }
   }
+
+  if (userName) {
+    const nameRegex = /^[a-zA-Z\s]*$/;
+    if (!nameRegex.test(userName.trim())) {
+      validationErrors.name =
+        "User name should include letters and spaces only";
+    }
+  }
+
   return {
     validationErrors,
     valid: Object.keys(validationErrors) < 1,
