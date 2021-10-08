@@ -22,6 +22,9 @@ export default function UserProfile() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [image, setImage] = useState();
+  const disabled =
+    (!image && userName.trim() === "") ||
+    (!image && userName.trim() === currentUser.displayName.trim());
 
   function handleUserName(e) {
     setUserName(e.target.value);
@@ -33,6 +36,7 @@ export default function UserProfile() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     const { validationErrors, valid } = validateProfile(image, userName);
     if (!valid) {
       console.log(validationErrors);
