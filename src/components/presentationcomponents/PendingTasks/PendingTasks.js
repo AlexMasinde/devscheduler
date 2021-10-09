@@ -22,6 +22,7 @@ export default function PendingTasks() {
 
   return (
     <div className={PendingTasksStyles.container}>
+      {console.log(tasks)}
       <h1>Pending Tasks</h1>
       <div className={PendingTasksStyles.counters}>
         <div>

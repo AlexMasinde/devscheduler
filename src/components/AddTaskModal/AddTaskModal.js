@@ -75,6 +75,7 @@ export default function AddTaskModal() {
       const newTasks = tasks.filter((task) => task.id !== item.id);
       newTask.activityId = item.activityId;
       newTask.complete = item.complete;
+      newTask.category = item.category;
       newTask.id = item.id;
       newTask.userId = currentUser.uid;
       dispatch({
@@ -97,6 +98,7 @@ export default function AddTaskModal() {
         name: task,
         deadline,
         activityId: selectedActivity.id,
+        category: selectedActivity.category,
         complete: false,
         id: taskId,
         userId: currentUser.uid,

@@ -21,7 +21,7 @@ export default function ActivitiiesList() {
       <div className={ActivitiiesListStyles.title}>
         <h1>{title}</h1>
       </div>
-      <div>
+      <div className={ActivitiiesListStyles.list}>
         {renderActivities.map((activity) => {
           return (
             <ActivityListItem activity={activity} key={shortid.generate()} />

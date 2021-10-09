@@ -78,7 +78,7 @@ export default function ActivityView() {
         </div>
       )}
       {!dataLoading && activityTasks.length > 0 && (
-        <div>
+        <div className={ActivityViewStyles.list}>
           {activityTasks.map((task) => {
             return <TaskListItem key={shortid.generate()} task={task} />;
           })}
