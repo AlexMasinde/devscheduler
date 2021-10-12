@@ -48,7 +48,7 @@ export default function UserForm() {
       setErrors({});
       await signUp(email, password);
       setLoading(false);
-      history.push("/dashboard");
+      history.push("/");
     } catch (err) {
       //auth/popup-closed-by-user --error
       if (err.code === "auth/email-already-in-use") {

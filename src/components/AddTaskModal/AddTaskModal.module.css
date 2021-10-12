@@ -7,6 +7,9 @@
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
+.container > form {
+  margin: 0;
+}
 .title {
   display: flex;
   align-items: center;

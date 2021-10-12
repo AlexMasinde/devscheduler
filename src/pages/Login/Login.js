@@ -65,7 +65,7 @@ export default function Login() {
       setLoading(true);
       await googleSignUp();
       setLoading(false);
-      history.push("/dashboard");
+      history.push("/");
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") {
         setErrors({
