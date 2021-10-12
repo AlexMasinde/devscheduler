@@ -39,9 +39,6 @@ export default function Sidebar() {
         <img src={logo} alt="schedular home" />
       </div>
       <div className={SidebarStyles.categories}>
-        <div className={SidebarStyles.header}>
-          <h1>Categories</h1>
-        </div>
         <div
           onClick={() => selectCategory("Home")}
           className={SidebarStyles.categorycontainer}
@@ -51,6 +48,9 @@ export default function Sidebar() {
             <p>Home</p>
           </div>
           {homeActive && <ActiveSign />}
+        </div>
+        <div className={SidebarStyles.header}>
+          <h1>Categories</h1>
         </div>
         <div
           onClick={() => selectCategory("Projects")}
