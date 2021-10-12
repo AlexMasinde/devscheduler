@@ -45,3 +45,14 @@
 .activity > span {
   font-weight: 600;
 }
+
+.message {
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message > p {
+  font-size: 1.6rem;
+}

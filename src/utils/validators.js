@@ -77,15 +77,14 @@ export function validateProfile(image, userName, currentUser) {
     const extension = imageName.substring(imageName.lastIndexOf(".") + 1);
     const extensions = ["png", "jpg", "jpeg"];
     if (!extensions.includes(extension)) {
-      validationErrors.image = "Upload png, jpeg, and jpg only";
+      validationErrors.image = "Only images allowed";
     }
   }
 
   if (userName) {
     const nameRegex = /^[a-zA-Z\s]*$/;
     if (!nameRegex.test(userName.trim())) {
-      validationErrors.name =
-        "User name should include letters and spaces only";
+      validationErrors.name = "Include letters and spaces only";
     }
   }
 

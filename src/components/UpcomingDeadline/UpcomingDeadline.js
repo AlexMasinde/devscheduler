@@ -7,12 +7,13 @@ import UpcomingDeadlineStyles from "./UpcomingDeadline.module.css";
 
 import clock from "../../icons/clock.svg";
 import deadlinecalendar from "../../icons/deadlinecalendar.svg";
+import Loading from "../Loading/Loading";
 
 export default function UpcomingDeadline() {
   const [deadline, setDeadline] = useState();
   const [timer, setTimer] = useState();
   const [activityName, setActivityName] = useState("");
-  const { activities } = useActivities();
+  const { activities, loadingData } = useActivities();
 
   function fetchTimeleft() {
     const earliestDeadline =
@@ -48,27 +49,40 @@ export default function UpcomingDeadline() {
       <div className={UpcomingDeadlineStyles.header}>
         <h1>Upcoming Deadline</h1>
       </div>
-      <div className={UpcomingDeadlineStyles.time}>
-        <div className={UpcomingDeadlineStyles.timeleft}>
-          <p>Time Left</p>
-          <div className={UpcomingDeadlineStyles.timer}>
-            <img src={clock} alt="Clock" />
-            <p className={UpcomingDeadlineStyles.timeleftdigits}>
-              {timer ?? "Time Left"}
-            </p>
-          </div>
+      {loadingData && (
+        <div>
+          <Loading />
         </div>
-        <div className={UpcomingDeadlineStyles.timeleft}>
-          <p>Deadline</p>
-          <div className={UpcomingDeadlineStyles.timer}>
-            <img src={deadlinecalendar} alt="Icon" />
-            <p>{deadline ?? "5 December 2021"}</p>
+      )}
+
+      {!loadingData && activities.length > 0 && (
+        <>
+          <div className={UpcomingDeadlineStyles.time}>
+            <div className={UpcomingDeadlineStyles.timeleft}>
+              <p>Time Left</p>
+              <div className={UpcomingDeadlineStyles.timer}>
+                <img src={clock} alt="Clock" />
+                <p className={UpcomingDeadlineStyles.timeleftdigits}>{timer}</p>
+              </div>
+            </div>
+            <div className={UpcomingDeadlineStyles.timeleft}>
+              <p>Deadline</p>
+              <div className={UpcomingDeadlineStyles.timer}>
+                <img src={deadlinecalendar} alt="icon" />
+                <p>{deadline}</p>
+              </div>
+            </div>
           </div>
+          <p className={UpcomingDeadlineStyles.activity}>
+            Activity: <span>{activityName}</span>
+          </p>
+        </>
+      )}
+      {!loadingData && activities.length === 0 && (
+        <div className={UpcomingDeadlineStyles.message}>
+          <p>You do not have any activities</p>
         </div>
-      </div>
-      <p className={UpcomingDeadlineStyles.activity}>
-        Activity: <span>{activityName}</span>
-      </p>
+      )}
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const { signIn, googleSignUp } = useAuth();
+  const { signIn, googleSignUp, facebookSignup } = useAuth();
   const history = useHistory();
 
   function handleEmail(e) {
@@ -79,6 +79,31 @@ export default function Login() {
     }
   }
 
+  async function handleFacebook() {
+    try {
+      setLoading(true);
+      await facebookSignup();
+      setLoading(false);
+      history.push("/");
+    } catch (err) {
+      if (err.code === "auth/popup-closed-by-user") {
+        setErrors({
+          ...errors,
+          authError: "Log in aborted by user! Try again",
+        });
+      } else if (err.code === "auth/account-exists-with-different-credential") {
+        setErrors({
+          ...errors,
+          authError: "User with email already exists",
+        });
+      } else {
+        setErrors({ ...errors, authError: "Could not log in. Try again" });
+      }
+      console.log(err);
+      setLoading(false);
+    }
+  }
+
   return (
     <div className={LoginStyles.container}>
       <div>
@@ -126,7 +151,7 @@ export default function Login() {
             <p>Google</p>
             <img src={google} alt="google" />
           </div>
-          <div className={LoginStyles.icons}>
+          <div onClick={() => handleFacebook()} className={LoginStyles.icons}>
             <p>Facebook</p>
             <img src={facebook} alt="facebook" />
           </div>

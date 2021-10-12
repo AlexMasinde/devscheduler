@@ -8,6 +8,7 @@
 }
 
 .details {
+  position: relative;
   display: flex;
   justify-content: space-around;
   padding: 4rem 0;
@@ -43,9 +44,13 @@ a > img {
   margin-bottom: 2rem;
 }
 
+.username {
+  position: relative;
+}
+
 .image,
 .username {
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .image > label > input {
@@ -61,6 +66,7 @@ a > img {
 
 .image > label > span {
   padding: 10px 15px;
+  color: rgba(29, 52, 54, 0.8);
   background: transparent;
   width: 100%;
 }
@@ -78,4 +84,17 @@ a > img {
 
 .button {
   text-align: center;
+}
+
+.error,
+.updateError {
+  color: #f05454;
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+  position: absolute;
+  margin-top: 1rem;
+}
+
+.updateError {
+  bottom: 0.5rem;
 }

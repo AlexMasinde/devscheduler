@@ -102,6 +102,9 @@ export default function UserProfile() {
               onChange={handleUserName}
               value={userName}
             />
+            {errors.name && (
+              <p className={UserProfileStyles.error}>{errors.name}</p>
+            )}
           </div>
           <div className={UserProfileStyles.image}>
             <p id={UserProfileStyles.imageLabel}>Profile Picture</p>
@@ -109,11 +112,17 @@ export default function UserProfile() {
               <input type="file" onChange={handleImage} disabled={loading} />
               <span>{imageName}</span>
             </label>
+            {errors.image && (
+              <p className={UserProfileStyles.error}>{errors.image}</p>
+            )}
           </div>
           <div className={UserProfileStyles.button}>
             <Button type="submit" text="Update Profile" loading={loading} />
           </div>
         </form>
+        {errors.updateError && (
+          <p className={UserProfileStyles.updateError}>{errors.updateError}</p>
+        )}
       </div>
     </div>
   );

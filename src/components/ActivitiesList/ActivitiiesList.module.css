@@ -25,3 +25,14 @@
   font-size: 1.8rem;
   margin: 2rem 0 2rem 2rem;
 }
+
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10rem;
+}
+
+.message > p {
+  font-size: 1.6rem;
+}

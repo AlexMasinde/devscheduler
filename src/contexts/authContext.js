@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import LoadingHome from "../components/LoadingHome/LoadingHome";
 import { auth, firebase } from "../firebase";
 
 const AuthContext = createContext();
@@ -17,6 +18,11 @@ export function AuthContextProvider({ children }) {
 
   function googleSignUp() {
     const provider = new firebase.auth.GoogleAuthProvider();
+    return auth.signInWithPopup(provider);
+  }
+
+  function facebookSignup() {
+    const provider = new firebase.auth.FacebookAuthProvider();
     return auth.signInWithPopup(provider);
   }
 
@@ -46,11 +52,12 @@ export function AuthContextProvider({ children }) {
     signOut,
     signUp,
     googleSignUp,
+    facebookSignup,
     currentUser,
   };
   return (
     <>
-      {loading && <div>Loading...</div>}
+      {loading && <LoadingHome />}
       {!loading && (
         <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
       )}

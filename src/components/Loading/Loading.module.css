@@ -1,0 +1,15 @@
+.container {
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  height: 3rem;
+  width: 3rem;
+  border-bottom: 0.25rem solid #29a19c;
+  border-top: 0.25rem solid #29a19c;
+  border-left: 0.25rem solid #ffffff;
+  border-right: 0.25rem solid #ffffff;
+  border-radius: 50%;
+}
