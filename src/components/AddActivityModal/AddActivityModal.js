@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import DateTimePicker from "react-datetime-picker";
 import { v4 as uuidv4 } from "uuid";
 
@@ -267,7 +268,15 @@ export default function AddActivityModal() {
           </div>
           <div className={AddActivityModalStyles.buttons}>
             <Button
-              text={edit ? "Update Activity" : "Add Activity"}
+              text={
+                edit && loading
+                  ? "Updating..."
+                  : edit && !loading
+                  ? "Update"
+                  : !edit && loading
+                  ? "Adding..."
+                  : "Add Activity"
+              }
               disabled={loading}
               loading={loading}
               type="submit"

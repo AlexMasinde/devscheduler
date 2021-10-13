@@ -22,11 +22,6 @@
   background-color: #29a19c !important;
 }
 
-.textloading {
-  visibility: hidden;
-  opacity: 0;
-}
-
 .buttonloading::after {
   content: "";
   position: absolute;

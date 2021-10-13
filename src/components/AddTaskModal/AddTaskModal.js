@@ -186,7 +186,15 @@ export default function AddTaskModal() {
         </div>
         <div className={AddTaskModalStyles.buttons}>
           <Button
-            text={edit ? "Update" : "Add"}
+            text={
+              edit && loading
+                ? "Updating..."
+                : edit && !loading
+                ? "Update"
+                : !edit && loading
+                ? "Adding..."
+                : "Add Task"
+            }
             disabled={loading}
             loading={loading}
             type="submit"

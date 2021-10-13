@@ -28,7 +28,6 @@
 
 .title > img:hover {
   cursor: pointer;
-  transform: rotate(90deg);
 }
 
 .inputtitle {
