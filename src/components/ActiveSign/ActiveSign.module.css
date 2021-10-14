@@ -4,3 +4,10 @@
   background-color: #29a19c;
   height: 1.7rem;
 }
+
+@media only screen and (max-width: 650px) {
+  .sign {
+    width: 1rem;
+    height: 1rem;
+  }
+}

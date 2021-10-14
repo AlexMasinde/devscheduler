@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: #ffffff;
-  width: 30rem;
+  width: fit-content;
 }
 
 .logo {
@@ -51,6 +51,7 @@
   color: #282846;
   font-size: 1.6rem;
   margin-left: 1rem;
+  margin-right: 10rem;
 }
 
 .category > img {

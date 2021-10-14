@@ -13,6 +13,7 @@ import home from "../../icons/home.svg";
 import logout from "../../icons/logout.svg";
 
 import SidebarStyles from "./Sidebar.module.css";
+import { useViewport } from "../../Hooks/useViewport";
 
 export default function Sidebar() {
   const { activeCategory, dispatch } = useActivities();
@@ -21,6 +22,7 @@ export default function Sidebar() {
   const projectsActive = activeCategory === "Projects" ? true : false;
   const coursesActive = activeCategory === "Courses" ? true : false;
   const readingsActive = activeCategory === "Readings" ? true : false;
+  const small = useViewport();
 
   function selectCategory(category) {
     dispatch({
@@ -35,6 +37,7 @@ export default function Sidebar() {
 
   return (
     <div className={SidebarStyles.container}>
+      {console.log(small)}
       <div className={SidebarStyles.logo}>
         <img src={logo} alt="schedular home" />
       </div>
@@ -45,12 +48,12 @@ export default function Sidebar() {
         >
           <div className={SidebarStyles.category}>
             <img src={home} alt="select home" />
-            <p>Home</p>
+            {!small && <p>Home</p>}
           </div>
           {homeActive && <ActiveSign />}
         </div>
         <div className={SidebarStyles.header}>
-          <h1>Categories</h1>
+          {!small && <h1>Categories</h1>}
         </div>
         <div
           onClick={() => selectCategory("Projects")}
@@ -58,7 +61,7 @@ export default function Sidebar() {
         >
           <div className={SidebarStyles.category}>
             <img src={projectsicon} alt="select projects" />
-            <p>Projects</p>
+            {!small && <p>Projects</p>}
           </div>
           {projectsActive && <ActiveSign />}
         </div>
@@ -68,7 +71,7 @@ export default function Sidebar() {
         >
           <div className={SidebarStyles.category}>
             <img src={coursesicon} alt="select courses" />
-            <p>Courses</p>
+            {!small && <p>Courses</p>}
           </div>
           {coursesActive && <ActiveSign />}
         </div>
@@ -78,7 +81,7 @@ export default function Sidebar() {
         >
           <div className={SidebarStyles.category}>
             <img src={readingsicon} alt="select readings" />
-            <p>Readings</p>
+            {!small && <p>Readings</p>}
           </div>
           {readingsActive && <ActiveSign />}
         </div>
@@ -88,7 +91,7 @@ export default function Sidebar() {
         onClick={() => handleLogout()}
       >
         <img src={logout} alt="logout" />
-        <p>Logout</p>
+        {!small && <p>Logout</p>}
       </div>
     </div>
   );

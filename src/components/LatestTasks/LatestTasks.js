@@ -1,4 +1,5 @@
 import React from "react";
+import shortid from "shortid";
 import { useActivities } from "../../contexts/activitiesContext";
 import Loading from "../Loading/Loading";
 
@@ -23,7 +24,7 @@ export default function LatestTasks() {
         <div>
           {latestTasks &&
             latestTasks.map((task) => {
-              return <TaskListItem task={task} />;
+              return <TaskListItem task={task} key={shortid.generate()} />;
             })}
         </div>
       )}
