@@ -1,9 +1,9 @@
 import React from "react";
 
 import AddButton from "./DashboardNavComponents/AddButton/AddButton";
-import NavUser from "./DashboardNavComponents/NavUser/NavUser";
 
 import DashboardNavStyles from "./DashboardNav.module.css";
+import NavUser from "../NavUser/NavUser";
 
 export default function Nav() {
   const btnText = "Add Activity";

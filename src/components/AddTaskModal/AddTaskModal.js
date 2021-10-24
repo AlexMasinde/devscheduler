@@ -75,6 +75,7 @@ export default function AddTaskModal() {
       const newTasks = tasks.filter((task) => task.id !== item.id);
       newTask.activityId = item.activityId;
       newTask.complete = item.complete;
+      newTask.category = item.category;
       newTask.id = item.id;
       newTask.userId = currentUser.uid;
       dispatch({
@@ -97,6 +98,7 @@ export default function AddTaskModal() {
         name: task,
         deadline,
         activityId: selectedActivity.id,
+        category: selectedActivity.category,
         complete: false,
         id: taskId,
         userId: currentUser.uid,
@@ -184,7 +186,15 @@ export default function AddTaskModal() {
         </div>
         <div className={AddTaskModalStyles.buttons}>
           <Button
-            text={edit ? "Update" : "Add"}
+            text={
+              edit && loading
+                ? "Updating..."
+                : edit && !loading
+                ? "Update"
+                : !edit && loading
+                ? "Adding..."
+                : "Add Task"
+            }
             disabled={loading}
             loading={loading}
             type="submit"

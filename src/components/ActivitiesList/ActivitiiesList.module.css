@@ -1,6 +1,34 @@
+.list {
+  margin-top: 1rem;
+}
+
+.list::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.list::-webkit-scrollbar-thumb {
+  border-radius: 6rem;
+  background-color: rgba(29, 52, 54, 0.2);
+}
+
+.list::-webkit-scrollbar-track {
+  border-radius: 6rem;
+}
+
 .title > h1 {
   color: #29a19c;
   font-weight: 600;
   font-size: 1.8rem;
   margin: 2rem 0 2rem 2rem;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10rem;
+}
+
+.message > p {
+  font-size: 1.6rem;
 }

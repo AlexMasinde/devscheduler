@@ -98,7 +98,6 @@ export function ActivitiesContextProvider({ children, testActivities }) {
     tasks: state.tasks,
     activeCategory: state.activeCategory,
     editingItem: state.editingItem,
-    activitiesLoading: state.activitiesLoading,
     latestTasks: state.latestTasks,
     loadingData,
     dataError,

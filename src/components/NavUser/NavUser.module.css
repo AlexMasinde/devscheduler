@@ -2,11 +2,21 @@
   display: flex;
   align-items: center;
   height: 4.4rem;
+  position: relative;
 }
 
-.container > p {
+.container > a > p {
   font-size: 1.6rem;
   font-weight: 600;
+  color: #000000;
+}
+
+a:visited {
+  color: #000000;
+}
+
+.container:hover {
+  cursor: pointer;
 }
 
 .profilepicture {
@@ -14,8 +24,9 @@
 }
 
 .profilepicture > img {
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
 }
 
 .arrow {
@@ -26,9 +37,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0px 10px 25px rgba(29, 52, 54, 0.08);
 }
 
 .arrow:hover {
   background-color: transparent;
   cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
 }

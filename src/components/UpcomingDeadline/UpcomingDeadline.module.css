@@ -45,3 +45,27 @@
 .activity > span {
   font-weight: 600;
 }
+
+.message {
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message > p {
+  font-size: 1.6rem;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    height: fit-content;
+  }
+
+  .container > div {
+    margin-bottom: 1.5rem;
+  }
+}
+.header > h1 {
+  font-size: 1.4rem;
+}

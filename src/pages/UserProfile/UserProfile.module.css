@@ -1,0 +1,100 @@
+.container {
+  background-color: #ffffff;
+  box-shadow: 0px 10px 25px rgba(29, 52, 54, 0.08);
+  border-radius: 1rem;
+  padding: 3rem;
+  width: fit-content;
+  margin: 5rem auto 0rem;
+}
+
+.details {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  padding: 4rem 0;
+  border-top: 1px solid rgba(29, 52, 54, 0.08);
+  border-bottom: 1px solid rgba(29, 52, 54, 0.08);
+}
+
+form {
+  margin-left: 4rem;
+}
+
+.currentdetails {
+  text-align: center;
+}
+
+.currentdetails > p {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+.currentdetails > img {
+  border-radius: 50%;
+  height: 9.6rem;
+  width: 9.6rem;
+}
+
+a > img {
+  height: 3rem;
+  width: 3rem;
+}
+
+.logo {
+  margin-bottom: 2rem;
+}
+
+.username {
+  position: relative;
+}
+
+.image,
+.username {
+  margin-bottom: 4rem;
+}
+
+.image > label > input {
+  visibility: hidden;
+  opacity: 0;
+  width: 1px;
+}
+
+.image {
+  padding: 0.5rem 0;
+  font-size: 1.4rem;
+}
+
+.image > label > span {
+  padding: 10px 15px;
+  color: rgba(29, 52, 54, 0.8);
+  background: transparent;
+  width: 100%;
+}
+
+#imageLabel,
+.username > p {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.image > label:hover {
+  cursor: pointer;
+}
+
+.button {
+  text-align: center;
+}
+
+.error,
+.updateError {
+  color: #f05454;
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+  position: absolute;
+  margin-top: 1rem;
+}
+
+.updateError {
+  bottom: 0.5rem;
+}

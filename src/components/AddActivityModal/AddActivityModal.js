@@ -267,7 +267,15 @@ export default function AddActivityModal() {
           </div>
           <div className={AddActivityModalStyles.buttons}>
             <Button
-              text={edit ? "Update Activity" : "Add Activity"}
+              text={
+                edit && loading
+                  ? "Updating..."
+                  : edit && !loading
+                  ? "Update"
+                  : !edit && loading
+                  ? "Adding..."
+                  : "Add Activity"
+              }
               disabled={loading}
               loading={loading}
               type="submit"

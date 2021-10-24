@@ -32,6 +32,7 @@ export default function Activities() {
 
   const closingModal =
     adding || addingTask || deleting ? "" : ActivitiesStyles.modalout;
+
   const openingModalCanvas =
     adding || addingTask || deleting ? ActivitiesStyles.canvasin : "";
   const homeActive = activeCategory === "Home";
@@ -62,7 +63,7 @@ export default function Activities() {
 
   return (
     <div className={ActivitiesStyles.container}>
-      {console.log(currentUser)}
+      {console.log(currentUser.photoURL)}
       <div className={ActivitiesStyles.sidebar}>
         <Sidebar />
       </div>

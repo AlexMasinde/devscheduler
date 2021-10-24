@@ -12,7 +12,7 @@ import trash from "../../icons/trash.svg";
 import edit from "../../icons/edit.svg";
 
 export default function TaskListItem({ task }) {
-  const { dispatch } = useActivities();
+  const { tasks, dispatch } = useActivities();
   const { setAddingTask } = useAddTaskModalContext();
   const [loading, setLoading] = useState(false);
   const { setDeleting, setItemToDelete } = useDeleteModal();
@@ -38,11 +38,20 @@ export default function TaskListItem({ task }) {
         complete: !complete,
       });
       const newComplete = !complete;
+      const newTask = { ...task, complete: !task.complete };
+      const filteredTasks = tasks.filter(
+        (filteredTask) => filteredTask.id !== task.id
+      );
+      const newtasks = [newTask, ...filteredTasks];
+      dispatch({
+        type: "SET_TASKS",
+        payload: newtasks,
+      });
       setComplete(newComplete);
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      // console.log(err);
+      console.log(err);
     }
   }
 

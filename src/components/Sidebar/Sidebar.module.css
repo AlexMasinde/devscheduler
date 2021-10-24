@@ -4,7 +4,9 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: #ffffff;
-  width: 30rem;
+  width: fit-content;
+  position: sticky;
+  top: 0;
 }
 
 .logo {
@@ -12,8 +14,8 @@
 }
 
 .logo > img {
-  height: 5.4rem;
-  width: 5.4rem;
+  height: 4rem;
+  width: 4rem;
 }
 
 .header {
@@ -24,6 +26,7 @@
   font-size: 2rem;
   font-weight: 600;
   color: #29a19c;
+  margin-top: 5rem;
 }
 
 .categories > div {
@@ -50,6 +53,8 @@
   color: #282846;
   font-size: 1.6rem;
   margin-left: 1rem;
+  margin-right: 10rem;
+  min-width: 7rem;
 }
 
 .category > img {
@@ -67,4 +72,24 @@
 
 .logout:hover {
   cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .logo {
+    padding: 1rem;
+  }
+  .logo > img {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media (min-height: 1366px) {
+  .container {
+    justify-content: flex-start;
+  }
+
+  .container > * + * {
+    margin-top: 20rem;
+  }
 }
