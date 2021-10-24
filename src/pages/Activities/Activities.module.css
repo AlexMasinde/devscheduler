@@ -14,18 +14,26 @@
 
 .pendingTasksContainer,
 .listContainer {
-  width: 100%;
+  flex-direction: column;
   display: flex;
   justify-content: space-between;
 }
 
 .listContainer {
   margin-top: 2rem;
+  max-height: 100rem;
+  overflow-y: scroll;
+  scrollbar-color: rgba(29, 52, 54, 0.5);
+  scrollbar-width: thin;
 }
 
-.pendingTasks,
-.list {
-  width: 50%;
+.listContainer::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.listContainer::-webkit-scrollbar-thumb {
+  border-radius: 6rem;
+  background-color: rgba(29, 52, 54, 0.5);
 }
 
 .list {
@@ -34,11 +42,6 @@
   box-shadow: 0px 10px 25px rgba(29, 52, 54, 0.08);
   padding-bottom: 2rem;
   height: fit-content;
-}
-
-.upcomingDeadline,
-.activityView {
-  width: 40%;
 }
 
 .modal {
@@ -85,5 +88,56 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    min-width: 90rem;
+  }
+  .upcomingDeadline,
+  .activityView {
+    margin-top: 2rem;
+  }
+  .dashboard {
+    max-width: 60rem;
+    min-width: 50rem;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1365px) {
+  .container {
+    min-width: 90rem;
+  }
+  .upcomingDeadline,
+  .activityView {
+    margin-top: 2rem;
+  }
+  .dashboard {
+    max-width: 70rem;
+    min-width: 50rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    min-width: 70rem;
+  }
+}
+
+@media (min-width: 1366px) {
+  .pendingTasksContainer,
+  .listContainer {
+    flex-direction: row;
+  }
+
+  .pendingTasksContainer > *,
+  .listContainer > * {
+    flex-basis: 100%;
+  }
+
+  .pendingTasksContainer > * + *,
+  .listContainer > * + * {
+    margin-left: 6rem;
   }
 }

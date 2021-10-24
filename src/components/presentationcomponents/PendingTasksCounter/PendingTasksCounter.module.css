@@ -25,3 +25,14 @@
   font-weight: 600;
   font-size: 3.6rem;
 }
+
+@media (max-width: 1024px) {
+  .counter > p {
+    font-size: 2rem;
+  }
+
+  .counter {
+    width: 7rem;
+    height: 7rem;
+  }
+}

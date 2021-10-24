@@ -3,15 +3,14 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 1.2rem;
-  width: 18rem;
+  padding: 1rem;
+  width: 15rem;
   border-radius: 8px;
   transition: 0.4s;
 }
 
 .button:hover {
   cursor: pointer;
-  transform: translateX(2px);
 }
 
 .text > p {

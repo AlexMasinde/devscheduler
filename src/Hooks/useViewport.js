@@ -4,7 +4,7 @@ export function useViewport() {
   const [small, setSmall] = useState(false);
 
   useEffect(() => {
-    const queryList = window.matchMedia("(max-width: 600px)");
+    const queryList = window.matchMedia("(max-width: 800px)");
     function updateSize(e) {
       setSmall(e.matches);
     }

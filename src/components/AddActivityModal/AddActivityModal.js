@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import DateTimePicker from "react-datetime-picker";
 import { v4 as uuidv4 } from "uuid";
 

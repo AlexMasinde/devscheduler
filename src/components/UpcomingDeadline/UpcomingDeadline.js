@@ -22,6 +22,7 @@ export default function UpcomingDeadline() {
             min.deadline < activity.deadline ? min : activity
           )
         : null;
+    console.log(earliestDeadline.deadline);
     const { deadline, timeleft, interval } = findDeadline(
       earliestDeadline.deadline
     );
@@ -46,6 +47,7 @@ export default function UpcomingDeadline() {
 
   return (
     <div className={UpcomingDeadlineStyles.container}>
+      {console.log(deadline)}
       <div className={UpcomingDeadlineStyles.header}>
         <h1>Upcoming Deadline</h1>
       </div>

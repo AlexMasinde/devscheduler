@@ -11,7 +11,6 @@ export default function Button({
   variant,
   onClick,
 }) {
-  const buttonLoading = loading ? RegularButtonStyles.buttonloading : "";
   const textLoading = loading ? RegularButtonStyles.textloading : "";
   const redBg = variant === "danger" ? RegularButtonStyles.danger : "";
   const whiteBg = variant === "light" ? RegularButtonStyles.light : "";

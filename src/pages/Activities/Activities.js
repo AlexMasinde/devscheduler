@@ -32,6 +32,7 @@ export default function Activities() {
 
   const closingModal =
     adding || addingTask || deleting ? "" : ActivitiesStyles.modalout;
+
   const openingModalCanvas =
     adding || addingTask || deleting ? ActivitiesStyles.canvasin : "";
   const homeActive = activeCategory === "Home";

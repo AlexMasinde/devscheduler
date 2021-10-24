@@ -59,10 +59,8 @@ export default function UserProfile() {
     try {
       setLoading(true);
       const updateDetails = {};
-      //uploadimage
       if (image) {
         updateDetails.photoURL = await uploadImage(image, currentUser);
-        console.log("Image");
       }
 
       if (userName) {

@@ -5,22 +5,6 @@
   width: 100%;
 }
 
-.list {
-  max-height: 43.5rem;
-  overflow-y: scroll;
-  scrollbar-color: rgba(29, 52, 54, 0.2);
-  scrollbar-width: thin;
-}
-
-.list::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-.list::-webkit-scrollbar-thumb {
-  border-radius: 6rem;
-  background-color: rgba(29, 52, 54, 0.2);
-}
-
 .header {
   display: flex;
   align-items: center;

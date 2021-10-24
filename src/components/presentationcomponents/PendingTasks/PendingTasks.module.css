@@ -17,3 +17,13 @@
   display: flex;
   justify-content: space-around;
 }
+
+@media (max-width: 1024px) {
+  .container {
+    height: fit-content;
+  }
+
+  .container > h1 {
+    font-size: 1.4rem;
+  }
+}

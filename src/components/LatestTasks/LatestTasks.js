@@ -10,6 +10,7 @@ import LatesTasksStyles from "./LatestTasks.module.css";
 export default function LatestTasks() {
   const { tasks, loadingData } = useActivities();
   const latestTasks = tasks.slice(0, 4);
+
   return (
     <div>
       <div className={LatesTasksStyles.title}>
